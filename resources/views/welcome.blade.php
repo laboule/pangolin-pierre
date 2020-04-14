@@ -32,13 +32,19 @@
 
     <div class="home-interaction-block record">
         <div class="text">
-            <a href="#">
+            <a href="{{ action('AppController@record_dream') }}">
                 @lang("Déposer un rêve")
             </a>
 
             <p>
                 @lang("Dépot description")
             </p>
+        </div>
+
+        <div class="picto">
+            <a href="{{ action('AppController@record_dream') }}">
+                PICTO
+            </a>
         </div>
     </div>
 

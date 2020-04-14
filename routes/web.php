@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'AppController@welcome')->name('welcome');
+Route::get('/record_dream', 'AppController@record_dream')->name('record_dream');

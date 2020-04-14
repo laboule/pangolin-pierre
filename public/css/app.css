@@ -1,33 +1,43 @@
+/*
+ * GLOBAL
+ */
+
 #app-wrapper {
   /* Quick'n'dirty helper to get a phone layout */
   width: 400px;
   margin: auto;
 }
 
-/* Homepage */
+/*
+ * HOMEPAGE
+ */
 
-.app-about .text-wrapper {
+body.page_welcome .app-about .text-wrapper {
   height: 100px;
   overflow: hidden;
 }
 
-.app-about.opened .text-wrapper {
+body.page_welcome .app-about.opened .text-wrapper {
   height: auto;
 }
 
-.home-interaction-block {
+body.page_welcome .home-interaction-block {
   overflow: hidden;
 }
 
-.home-interaction-block > * {
+body.page_welcome .home-interaction-block > * {
   width: 50%;
 }
 
-.home-interaction-block.listen > * {
+body.page_welcome .home-interaction-block.listen > * {
   float: left;
 }
 
-.home-interaction-block.record > * {
+body.page_welcome .home-interaction-block.record > * {
   float: right;
 }
+
+/*
+ * RECORD DREAM PAGE
+ */
 

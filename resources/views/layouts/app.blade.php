@@ -8,7 +8,7 @@
 
         <title>Chambre d'écho</title>
     </head>
-    <body>
+    <body class="page_{{ Route::currentRouteName() }}">
         <div id="app-wrapper">
             @yield('content')
         </div>
