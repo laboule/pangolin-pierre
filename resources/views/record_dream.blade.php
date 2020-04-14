@@ -10,11 +10,15 @@
     </div>
 
     <div class="recorder-wrapper">
-        RECORDER
+        <button id="start_recording">Start recording</button>
+        <button id="stop_recording">Stop recording</button>
     </div>
 
+    <div class="recorder-result">
+
+    </div>
+    
     <div class="page-description">
         @lang("Enregistre ton rêve - description")
     </div>
-
 @endsection
