@@ -1,0 +1,36 @@
+
+#app-wrapper {
+
+	/* Quick'n'dirty helper to get a phone layout */
+	width: 400px;
+	margin: auto;
+}
+
+
+/* Homepage */
+.app-about {
+	.text-wrapper {
+		height: 100px;
+		overflow: hidden;
+	}
+
+	&.opened .text-wrapper {
+		height: auto;
+	}
+}
+
+.home-interaction-block {
+	overflow: hidden;
+
+	> * {
+		width: 50%;
+	}
+
+	&.listen > * {
+		float: left;
+	}
+
+	&.record > * {
+		float: right;
+	}
+}
