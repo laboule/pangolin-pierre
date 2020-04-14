@@ -41,3 +41,33 @@ body.page_welcome .home-interaction-block.record > * {
  * RECORD DREAM PAGE
  */
 
+body.page_record_dream .recorder-wrapper button {
+  width: 100px;
+  height: 100px;
+  border: none;
+  display: block;
+  margin: auto;
+  background: transparent no-repeat center;
+  background-size: contain;
+  overflow: hidden;
+  text-indent: -900px;
+  cursor: pointer;
+}
+
+body.page_record_dream .recorder-wrapper button#start_recording {
+  background-image: url("/img/record-button-off.svg");
+}
+
+body.page_record_dream .recorder-wrapper button#stop_recording {
+  background-image: url("/img/record-button-on.svg");
+  display: none;
+}
+
+body.page_record_dream .recorder-wrapper.is-recording #start_recording {
+  display: none;
+}
+
+body.page_record_dream .recorder-wrapper.is-recording #stop_recording {
+  display: block;
+}
+

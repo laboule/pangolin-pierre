@@ -19352,9 +19352,11 @@ $(function () {
         recorder.startRecording();
         console.log("Recording started");
       })["catch"](function (err) {
+        $('.recorder-wrapper').removeClass('is-recording');
         recordButton.disabled = false;
         stopButton.disabled = true;
       });
+      $('.recorder-wrapper').addClass('is-recording');
       recordButton.disabled = true;
       stopButton.disabled = false;
     };
@@ -19364,6 +19366,7 @@ $(function () {
 
       gumStream.getAudioTracks()[0].stop(); //disable the stop button
 
+      $('.recorder-wrapper').removeClass('is-recording');
       stopButton.disabled = true;
       recordButton.disabled = false; //tell the recorder to finish the recording (stop recording + encode the recorded audio)
 
