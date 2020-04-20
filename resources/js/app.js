@@ -92,7 +92,7 @@ $( function() {
 			$('[data-step="'+step+'"]').show();
 		}
 
-		var ENCODING_TYPE = 'wav'; // wav, mp3, or ogg
+		var ENCODING_TYPE = 'mp3'; // wav, mp3, or ogg
 		var TIME_LIMIT = 120; // 2 minutes
 
 		var URL = window.URL || window.webkitURL;
@@ -197,7 +197,7 @@ $( function() {
 			
 			var url = URL.createObjectURL(blob);
 			var au = document.createElement('audio');
-			var au_wrapper = document.createElement('li');
+			var au_wrapper = document.createElement('div');
 			var link = document.createElement('a');
 
 			//add controls to the <audio> element
@@ -216,6 +216,13 @@ $( function() {
 			//add the au_wrapper element to the ordered list
 			$('.native-audio-el-container').html('');
 			$('.native-audio-el-container')[0].appendChild(au_wrapper);
+
+			// Adds binary data to form input
+			var reader = new FileReader();
+			reader.onload = function(event){
+                $('#form_audio_data').val( event.target.result );
+            };
+            reader.readAsDataURL(blob);
 		}
 
 
@@ -223,16 +230,16 @@ $( function() {
 		$('.validate-recording-buttons button').on('click', function(e) {
 			e.preventDefault();
 
-			if( $(this).hasClass('start-again') ) {
-				if( window.currently_active_audio_element ) {
-					stop_audio_element_playback(window.currently_active_audio_element);
-				}
+			if( window.currently_active_audio_element ) {
+				stop_audio_element_playback(window.currently_active_audio_element);
+			}
 
+			if( $(this).hasClass('start-again') ) {
 				toggle_step(1);
 			}
 
 			if( $(this).hasClass('validate') ) {
-
+				toggle_step(3);
 			}
 		})
 	}

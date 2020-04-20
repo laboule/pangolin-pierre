@@ -11,5 +11,21 @@
     "Enregistre ton rêve - description": "<p>Lors de l’enregistrement, veille à parler près du micro de ton téléphone ou ordinateur ... et à le faire dans un environnement pas trop sonore.</p><p>Tu pourras réécouter et modifier ton rêve à avant de l’envoyer.</p>",
     "Valide ton rêve": "Valide ton rêve",
     "Recommencer": "Recommencer",
-    "Déposer": "Déposer"
+    "Déposer": "Déposer",
+    "Déposer un rêve - title": "Déposer un rêve",
+    "form input - user_name": "Prénom",
+    "form input - user_age": "Âge",
+    "form input - user_city": "Ville",
+    "form input - user_country": "Pays",
+    "form input - dream_date": "Date du rêve (optionnel)",
+    "form input - dream_language": "Langue utilisée pour raconter le rêve",
+    "form input - user_email": "Email (optionnel)",
+    "form info - user_email": "* l’email nous sert uniquement à t'envoyer un lien pour retrouver ton rêve plus facilement",
+    "form input - dream_is_nsfw": "Mon rêve contient des élements qui ne devraient pas tomber dans les oreilles d’un enfant",
+    "form input - user_email_optin": "Je souhaite être tenu informé par email des évolutions du projet",
+    "form input - submit": "Partager mon rêve",
+    "Enregistre ton rêve - Succès": "Rêve bien reçu !",
+    "Merci": "Merci !",
+    "Merci - description": "Ton rêve a été enregistré. Si tu as renseigné ton e-mail dans le formulaire, nous te préviendrons dès que celui-ci aura été publié !",
+    "Merci - Enregistre un autre rêve": "Partage un autre rêve"
 }

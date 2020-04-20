@@ -1,5 +1,14 @@
 
 /*
+ * GLOBAL RESETS
+ */
+* {
+	box-sizing: border-box;
+}
+
+
+
+/*
  * GLOBAL APP
  */
 #app-wrapper {
@@ -109,11 +118,32 @@ body.page_record_dream {
 
 	.validate-recording-buttons {
 		margin-top: 40px;
-		
+
 		button {
 			display: block;
 			width: 200px;
 			margin: 10px auto;
+		}
+	}
+
+	.send-dream-form {
+		.form-entry {
+			margin: 10px;
+
+			label {
+				display: block;
+			}
+
+			input[type="text"],
+			input[type="date"] {
+				display: block;
+				width: 100%;
+			}
+
+			input[type="checkbox"],
+			input[type="radio"] {
+				display: inline-block;
+			}
 		}
 	}
 }

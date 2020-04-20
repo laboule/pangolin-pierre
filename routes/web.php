@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'AppController@welcome')->name('welcome');
 Route::get('/record_dream', 'AppController@record_dream')->name('record_dream');
+Route::post('/record_dream', 'AppController@store_dream')->name('store_dream');
+Route::get('/record_dream_success', 'AppController@record_dream_success')->name('record_dream_success');

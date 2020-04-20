@@ -14,4 +14,8 @@ class Dream extends Model
     protected $casts = [
         'dream_date' => 'date',
     ];
+
+    public function get_recording_filename($extension) {
+    	return 'dream_'.$this->id.'.'.$extension;
+    }
 }

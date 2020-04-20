@@ -1,4 +1,12 @@
 /*
+ * GLOBAL RESETS
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+/*
  * GLOBAL APP
  */
 
@@ -130,5 +138,24 @@ body.page_record_dream .validate-recording-buttons button {
   display: block;
   width: 200px;
   margin: 10px auto;
+}
+
+body.page_record_dream .send-dream-form .form-entry {
+  margin: 10px;
+}
+
+body.page_record_dream .send-dream-form .form-entry label {
+  display: block;
+}
+
+body.page_record_dream .send-dream-form .form-entry input[type=text],
+body.page_record_dream .send-dream-form .form-entry input[type=date] {
+  display: block;
+  width: 100%;
+}
+
+body.page_record_dream .send-dream-form .form-entry input[type=checkbox],
+body.page_record_dream .send-dream-form .form-entry input[type=radio] {
+  display: inline-block;
 }
 
