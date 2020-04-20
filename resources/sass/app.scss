@@ -1,6 +1,6 @@
 
 /*
- * GLOBAL
+ * GLOBAL APP
  */
 #app-wrapper {
 
@@ -8,6 +8,53 @@
 	width: 400px;
 	margin: auto;
 }
+
+
+/*
+ * GLOBAL UI ELEMENTS
+ */
+.audio-control-wrapper {
+	button.audio-control {
+		width: 100px;
+		height: 100px;
+		border: none;
+		display: block;
+		margin: auto;
+		background: transparent no-repeat center;
+		background-size: contain;
+		overflow: hidden;
+		text-indent: -900px;
+		cursor: pointer;
+
+		&.record { background-image: url('/img/audio-button-record-black.svg'); }
+		&.record-red { background-image: url('/img/audio-button-record-red.svg'); }
+		&.play { background-image: url('/img/audio-button-play.svg'); }
+		&.stop { background-image: url('/img/audio-button-stop.svg'); }
+	}
+
+	&.recorder {
+		button.record { display: block; }
+		button.record-red { display: none; }
+
+		&.is-active {
+			button.record { display: none; }
+			button.record-red { display: block; }
+		}
+	}
+
+	&.player {
+		button.play { display: block; }
+		button.stop { display: none; }
+
+		&.is-active {
+			button.play { display: none; }
+			button.stop { display: block; }
+		}
+	}
+
+	.native-audio-el-container { display: none; }
+}
+
 
 
 /*
@@ -48,33 +95,25 @@ body.page_welcome {
  * RECORD DREAM PAGE
  */
 body.page_record_dream {
+	.record-step {
+		display: none;
 
-	.recorder-wrapper {
-		button {
-			width: 100px;
-			height: 100px;
-			border: none;
+		&.shown {
 			display: block;
-			margin: auto;
-			background: transparent no-repeat center;
-			background-size: contain;
-			overflow: hidden;
-			text-indent: -900px;
-			cursor: pointer;
-
-			&#start_recording { 
-				background-image: url('/img/record-button-off.svg'); 
-			}
-			
-			&#stop_recording { 
-				background-image: url('/img/record-button-on.svg'); 
-				display: none; 
-			}
 		}
+	}
 
-		&.is-recording {
-			#start_recording { display: none; }
-			#stop_recording { display: block; }
+	&.is-recording {
+		.hide-when-recording { visibility: hidden; }
+	}
+
+	.validate-recording-buttons {
+		margin-top: 40px;
+		
+		button {
+			display: block;
+			width: 200px;
+			margin: 10px auto;
 		}
 	}
 }
