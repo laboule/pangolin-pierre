@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+p {
+  margin-top: 0;
+}
+
 /*
  * GLOBAL APP
  */
@@ -14,6 +18,11 @@
   /* Quick'n'dirty helper to get a phone layout */
   width: 400px;
   margin: auto;
+}
+
+a {
+  color: #000;
+  font-weight: 600;
 }
 
 /*
@@ -91,12 +100,14 @@
 
 body.page_welcome .app-about {
   margin-bottom: 40px;
+  text-align: center;
 }
 
 body.page_welcome .app-about .text-wrapper {
   height: 100px;
   overflow: hidden;
   position: relative;
+  text-align: left;
 }
 
 body.page_welcome .app-about .text-wrapper:after {
@@ -108,10 +119,6 @@ body.page_welcome .app-about .text-wrapper:after {
   bottom: 0;
   background: linear-gradient(transparent, white);
   opacity: 1;
-}
-
-body.page_welcome .app-about .text-wrapper p {
-  margin-top: 0;
 }
 
 body.page_welcome .app-about.opened .text-wrapper {
@@ -139,7 +146,12 @@ body.page_welcome .home-interaction-block.record > * {
   float: right;
 }
 
-body.page_welcome .home-interaction-block .dream-meta {
+body.page_welcome .home-interaction-block .text > a {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+body.page_welcome .home-interaction-block .text .dream-meta {
   display: block;
 }
 

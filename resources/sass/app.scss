@@ -6,6 +6,10 @@
 	box-sizing: border-box;
 }
 
+p {
+	margin-top: 0;
+}
+
 
 
 /*
@@ -16,6 +20,11 @@
 	/* Quick'n'dirty helper to get a phone layout */
 	width: 400px;
 	margin: auto;
+}
+
+a {
+	color: #000;
+	font-weight: 600;
 }
 
 
@@ -74,11 +83,13 @@ body.page_welcome {
 
 	.app-about {
 		margin-bottom: 40px;
+		text-align: center;
 
 		.text-wrapper {
 			height: 100px;
 			overflow: hidden;
 			position: relative;
+			text-align: left;
 
 			&:after {
 				content: ' ';
@@ -89,10 +100,6 @@ body.page_welcome {
 				bottom: 0;
 				background: linear-gradient(transparent, white);
 				opacity: 1;
-			}
-
-			p {
-				margin-top: 0;
 			}
 		}
 
@@ -121,8 +128,15 @@ body.page_welcome {
 			float: right;
 		}
 
-		.dream-meta {
-			display: block;
+		.text {
+			> a {
+				display: inline-block;
+				margin-bottom: 10px;
+			}
+
+			.dream-meta {
+				display: block;
+			}
 		}
 	}
 }

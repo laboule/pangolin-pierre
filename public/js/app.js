@@ -19339,23 +19339,35 @@ $(function () {
    * HOMEPAGE
    */
 
-  $(document).on('click', '.app-about .read-more', function (e) {
-    e.preventDefault();
-    var $this = $(this);
-    var $about_block = $this.closest('.app-about');
-    $about_block.toggleClass('opened');
+  if ($('body.page_welcome').length) {
+    $(document).on('click', '.app-about .read-more', function (e) {
+      e.preventDefault();
+      var $this = $(this);
+      var $about_block = $this.closest('.app-about');
+      $about_block.toggleClass('opened');
 
-    if ($about_block.hasClass('opened')) {
-      $this.html($this.attr('data-opened-text'));
-    } else {
-      $this.html($this.attr('data-closed-text'));
-    }
+      if ($about_block.hasClass('opened')) {
+        $this.html($this.attr('data-opened-text'));
+      } else {
+        $this.html($this.attr('data-closed-text'));
+      }
 
-    return false;
-  });
+      return false;
+    });
+    $(document).on('click', '.play-dream', function (e) {
+      e.preventDefault();
+
+      if (!$('.audio-control-wrapper.player').hasClass('is-active')) {
+        $('.audio-control-wrapper.player #start_playing').click();
+      }
+
+      return false;
+    });
+  }
   /*
    * RECORD DREAM PAGE
    */
+
 
   if ($('body.page_record_dream').length) {
     var toggle_step = function toggle_step(step) {

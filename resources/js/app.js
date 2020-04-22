@@ -63,22 +63,34 @@ $( function() {
 	/*
 	 * HOMEPAGE
 	 */
-	$(document).on('click', '.app-about .read-more', function(e) {
-		e.preventDefault();
+	if( $('body.page_welcome').length ) {
+		$(document).on('click', '.app-about .read-more', function(e) {
+			e.preventDefault();
 
-		let $this = $(this);
-		let $about_block = $this.closest('.app-about');
+			let $this = $(this);
+			let $about_block = $this.closest('.app-about');
 
-		$about_block.toggleClass('opened');
+			$about_block.toggleClass('opened');
 
-		if( $about_block.hasClass('opened') ) {
-			$this.html($this.attr('data-opened-text'));
-		} else {
-			$this.html($this.attr('data-closed-text'));
-		}
+			if( $about_block.hasClass('opened') ) {
+				$this.html($this.attr('data-opened-text'));
+			} else {
+				$this.html($this.attr('data-closed-text'));
+			}
 
-		return false;
-	});
+			return false;
+		});
+
+		$(document).on('click', '.play-dream', function(e) {
+			e.preventDefault();
+
+			if( ! $('.audio-control-wrapper.player').hasClass('is-active') ) {
+				$('.audio-control-wrapper.player #start_playing').click();
+			}
+
+			return false;
+		});
+	}
 
 
 
