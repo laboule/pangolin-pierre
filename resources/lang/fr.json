@@ -29,5 +29,7 @@
     "Merci - description": "Ton rêve a été enregistré. Si tu as renseigné ton e-mail dans le formulaire, nous te préviendrons dès que celui-ci aura été publié !",
     "Merci - Enregistre un autre rêve": "Partage un autre rêve",
     "dream user age": ":age ans",
-    "dream date": "Le :date"
+    "dream date": "Le :date",
+    "recorder - before record loading": "Une petite seconde ...",
+    "recorder - while encoding loading": "Encodage en cours ..."
 }

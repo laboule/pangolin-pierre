@@ -26,8 +26,40 @@ a {
 }
 
 /*
+ * CSS3 Animations Keyframes
+ */
+
+@-webkit-keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*
  * GLOBAL UI ELEMENTS
  */
+
+/* Audio control wrapper */
+
+.audio-control-wrapper {
+  position: relative;
+  height: 100px;
+  margin-bottom: 20px;
+}
 
 .audio-control-wrapper button.audio-control {
   width: 100px;
@@ -58,6 +90,49 @@ a {
   background-image: url("/img/audio-button-stop.svg");
 }
 
+.audio-control-wrapper .audio-control-loader {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.audio-control-wrapper .audio-control-loader .generic-loader {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.audio-control-wrapper .audio-control-loader .generic-loader:after {
+  content: " ";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  margin-top: -3px;
+  margin-left: -3px;
+  border-radius: 50%;
+  border: 6px solid #000;
+  border-color: #000 transparent #000 transparent;
+  -webkit-animation: lds-dual-ring 1.2s linear infinite;
+          animation: lds-dual-ring 1.2s linear infinite;
+}
+
+.audio-control-wrapper .audio-control-loader .label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+
 .audio-control-wrapper.recorder button.record {
   display: block;
 }
@@ -66,11 +141,29 @@ a {
   display: none;
 }
 
-.audio-control-wrapper.recorder.is-active button.record {
+.audio-control-wrapper.recorder[data-state=is-loading] button.record,
+.audio-control-wrapper.recorder[data-state=is-encoding] button.record {
   display: none;
 }
 
-.audio-control-wrapper.recorder.is-active button.record-red {
+.audio-control-wrapper.recorder[data-state=is-loading] button.record-red,
+.audio-control-wrapper.recorder[data-state=is-encoding] button.record-red {
+  display: none;
+}
+
+.audio-control-wrapper.recorder[data-state=is-loading] .audio-control-loader.loading-encoder {
+  display: block;
+}
+
+.audio-control-wrapper.recorder[data-state=is-encoding] .audio-control-loader.encoding-recording {
+  display: block;
+}
+
+.audio-control-wrapper.recorder[data-state=is-active] button.record {
+  display: none;
+}
+
+.audio-control-wrapper.recorder[data-state=is-active] button.record-red {
   display: block;
 }
 
@@ -82,11 +175,11 @@ a {
   display: none;
 }
 
-.audio-control-wrapper.player.is-active button.play {
+.audio-control-wrapper.player[data-state=is-active] button.play {
   display: none;
 }
 
-.audio-control-wrapper.player.is-active button.stop {
+.audio-control-wrapper.player[data-state=is-active] button.stop {
   display: block;
 }
 

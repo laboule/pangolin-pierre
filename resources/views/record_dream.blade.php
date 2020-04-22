@@ -13,6 +13,16 @@
         <div class="audio-control-wrapper recorder">
             <button id="start_recording" class="audio-control record">Start recording</button>
             <button id="stop_recording" class="audio-control record-red">Stop recording</button>
+
+            <div class="audio-control-loader loading-encoder">
+                <span class="generic-loader"></span>
+                <span class="label">@lang('recorder - before record loading')</span>
+            </div>
+
+            <div class="audio-control-loader encoding-recording">
+                <span class="generic-loader"></span>
+                <span class="label">@lang('recorder - while encoding loading')</span>
+            </div>
         </div>
         
         <div class="page-description hide-when-recording">

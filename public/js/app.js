@@ -19301,7 +19301,7 @@ $(function () {
     audio_el.pause();
     audio_el.src = audio_el.src;
     window.currently_active_audio_element = null;
-    $(audio_el).closest('.audio-control-wrapper').removeClass('is-active');
+    $(audio_el).closest('.audio-control-wrapper').attr('data-state', '');
   }
 
   $('body').on('click', '.audio-control-wrapper.player button', function (e) {
@@ -19317,12 +19317,13 @@ $(function () {
     }
 
     var native_audio_el = $audio_el[0];
-    $wrapper.toggleClass('is-active');
 
-    if ($wrapper.is('.is-active')) {
+    if ($wrapper.attr('data-state') != 'is-active') {
       /* Play audio */
+      $wrapper.attr('data-state', 'is-active');
+
       var handle_end_of_playback = function handle_end_of_playback() {
-        $wrapper.removeClass('is-active');
+        $wrapper.attr('data-state', '');
         native_audio_el.removeEventListener('ended', handle_end_of_playback, false);
         window.currently_active_audio_element = null;
       };
@@ -19357,7 +19358,7 @@ $(function () {
     $(document).on('click', '.play-dream', function (e) {
       e.preventDefault();
 
-      if (!$('.audio-control-wrapper.player').hasClass('is-active')) {
+      if ($('.audio-control-wrapper.player').attr('data-state') != 'is-active') {
         $('.audio-control-wrapper.player #start_playing').click();
       }
 
@@ -19375,6 +19376,35 @@ $(function () {
       $('[data-step="' + step + '"]').show();
     };
 
+    var onRecordingActuallyStarted = function onRecordingActuallyStarted() {
+      $page.addClass('is-recording');
+      $('.audio-control-wrapper.recorder').attr('data-state', 'is-active');
+      recordButton.disabled = true;
+      stopButton.disabled = false;
+    };
+
+    var onRecordingIsPreparing = function onRecordingIsPreparing() {
+      $('.audio-control-wrapper.recorder').attr('data-state', 'is-loading');
+      recordButton.disabled = true;
+      stopButton.disabled = true;
+    };
+
+    var onRecordingStop = function onRecordingStop() {
+      $('.audio-control-wrapper.recorder').attr('data-state', '');
+      stopButton.disabled = true;
+      recordButton.disabled = false;
+    };
+
+    var onRecordingIsEncoding = function onRecordingIsEncoding() {
+      $('.audio-control-wrapper.recorder').attr('data-state', 'is-encoding');
+    };
+
+    var onEncodingComplete = function onEncodingComplete() {
+      toggle_step(2);
+      $('.audio-control-wrapper.recorder').attr('data-state', '');
+      $page.removeClass('is-recording');
+    };
+
     var startRecording = function startRecording() {
       __log("startRecording() called");
 
@@ -19382,6 +19412,7 @@ $(function () {
         audio: true,
         video: false
       };
+      onRecordingIsPreparing();
       navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
         __log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
 
@@ -19402,18 +19433,19 @@ $(function () {
           },
           onEncoderLoaded: function onEncoderLoaded(recorder, encoding) {
             __log(encoding + " encoder loaded");
+
+            onRecordingActuallyStarted();
+          },
+          onComplete: function onComplete(recorder, blob) {
+            __log("Encoding complete");
+
+            createAudioElementFromBlob(blob, recorder.encoding);
+            onEncodingComplete();
           }
         });
-
-        recorder.onComplete = function (recorder, blob) {
-          __log("Encoding complete");
-
-          createDownloadLink(blob, recorder.encoding);
-        };
-
         recorder.setOptions({
           timeLimit: TIME_LIMIT,
-          encodeAfterRecord: encodeAfterRecord,
+          encodeAfterRecord: true,
           ogg: {
             quality: 0.5
           },
@@ -19425,15 +19457,8 @@ $(function () {
 
         __log("Recording started");
       })["catch"](function (err) {
-        $page.removeClass('is-recording');
-        $('.audio-control-wrapper.recorder').removeClass('is-active');
-        recordButton.disabled = false;
-        stopButton.disabled = true;
+        onRecordingStop();
       });
-      $page.addClass('is-recording');
-      $('.audio-control-wrapper.recorder').addClass('is-active');
-      recordButton.disabled = true;
-      stopButton.disabled = false;
     };
 
     var stopRecording = function stopRecording() {
@@ -19442,33 +19467,23 @@ $(function () {
 
       gumStream.getAudioTracks()[0].stop(); //disable the stop button
 
-      $page.removeClass('is-recording');
-      $('.audio-control-wrapper.recorder').removeClass('is-active');
-      stopButton.disabled = true;
-      recordButton.disabled = false; //tell the recorder to finish the recording (stop recording + encode the recorded audio)
+      onRecordingStop();
+      onRecordingIsEncoding(); //tell the recorder to finish the recording (stop recording + encode the recorded audio)
 
       recorder.finishRecording();
 
       __log('Recording stopped');
-
-      toggle_step(2);
     };
 
-    var createDownloadLink = function createDownloadLink(blob, encoding) {
+    var createAudioElementFromBlob = function createAudioElementFromBlob(blob, encoding) {
       var url = URL.createObjectURL(blob);
       var au = document.createElement('audio');
-      var au_wrapper = document.createElement('div');
-      var link = document.createElement('a'); //add controls to the <audio> element
+      var au_wrapper = document.createElement('div'); //add controls to the <audio> element
 
       au.controls = true;
-      au.src = url; //link the a element to the blob
+      au.src = url; //add the new audio and a elements to the au_wrapper element
 
-      link.href = url;
-      link.download = new Date().toISOString() + '.' + encoding;
-      link.innerHTML = link.download; //add the new audio and a elements to the au_wrapper element
-
-      au_wrapper.appendChild(au);
-      au_wrapper.appendChild(link); //add the au_wrapper element to the ordered list
+      au_wrapper.appendChild(au); //add the au_wrapper element to the ordered list
 
       $('.native-audio-el-container').html('');
       $('.native-audio-el-container')[0].appendChild(au_wrapper); // Adds binary data to form input
@@ -19496,8 +19511,6 @@ $(function () {
     var input; //MediaStreamAudioSourceNode  we'll be recording
 
     var encodingType; //holds selected encoding for resulting audio (file)
-
-    var encodeAfterRecord = true; // when to encode
 
     var AudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext; //new audio context to help us record

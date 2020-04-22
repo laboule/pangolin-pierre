@@ -29,13 +29,37 @@ a {
 
 
 
+
+/*
+ * CSS3 Animations Keyframes
+ */
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+
+
 /*
  * GLOBAL UI ELEMENTS
  */
+
+/* Audio control wrapper */
 .audio-control-wrapper {
+	$picto_size: 100px;
+
+	position: relative;
+	height: $picto_size;
+	margin-bottom: 20px;
+
 	button.audio-control {
-		width: 100px;
-		height: 100px;
+		width: $picto_size;
+		height: $picto_size;
 		border: none;
 		display: block;
 		margin: auto;
@@ -51,11 +75,75 @@ a {
 		&.stop { background-image: url('/img/audio-button-stop.svg'); }
 	}
 
+	.audio-control-loader {
+		$loader_size: 40px;
+		$border_size: 6px;
+
+		display: none;
+
+		position: absolute;
+	    top: 0;
+	    left: 0;
+	    bottom: 0;
+	    right: 0;
+
+	    .generic-loader {
+			display: block;
+		    width: $loader_size;
+		    height: $loader_size;
+		    margin: auto;
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translateX(-50%) translateY(-50%);
+
+		    &:after {
+				content: " ";
+				display: block;
+				width: $loader_size;
+				height: $loader_size;
+				margin: 0;
+				margin-top: - ($border_size / 2);
+				margin-left: - ($border_size / 2);
+				border-radius: 50%;
+				border: $border_size solid #000;
+				border-color: #000 transparent #000 transparent;
+				animation: lds-dual-ring 1.2s linear infinite;
+			}
+		}
+
+		.label {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			text-align: center;
+		}
+	}
+
 	&.recorder {
 		button.record { display: block; }
 		button.record-red { display: none; }
 
-		&.is-active {
+		&[data-state="is-loading"],
+		&[data-state="is-encoding"] {
+			button.record { display: none; }
+			button.record-red { display: none; }
+		}
+
+		&[data-state="is-loading"] {
+			.audio-control-loader.loading-encoder {
+				display: block;
+			}
+		}
+
+		&[data-state="is-encoding"] {
+			.audio-control-loader.encoding-recording {
+				display: block;
+			}
+		}
+
+		&[data-state="is-active"] {
 			button.record { display: none; }
 			button.record-red { display: block; }
 		}
@@ -65,7 +153,7 @@ a {
 		button.play { display: block; }
 		button.stop { display: none; }
 
-		&.is-active {
+		&[data-state="is-active"] {
 			button.play { display: none; }
 			button.stop { display: block; }
 		}
@@ -73,6 +161,8 @@ a {
 
 	.native-audio-el-container { display: none; }
 }
+
+
 
 
 
