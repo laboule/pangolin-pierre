@@ -23,10 +23,30 @@
             <a href="#" class="play-dream">
                 @lang("Écouter un rêve")
             </a>
+
+            <span class="dream-meta user_name">{{ $dream->user_name }}</span>
+            <span class="dream-meta user_age_and_city">
+                @lang('dream user age', ["age" => $dream->user_age]), 
+                {{ $dream->user_city }}
+            </span>
+            @if( $dream->dream_date )
+                <span class="dream-meta dream_date">
+                    @lang('dream date', ["date" => $dream->dream_date->format('j F Y')])
+                </span>
+            @endif
         </div>
 
         <div class="player">
-            PLAYER
+            <div class="audio-control-wrapper player">
+                <button id="start_playing" class="audio-control play">Start playing</button>
+                <button id="stop_playing" class="audio-control stop">Stop playing</button>
+
+                <div class="native-audio-el-container">
+                    <div>
+                        <audio controls src="{{ $dream->get_recording_file_url('mp3') }}"></audio>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

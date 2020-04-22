@@ -19,6 +19,7 @@
 }
 
 
+
 /*
  * GLOBAL UI ELEMENTS
  */
@@ -72,18 +73,41 @@
 body.page_welcome {
 
 	.app-about {
+		margin-bottom: 40px;
+
 		.text-wrapper {
 			height: 100px;
 			overflow: hidden;
+			position: relative;
+
+			&:after {
+				content: ' ';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(transparent, white);
+				opacity: 1;
+			}
+
+			p {
+				margin-top: 0;
+			}
 		}
 
 		&.opened .text-wrapper {
 			height: auto;
+
+			&:after {
+				display: none;
+			}
 		}
 	}
 
 	.home-interaction-block {
 		overflow: hidden;
+		margin-bottom: 40px;
 
 		> * {
 			width: 50%;
@@ -95,6 +119,10 @@ body.page_welcome {
 
 		&.record > * {
 			float: right;
+		}
+
+		.dream-meta {
+			display: block;
 		}
 	}
 }

@@ -89,17 +89,42 @@
  * HOMEPAGE
  */
 
+body.page_welcome .app-about {
+  margin-bottom: 40px;
+}
+
 body.page_welcome .app-about .text-wrapper {
   height: 100px;
   overflow: hidden;
+  position: relative;
+}
+
+body.page_welcome .app-about .text-wrapper:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(transparent, white);
+  opacity: 1;
+}
+
+body.page_welcome .app-about .text-wrapper p {
+  margin-top: 0;
 }
 
 body.page_welcome .app-about.opened .text-wrapper {
   height: auto;
 }
 
+body.page_welcome .app-about.opened .text-wrapper:after {
+  display: none;
+}
+
 body.page_welcome .home-interaction-block {
   overflow: hidden;
+  margin-bottom: 40px;
 }
 
 body.page_welcome .home-interaction-block > * {
@@ -112,6 +137,10 @@ body.page_welcome .home-interaction-block.listen > * {
 
 body.page_welcome .home-interaction-block.record > * {
   float: right;
+}
+
+body.page_welcome .home-interaction-block .dream-meta {
+  display: block;
 }
 
 /*

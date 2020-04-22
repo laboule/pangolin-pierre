@@ -27,5 +27,7 @@
     "Enregistre ton rêve - Succès": "Rêve bien reçu !",
     "Merci": "Merci !",
     "Merci - description": "Ton rêve a été enregistré. Si tu as renseigné ton e-mail dans le formulaire, nous te préviendrons dès que celui-ci aura été publié !",
-    "Merci - Enregistre un autre rêve": "Partage un autre rêve"
+    "Merci - Enregistre un autre rêve": "Partage un autre rêve",
+    "dream user age": ":age ans",
+    "dream date": "Le :date"
 }

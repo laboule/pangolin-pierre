@@ -10,7 +10,11 @@ class AppController extends Controller
 {
 	/* GET: Homepage */
     public function welcome() {
-    	return view('welcome');
+    	$initial_dream = Dream::get_one_random();
+
+    	return view('welcome', [
+    		"dream" => $initial_dream
+    	]);
     }
 
     /* GET: Record dream */
