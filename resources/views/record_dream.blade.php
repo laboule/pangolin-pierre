@@ -14,6 +14,10 @@
             <button id="start_recording" class="audio-control record">Start recording</button>
             <button id="stop_recording" class="audio-control record-red">Stop recording</button>
 
+            <div class="audio-timer">
+                00:00
+            </div>
+
             <div class="audio-control-loader loading-encoder">
                 <span class="generic-loader"></span>
                 <span class="label">@lang('recorder - before record loading')</span>

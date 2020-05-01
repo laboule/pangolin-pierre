@@ -19376,11 +19376,32 @@ $(function () {
       $('[data-step="' + step + '"]').show();
     };
 
+    var startRecordingTimer = function startRecordingTimer() {
+      audioTimerMinSecs = [0, 0];
+      audioTimerInterval = setInterval(function () {
+        audioTimerMinSecs[1] += 1;
+
+        if (audioTimerMinSecs[1] >= 60) {
+          audioTimerMinSecs[0] += 1;
+          audioTimerMinSecs[1] = 0;
+        }
+
+        var mins = ("0" + audioTimerMinSecs[0]).slice(-2);
+        var secs = ("0" + audioTimerMinSecs[1]).slice(-2);
+        $audioCSSTimer.text(mins + ":" + secs);
+      }, 1000);
+    };
+
+    var stopRecordingTimer = function stopRecordingTimer() {
+      clearInterval(audioTimerInterval);
+    };
+
     var onRecordingActuallyStarted = function onRecordingActuallyStarted() {
       $page.addClass('is-recording');
       $('.audio-control-wrapper.recorder').attr('data-state', 'is-active');
       recordButton.disabled = true;
       stopButton.disabled = false;
+      startRecordingTimer();
     };
 
     var onRecordingIsPreparing = function onRecordingIsPreparing() {
@@ -19393,6 +19414,7 @@ $(function () {
       $('.audio-control-wrapper.recorder').attr('data-state', '');
       stopButton.disabled = true;
       recordButton.disabled = false;
+      stopRecordingTimer();
     };
 
     var onRecordingIsEncoding = function onRecordingIsEncoding() {
@@ -19518,6 +19540,9 @@ $(function () {
     var $page = $('body.page_record_dream');
     var recordButton = document.getElementById("start_recording");
     var stopButton = document.getElementById("stop_recording");
+    var $audioCSSTimer = $('.audio-timer');
+    var audioTimerMinSecs = [0, 0];
+    var audioTimerInterval = null;
     recordButton.addEventListener("click", startRecording, false);
     stopButton.addEventListener("click", stopRecording, false);
     $('.validate-recording-buttons button').on('click', function (e) {

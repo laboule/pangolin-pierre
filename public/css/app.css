@@ -57,8 +57,14 @@ a {
 
 .audio-control-wrapper {
   position: relative;
-  height: 100px;
+  height: 120px;
   margin-bottom: 20px;
+}
+
+.audio-control-wrapper .audio-timer {
+  margin: 10px 0;
+  text-align: center;
+  opacity: 0;
 }
 
 .audio-control-wrapper button.audio-control {
@@ -165,6 +171,10 @@ a {
 
 .audio-control-wrapper.recorder[data-state=is-active] button.record-red {
   display: block;
+}
+
+.audio-control-wrapper.recorder[data-state=is-active] .audio-timer {
+  opacity: 1;
 }
 
 .audio-control-wrapper.player button.play {
