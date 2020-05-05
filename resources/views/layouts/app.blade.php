@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/ui.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css').'?'.uniqid() }}" rel="stylesheet">
+        <link href="{{ asset('css/ui.css').'?'.uniqid() }}" rel="stylesheet">
 
         <title>Chambre d'écho</title>
     </head>
@@ -23,7 +23,7 @@
                 @lang("Lire plus")
             </a>
         </div>
-        
+
         <div id="app-wrapper">
             @yield('content')
         </div>
