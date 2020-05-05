@@ -1,0 +1,95 @@
+<style> body {
+ height:85%;
+	background-color: #d3d3d3;
+}
+.page_welcome, .page_record_dream, .page_record_dream_success  {
+	background-color: #d3d3d3;
+}
+h1.page-title {
+	display: none;
+}
+.record-intro { text-align:center; }
+.page_welcome, .page_record_dream, .page_record_dream_success {
+	font-family: 'Barlow', serif;
+	font-size: 16px;
+	color: #FFFFFF;
+	/*border: 1px solid red;*/
+	height: 85%;
+	background-image: url(/img/fond-reve_pango.png);
+	background-size: cover;
+	background-position: top;
+	background-repeat: no-repeat;
+}
+.logo_revespango {
+	width: 100%;
+	height: 118px;
+	background-image: url(/img/logo-reve_pango.png);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	/*margin: 25% 0 25% 0;*/
+	/*border: 1px solid orange;*/
+}
+.audio-control-wrapper button.audio-control {
+	width: 160px!important;
+}
+.audio-control-wrapper {
+	margin-bottom: 0!important;
+}
+.audio-control-wrapper button.audio-control.play {
+	background-image: url(/img/play.png)!important
+}
+.audio-control-wrapper button.audio-control.stop {
+	background-image: url(/img/stop.png)!important
+}
+.audio-control-wrapper button.audio-control.play2 {
+	background-image: url(/img/play2.svg)!important
+}
+.audio-control-wrapper button.audio-control.stop2 {
+	background-image: url(/img/stofp2.svg)!important
+}
+.audio-control-wrapper button.audio-control.record-red { background-image: url(/img/audio-button-record-red.svg); }
+.play-dream {
+	display: none!important;
+}
+.home-interaction-block {
+	/*border: 1px solid blue;*/
+	text-align: center;
+	margin: auto;
+}
+body.page_welcome .home-interaction-block>* {
+	width: 100% !important;
+}
+html {
+	/*border: 1px solid grey;*/
+	height: 100%
+}
+
+.validate-recording-buttons {     overflow: hidden; 
+    margin: 0 auto;
+    padding: 20px; 
+    color: #FFFFFF;}
+.start-again { float:left; font-family: 'Barlow', serif; color: #FFFFFF;
+    font-size: 16px; }
+.validate { float:right; font-family: 'Barlow', serif; color: #FFFFFF;
+    font-size: 16px; }
+
+.page_record_dream { /*border:1px solid yellow;*/ }
+
+.home-interaction-block.record .text { margin-top:50px; }
+
+.header-bar {  clear: both; overflow: hidden; }
+
+
+body.page_record_dream .send-dream-form .form-entry 
+{ 
+	    display: block;
+    width: 80%;
+    /* height: 30px; */
+    margin: 0 auto 20px;
+}
+
+.page_record_dream_success { padding:50px; margin:0 auto; }
+
+.page_record_dream_success a:link, .record-another-dream { color:#FFFFFF }
+ </style>

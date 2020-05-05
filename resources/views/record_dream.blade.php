@@ -1,19 +1,41 @@
 @extends('layouts.app')
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow">
 
-@section('content')
+@section('content') 
+ <div class="header-bar"><a href="https://lesrevesdupangolin.com/"><img src="img/btn_back.svg" alt="" style="float:left;"/></a>
+       <div class="app-about"><a href="#" class="read-more" 
+            data-closed-text="@lang("Lire plus")"
+            data-opened-text="@lang("Lire moins")"
+             style="float:right; color:#FFFFFF; text-decoration: none;">
+            @lang("Lire plus")
+        </a>
+        <div class="text-wrapper">
+            @lang("Description du projet")
+        </div>
+
+        
+    </div></div>
+           
+           <img src="/img/rec.png" width="102" height="52" alt="" style="display: block; margin:10px auto 20px auto" />
+<div class="record-intro">@lang("Enregistre ton rêve - intro")</div>
+            
     <div class="record-step shown" data-step="1">
         <h1 class="page-title">
             @lang("Enregistre ton rêve")
         </h1>
 
-        <div class="page-intro hide-when-recording">
-            @lang("Enregistre ton rêve - intro")
+        <div class="page-intro">
+           
+            <span class="hide-when-recording">
+            @lang("Enregistre ton rêve - start")</span>
         </div>
 
         <div class="audio-control-wrapper recorder">
             <button id="start_recording" class="audio-control record">Start recording</button>
             <button id="stop_recording" class="audio-control record-red">Stop recording</button>
 
+           
+              
             <div class="audio-timer">
                 00:00
             </div>
@@ -46,8 +68,8 @@
         <!-- *********** -->
 
         <div class="audio-control-wrapper player">
-            <button id="start_playing" class="audio-control play">Start playing</button>
-            <button id="stop_playing" class="audio-control stop">Stop playing</button>
+            <button id="start_playing" class="audio-control play2">Start playing</button>
+            <button id="stop_playing" class="audio-control stop2">Stop playing</button>
 
             <div class="native-audio-el-container"></div>
         </div>
@@ -133,7 +155,7 @@
             </div>
 
             <div class="form-entry">
-                <button type="submit">@lang('form input - submit')</button>
+                <button type="submit" class="submit">@lang('form input - submit')</button>
             </div>
         </form>
 @endsection

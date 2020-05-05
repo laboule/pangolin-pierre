@@ -1,4 +1,6 @@
-<svg width="141" height="141" viewBox="0 0 141 141" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="70.5" cy="70.5" r="34.5" fill="black"/>
-<circle cx="70.5" cy="70.5" r="67" stroke="black" stroke-width="7"/>
+<svg width="71" height="71" viewBox="0 0 71 71" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="35.5" cy="35.5" r="35.5" fill="white"/>
+<circle cx="35.5" cy="35.5" r="35" stroke="black" stroke-opacity="0.66"/>
+<circle cx="35" cy="35" r="24" fill="#FF2D1E"/>
+<circle cx="35" cy="35" r="23" stroke="black" stroke-opacity="0.45" stroke-width="2"/>
 </svg>
