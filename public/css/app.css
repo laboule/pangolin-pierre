@@ -1,262 +1,296 @@
+/*
+ * GLOBAL RESETS
+ */
+
 * {
-	box-sizing: border-box
+  box-sizing: border-box;
 }
+
 p {
-	margin-top: 0
+  margin-top: 0;
 }
+
+/*
+ * GLOBAL APP
+ */
+
 #app-wrapper {
-	width: 100%;
-	margin: auto
+  /* Quick'n'dirty helper to get a phone layout */
+  width: 400px;
+  margin: auto;
 }
+
 a {
-	color: #000;
-	font-weight: 600
+  color: #000;
+  font-weight: 600;
 }
+
+/*
+ * CSS3 Animations Keyframes
+ */
+
 @-webkit-keyframes lds-dual-ring {
-0% {
-transform:rotate(0deg)
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
-to {
-transform:rotate(1turn)
-}
-}
+
 @keyframes lds-dual-ring {
-0% {
-transform:rotate(0deg)
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
-to {
-transform:rotate(1turn)
+
+/*
+ * GLOBAL UI ELEMENTS
+ */
+
+/* App about Overlay */
+
+.app-about {
+  text-align: center;
 }
+
+.app-about .text-wrapper {
+  position: fixed;
+  z-index: 20;
+  top: 40px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: #afafaf;
+  display: none;
+  text-align: left;
 }
+
+.app-about.opened .text-wrapper {
+  display: block;
+}
+
+/* Audio control wrapper */
+
 .audio-control-wrapper {
-	position: relative;
-	height: 120px;
-	margin-bottom: 20px
+  position: relative;
+  height: 120px;
+  margin-bottom: 20px;
 }
+
 .audio-control-wrapper .audio-timer {
-	font-size:40px;
-	margin: 10px 0;
-	text-align: center;
-	opacity: 0
+  margin: 10px 0;
+  text-align: center;
+  opacity: 0;
 }
+
 .audio-control-wrapper button.audio-control {
-	width: 100px;
-	height: 100px;
-	border: none;
-	display: block;
-	margin: auto;
-	background: transparent no-repeat 50%;
-	background-size: contain;
-	overflow: hidden;
-	text-indent: -900px;
-	cursor: pointer
+  width: 100px;
+  height: 100px;
+  border: none;
+  display: block;
+  margin: auto;
+  background: transparent no-repeat center;
+  background-size: contain;
+  overflow: hidden;
+  text-indent: -900px;
+  cursor: pointer;
 }
+
 .audio-control-wrapper button.audio-control.record {
-	background-image: url(/img/audio-button-record-black.svg)
+  background-image: url("/img/audio-button-record-black.svg");
 }
+
 .audio-control-wrapper button.audio-control.record-red {
-	background-image: url(/img/audio-button-record-red.svg)
+  background-image: url("/img/audio-button-record-red.svg");
 }
+
 .audio-control-wrapper button.audio-control.play {
-	background-image: url(/img/audio-button-play.svg)
+  background-image: url("/img/audio-button-play.svg");
 }
+
 .audio-control-wrapper button.audio-control.stop {
-	background-image: url(/img/audio-button-stop.svg)
+  background-image: url("/img/audio-button-stop.svg");
 }
+
 .audio-control-wrapper .audio-control-loader {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
+
 .audio-control-wrapper .audio-control-loader .generic-loader {
-	display: block;
-	width: 40px;
-	height: 40px;
-	margin: auto;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%)
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
+
 .audio-control-wrapper .audio-control-loader .generic-loader:after {
-	content: " ";
-	display: block;
-	width: 40px;
-	height: 40px;
-	margin: -3px 0 0 -3px;
-	border-radius: 50%;
-	border-color: #000 transparent;
-	border-style: solid;
-	border-width: 6px;
-	-webkit-animation: lds-dual-ring 1.2s linear infinite;
-	animation: lds-dual-ring 1.2s linear infinite
+  content: " ";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  margin-top: -3px;
+  margin-left: -3px;
+  border-radius: 50%;
+  border: 6px solid #000;
+  border-color: #000 transparent #000 transparent;
+  -webkit-animation: lds-dual-ring 1.2s linear infinite;
+          animation: lds-dual-ring 1.2s linear infinite;
 }
+
 .audio-control-wrapper .audio-control-loader .label {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	text-align: center
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
 }
+
 .audio-control-wrapper.recorder button.record {
-	display: block
+  display: block;
 }
-.audio-control-wrapper.recorder[data-state=is-encoding] button.record, .audio-control-wrapper.recorder[data-state=is-encoding] button.record-red, .audio-control-wrapper.recorder[data-state=is-loading] button.record, .audio-control-wrapper.recorder[data-state=is-loading] button.record-red, .audio-control-wrapper.recorder button.record-red {
-	display: none
+
+.audio-control-wrapper.recorder button.record-red {
+  display: none;
 }
-.audio-control-wrapper.recorder[data-state=is-encoding] .audio-control-loader.encoding-recording, .audio-control-wrapper.recorder[data-state=is-loading] .audio-control-loader.loading-encoder {
-	display: block
+
+.audio-control-wrapper.recorder[data-state=is-loading] button.record,
+.audio-control-wrapper.recorder[data-state=is-encoding] button.record {
+  display: none;
 }
+
+.audio-control-wrapper.recorder[data-state=is-loading] button.record-red,
+.audio-control-wrapper.recorder[data-state=is-encoding] button.record-red {
+  display: none;
+}
+
+.audio-control-wrapper.recorder[data-state=is-loading] .audio-control-loader.loading-encoder {
+  display: block;
+}
+
+.audio-control-wrapper.recorder[data-state=is-encoding] .audio-control-loader.encoding-recording {
+  display: block;
+}
+
 .audio-control-wrapper.recorder[data-state=is-active] button.record {
-	display: none
+  display: none;
 }
+
 .audio-control-wrapper.recorder[data-state=is-active] button.record-red {
-	display: block
+  display: block;
 }
+
 .audio-control-wrapper.recorder[data-state=is-active] .audio-timer {
-	opacity: 1
+  opacity: 1;
 }
+
 .audio-control-wrapper.player button.play {
-	display: block
+  display: block;
 }
-.audio-control-wrapper.player[data-state=is-active] button.play, .audio-control-wrapper.player button.stop {
-	display: none
+
+.audio-control-wrapper.player button.stop {
+  display: none;
 }
+
+.audio-control-wrapper.player[data-state=is-active] button.play {
+  display: none;
+}
+
 .audio-control-wrapper.player[data-state=is-active] button.stop {
-	display: block
+  display: block;
 }
+
 .audio-control-wrapper .native-audio-el-container {
-	display: none
+  display: none;
 }
 
-.audio-control-wrapper.player2 button.play2 {
-	display: block
-}
-.audio-control-wrapper.player2[data-state=is-active] button.play2, .audio-control-wrapper.player2 button.stop2 {
-	display: none
-}
-.audio-control-wrapper.player2[data-state=is-active] button.stop2 {
-	display: block
-}
+/*
+ * HOMEPAGE
+ */
 
-
-
-body.page_record_dream .app-about {
-	margin-bottom: 40px;
-	text-align: center
-}
-body.page_record_dream .app-about .text-wrapper {
-	height: 1px;
-	overflow: hidden;
-	position: relative;
-	text-align: left
-}
-body.page_record_dream .app-about .text-wrapper:after {
-	content: " ";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	/*background: linear-gradient(transparent, #fff);*/
-	opacity: 1
-}
-body.page_record_dream .app-about.opened .text-wrapper {
-	height: auto
-}
-body.page_record_dream .app-about.opened .text-wrapper:after {
-	display: none
-}
-
-body.page_welcome .app-about {
-	margin-bottom: 40px;
-	text-align: center
-}
-
-body.page_welcome .app-about .text-wrapper {
-	height: 1px;
-	overflow: hidden;
-	position: relative;
-	text-align: left
-}
-body.page_welcome .app-about .text-wrapper:after {
-	content: " ";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	/*background: linear-gradient(transparent, #fff);*/
-	opacity: 1
-}
-body.page_welcome .app-about.opened .text-wrapper {
-	height: auto
-}
-body.page_welcome .app-about.opened .text-wrapper:after {
-	display: none
-}
 body.page_welcome .home-interaction-block {
-	overflow: hidden;
-	margin-bottom: 40px
+  overflow: hidden;
+  margin-bottom: 40px;
 }
-body.page_welcome .home-interaction-block>* {
-	width: 50%
+
+body.page_welcome .home-interaction-block > * {
+  width: 50%;
 }
-body.page_welcome .home-interaction-block.listen>* {
-	float: left
+
+body.page_welcome .home-interaction-block.listen > * {
+  float: left;
 }
-body.page_welcome .home-interaction-block.record>* {
-	float: right
+
+body.page_welcome .home-interaction-block.record > * {
+  float: right;
 }
-body.page_welcome .home-interaction-block .text>a {
-	display: inline-block;
-	margin-bottom: 10px
+
+body.page_welcome .home-interaction-block .text > a {
+  display: inline-block;
+  margin-bottom: 10px;
 }
+
 body.page_welcome .home-interaction-block .text .dream-meta {
-	display: block
+  display: block;
 }
+
+/*
+ * RECORD DREAM PAGE
+ */
+
 body.page_record_dream .record-step {
-	display: none
+  display: none;
 }
+
 body.page_record_dream .record-step.shown {
-	display: block;
-	text-align: center;
+  display: block;
 }
+
 body.page_record_dream.is-recording .hide-when-recording {
-	visibility: hidden
+  visibility: hidden;
 }
+
 body.page_record_dream .validate-recording-buttons {
-	margin-top: 40px
+  margin-top: 40px;
 }
+
 body.page_record_dream .validate-recording-buttons button {
-	display: block;
-	margin: 10px auto
+  display: block;
+  width: 200px;
+  margin: 10px auto;
 }
+
 body.page_record_dream .send-dream-form .form-entry {
-	margin: 10px
+  margin: 10px;
 }
+
 body.page_record_dream .send-dream-form .form-entry label {
-	display: block
-}
-body.page_record_dream .send-dream-form .form-entry input[type=date], body.page_record_dream .send-dream-form .form-entry input[type=text] {
-	display: block;
-	width: 100%;
-    margin: 5px 0;
-    height: 30px;
-}
-body.page_record_dream .send-dream-form .form-entry input[type=checkbox], body.page_record_dream .send-dream-form .form-entry input[type=radio] {
-	display: inline-block
+  display: block;
 }
 
-body.page_record_dream .submit
-{
-    border: 1px solid white;
-    padding: 10px 30px;
-    20px 50px 50px 50px;
-	font-family: 'Barlow', serif;
-    background-color: white; }
+body.page_record_dream .send-dream-form .form-entry input[type=text],
+body.page_record_dream .send-dream-form .form-entry input[type=date] {
+  display: block;
+  width: 100%;
+}
 
+body.page_record_dream .send-dream-form .form-entry input[type=checkbox],
+body.page_record_dream .send-dream-form .form-entry input[type=radio] {
+  display: inline-block;
+}
 

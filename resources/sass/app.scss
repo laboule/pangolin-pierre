@@ -49,6 +49,29 @@ a {
  * GLOBAL UI ELEMENTS
  */
 
+/* App about Overlay */
+.app-about {
+	text-align: center;
+
+	.text-wrapper {
+		position: fixed;
+		z-index: 20;
+
+		top: 40px;
+		left: 20px;
+		right: 20px;
+		bottom: 20px;
+		background: #afafaf;
+		display: none;
+
+		text-align: left;
+	}
+
+	&.opened .text-wrapper {
+		display: block;
+	}
+}
+
 /* Audio control wrapper */
 .audio-control-wrapper {
 	$picto_size: 100px;
@@ -180,37 +203,6 @@ a {
  * HOMEPAGE
  */
 body.page_welcome {
-
-	.app-about {
-		margin-bottom: 40px;
-		text-align: center;
-
-		.text-wrapper {
-			height: 100px;
-			overflow: hidden;
-			position: relative;
-			text-align: left;
-
-			&:after {
-				content: ' ';
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: linear-gradient(transparent, white);
-				opacity: 1;
-			}
-		}
-
-		&.opened .text-wrapper {
-			height: auto;
-
-			&:after {
-				display: none;
-			}
-		}
-	}
 
 	.home-interaction-block {
 		overflow: hidden;

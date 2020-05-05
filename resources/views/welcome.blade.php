@@ -1,25 +1,10 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow">
 @section('content')
-    <div id ="header-bar" style=" clear: both; overflow: hidden; ">
-       <div class="app-about"><a href="#" class="read-more" 
-            data-closed-text="@lang("Lire plus")"
-            data-opened-text="@lang("Lire moins")"
-             style="float:right; color:#FFFFFF; text-decoration: none;">
-            @lang("Lire plus")
-        </a>
-        <div class="text-wrapper">
-            @lang("Description du projet")
-        </div>
 
-        
-    </div></div>
-       
     <h1 class="page-title">
         @lang("Les rêves du pangolin")
     </h1>
-
-   
 
     <div class="home-interaction-block listen">
        <div class="player">
@@ -42,29 +27,17 @@
             <span class="dream-meta user_name">{{ $dream->user_name }}. 
                 @lang('dream user age', ["age" => $dream->user_age]), 
                 {{ $dream->user_city }}, 
-            @if( $dream->dream_date )
-                
+                @if( $dream->dream_date )
                     @lang('dream date', ["date" => $dream->dream_date->format('j F Y')])
-                </span>
-            @endif
+                @endif
+            </span>
         </div>
 
         
     </div>
-<div class="logo_revespango"></div>
+    
+    <div class="logo_revespango"></div>
    
-    <div class="app-about">
-       <!-- <div class="text-wrapper">
-            @lang("Description du projet")
-        </div>
-
-        <a href="#" class="read-more" 
-            data-closed-text="@lang("Lire plus")"
-            data-opened-text="@lang("Lire moins")"
-            >
-            @lang("Lire plus")
-        </a>-->
-    </div>
     <div class="home-interaction-block record">
        
 

@@ -2,19 +2,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow">
 
 @section('content') 
- <div class="header-bar"><a href="https://lesrevesdupangolin.com/"><img src="img/btn_back.svg" alt="" style="float:left;"/></a>
-       <div class="app-about"><a href="#" class="read-more" 
-            data-closed-text="@lang("Lire plus")"
-            data-opened-text="@lang("Lire moins")"
-             style="float:right; color:#FFFFFF; text-decoration: none;">
-            @lang("Lire plus")
+    
+    <div class="header-bar">
+        <a href="https://lesrevesdupangolin.com/">
+            <img src="img/btn_back.svg" alt="" style="float:left;"/>
         </a>
-        <div class="text-wrapper">
-            @lang("Description du projet")
-        </div>
-
-        
-    </div></div>
+    </div>
            
            <img src="/img/rec.png" width="102" height="52" alt="" style="display: block; margin:10px auto 20px auto" />
 <div class="record-intro">@lang("Enregistre ton rêve - intro")</div>

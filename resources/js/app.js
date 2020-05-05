@@ -11,6 +11,26 @@ function __log(what) {
 $( function() {
 
 	/*
+	 * GENERAL UI INTERACTIONS
+	 */
+	$(document).on('click', '.app-about .read-more', function(e) {
+		e.preventDefault();
+
+		let $this = $(this);
+		let $about_block = $this.closest('.app-about');
+
+		$about_block.toggleClass('opened');
+
+		if( $about_block.hasClass('opened') ) {
+			$this.html($this.attr('data-opened-text'));
+		} else {
+			$this.html($this.attr('data-closed-text'));
+		}
+
+		return false;
+	});
+
+	/*
 	 * GENERAL AUDIO PLAYER INTERACTIONS
 	 */
 	window.currently_active_audio_element = null;
@@ -64,22 +84,6 @@ $( function() {
 	 * HOMEPAGE
 	 */
 	if( $('body.page_welcome').length ) {
-		$(document).on('click', '.app-about .read-more', function(e) {
-			e.preventDefault();
-
-			let $this = $(this);
-			let $about_block = $this.closest('.app-about');
-
-			$about_block.toggleClass('opened');
-
-			if( $about_block.hasClass('opened') ) {
-				$this.html($this.attr('data-opened-text'));
-			} else {
-				$this.html($this.attr('data-closed-text'));
-			}
-
-			return false;
-		});
 
 		$(document).on('click', '.play-dream', function(e) {
 			e.preventDefault();
@@ -105,7 +109,7 @@ $( function() {
 		}
 
 		var ENCODING_TYPE = 'mp3'; // wav, mp3, or ogg
-		var TIME_LIMIT = 120; // 2 minutes
+		var TIME_LIMIT = 60 * 30; // 30 minutes
 
 		var URL = window.URL || window.webkitURL;
 

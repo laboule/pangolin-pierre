@@ -10,6 +10,20 @@
         <title>Chambre d'écho</title>
     </head>
     <body class="page_{{ Route::currentRouteName() }}">
+
+        <div class="app-about">
+           <div class="text-wrapper">
+                @lang("Description du projet")
+            </div>
+
+            <a href="#" class="read-more" 
+                data-closed-text="@lang("Lire plus")"
+                data-opened-text="@lang("Lire moins")"
+                >
+                @lang("Lire plus")
+            </a>
+        </div>
+        
         <div id="app-wrapper">
             @yield('content')
         </div>
