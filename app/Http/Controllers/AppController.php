@@ -44,7 +44,7 @@ class AppController extends Controller
 	        'user_age' => 'required|max:3',
 	        'user_country' => 'required|max:100',
 	        'user_city' => 'required',
-	        'user_email' => 'email|max:255',
+	        'user_email' => 'max:255',
 	        'dream_language' => 'required',
 	        'form_audio_data' => 'required'
 	    ]);
