@@ -3,7 +3,9 @@ body {
  height:85%;
 	background-color: #d3d3d3;
 }
-
+.page_welcome, .page_record_dream, .page_record_dream_success  {
+	background-color: #d3d3d3;
+}
 h1.page-title {
 	display: none;
 }
@@ -11,7 +13,7 @@ h1.page-title {
 .page_welcome, .page_record_dream, .page_record_dream_success {
 	font-family: 'Barlow', serif;
 	font-weight: 100;
-	font-size: 18px;
+	font-size: 16px;
 	color: #FFFFFF;
 	/*border: 1px solid red;*/
 	height: 85%;
@@ -21,13 +23,13 @@ h1.page-title {
 	background-repeat: no-repeat;
 }
 .logo_revespango {
-	width: 90%;
+	width: 100%;
 	height: 118px;
 	background-image: url(/img/logo-reve_pango.png);
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
-	margin: 0 auto 0 auto;
+	/*margin: 25% 0 25% 0;*/
 	/*border: 1px solid orange;*/
 }
 .audio-control-wrapper button.audio-control {
@@ -40,7 +42,7 @@ h1.page-title {
 	background-image: url(/img/play.png)!important; height:45px; 
 }
 .audio-control-wrapper button.audio-control.stop {
-	background-image: url(/img/stop.png)!important;  height:45px; 
+	background-image: url(/img/stop.png)!important
 }
 .audio-control-wrapper button.audio-control.play2 {
 	background-image: url(/img/play2.svg)!important
@@ -122,7 +124,6 @@ line-height:28px;
 
 button.submit {     border: 1px solid grey;
     padding:20px;
-	font-size:18px;
     margin: 0 auto 40px 0; }
 
 .hide-when-recording, .page-description .hide-when-recording { text-align:center; margin:20px 0; }
@@ -130,8 +131,7 @@ button.submit {     border: 1px solid grey;
 .home-interaction-block.listen .text { margin:10px 0; }
 
 @media (min-width: 768px) {
-  .logo_revespango {
-	  height: 95px; }
+  
  .page_welcome, .page_record_dream, .page_record_dream_success {
 
 	background-image: url(/img/fond-reve_pango-web.png);
@@ -160,14 +160,7 @@ form {
     margin: 0 auto; }
 	.app-about .text-wrapper { 
     background: #fb3a21; background-image: none; }
-body { 
-    background-color: #d3d3d3; }
-	body.page_record_dream .record-step {margin:80px 0 0 0; }
+
 }
-@media (min-width: 320px) and (max-width: 480px) {
-	
-	body { 
-    background-color: #d3d3d3; }
-	body.page_record_dream .record-step {margin:80px 0 0 0; }
-	}
+
  </style>

@@ -1,13 +1,9 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
 
 @section('content') 
     
-    <div class="header-bar">
-        <a href="https://lesrevesdupangolin.com/">
-            <img src="img/btn_back.svg" alt="" style="float:left;"/>
-        </a>
-    </div>
+  
            
            <img src="/img/rec.png" width="102" height="52" alt="" style="display: block; margin:10px auto 20px auto" />
 <div class="record-intro">@lang("Enregistre ton rêve - intro")</div>
@@ -23,15 +19,20 @@
             @lang("Enregistre ton rêve - start")</span>
         </div>
 
+        
+            
         <div class="audio-control-wrapper recorder">
+           <div class="audio-timer">
+                00:00
+
+            </div>
+            
             <button id="start_recording" class="audio-control record">Start recording</button>
             <button id="stop_recording" class="audio-control record-red">Stop recording</button>
 
-           
+          
               
-            <div class="audio-timer">
-                00:00
-            </div>
+           
 
             <div class="audio-control-loader loading-encoder">
                 <span class="generic-loader"></span>
@@ -61,8 +62,8 @@
         <!-- *********** -->
 
         <div class="audio-control-wrapper player">
-            <button id="start_playing" class="audio-control play2">Start playing</button>
-            <button id="stop_playing" class="audio-control stop2">Stop playing</button>
+            <button id="start_playing" class="audio-control play">Start playing</button>
+            <button id="stop_playing" class="audio-control stop">Stop playing</button>
 
             <div class="native-audio-el-container"></div>
         </div>

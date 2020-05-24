@@ -1,5 +1,10 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
+<meta property="og:url"                content="http://lesrevesdupangolin.com" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="Les rêves du Pangolin" />
+<meta property="og:description"        content="Et si on écoutait des rêves" />
+<meta property="og:image"              content="http://lesrevesdupangolin.com/img/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
 @section('content')
 
     <h1 class="page-title">
@@ -19,12 +24,10 @@
                 </div>
             </div>
         </div>
-        <div class="text">
-            <a href="#" class="play-dream">
+        <div class="text play-dream">
                 @lang("Écouter un rêve")
-            </a>
 
-            <span class="dream-meta user_name">{{ $dream->user_name }}. 
+            <span class="dream-meta user_name play">{{ $dream->user_name }}, 
                 @lang('dream user age', ["age" => $dream->user_age]), 
                 {{ $dream->user_city }}, 
                 @if( $dream->dream_date )

@@ -7,22 +7,24 @@
         <link href="{{ asset('css/app.css').'?'.uniqid() }}" rel="stylesheet">
         <link href="{{ asset('css/ui.css').'?'.uniqid() }}" rel="stylesheet">
 
-        <title>Chambre d'écho</title>
+        <title>Les rêves du pangolin</title>
     </head>
     <body class="page_{{ Route::currentRouteName() }}">
-
+  <div class="header-bar">
+        <a href="javascript:history.back()">
+            <img src="img/btn_back.svg" alt="" style="float:left;" class="back"/>
+        </a>
         <div class="app-about">
            <div class="text-wrapper">
                 @lang("Description du projet")
             </div>
 
-            <a href="#" class="read-more" 
-                data-closed-text="@lang("Lire plus")"
-                data-opened-text="@lang("Lire moins")"
-                >
-                @lang("Lire plus")
+            <a href="#" class="read-more">
+               <div style="float:right;"><img src="/img/infos.svg" width="33" height="33" alt=""  /></div>
             </a>
         </div>
+    </div>
+        
 
         <div id="app-wrapper">
             @yield('content')
