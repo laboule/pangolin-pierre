@@ -1,10 +1,5 @@
 @extends('layouts.app')
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
-<meta property="og:url"                content="http://lesrevesdupangolin.com" />
-<meta property="og:type"               content="website" />
-<meta property="og:title"              content="Les rêves du Pangolin" />
-<meta property="og:description"        content="Et si on écoutait des rêves" />
-<meta property="og:image"              content="http://lesrevesdupangolin.com/img/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+
 @section('content')
 
     <h1 class="page-title">
