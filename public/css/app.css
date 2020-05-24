@@ -255,6 +255,11 @@ body.page_welcome .home-interaction-block .text .dream-meta {
   display: block;
 }
 
+body.page_welcome .play-another-dream {
+  color: #fff;
+  font-weight: 400;
+}
+
 /*
  * RECORD DREAM PAGE
  */

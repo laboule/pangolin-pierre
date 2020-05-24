@@ -7,7 +7,7 @@
     </h1>
 
     <div class="home-interaction-block listen">
-       <div class="player">
+        <div class="player">
             <div class="audio-control-wrapper player">
                 <button id="start_playing" class="audio-control play">Start playing</button>
                 <button id="stop_playing" class="audio-control stop">Stop playing</button>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="text play-dream">
-                @lang("Écouter un rêve")
+            @lang("Écouter un rêve")
 
             <span class="dream-meta user_name play">{{ $dream->user_name }}, 
                 @lang('dream user age', ["age" => $dream->user_age]), 
@@ -31,7 +31,9 @@
             </span>
         </div>
 
-        
+        <a href="{{ route('welcome') }}" class="play-another-dream">
+            @lang('Écouter un autre rêve')
+        </a>
     </div>
     
     <div class="logo_revespango"></div>
