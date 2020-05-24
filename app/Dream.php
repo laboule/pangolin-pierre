@@ -31,4 +31,8 @@ class Dream extends Model
 
         return '/storage/' . $filename;
     }
+
+    public function get_public_url() {
+        return route('welcome', ['dream_id' => $this->id]);
+    }
 }

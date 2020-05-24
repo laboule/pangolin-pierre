@@ -17,9 +17,6 @@ p {
  */
 #app-wrapper {
 
-	/* Quick'n'dirty helper to get a phone layout */
-	width: 400px;
-	margin: auto;
 }
 
 a {
@@ -53,6 +50,14 @@ a {
 .app-about {
 	text-align: center;
 
+	.read-more {
+		float: right;
+		background: url('/img/infos.svg') no-repeat center;
+		background-size: contain;
+		width: 33px;
+		height: 33px;
+	}
+
 	.text-wrapper {
 		position: fixed;
 		z-index: 20;
@@ -77,7 +82,6 @@ a {
 	$picto_size: 100px;
 
 	position: relative;
-	height: $picto_size + 20px;
 	margin-bottom: 20px;
 
 	.audio-timer {
@@ -122,7 +126,7 @@ a {
 		    height: $loader_size;
 		    margin: auto;
 		    position: absolute;
-		    top: 50%;
+		    top: $loader_size * 0.5;
 		    left: 50%;
 		    transform: translateX(-50%) translateY(-50%);
 
@@ -156,6 +160,8 @@ a {
 
 		&[data-state="is-loading"],
 		&[data-state="is-encoding"] {
+			height: 80px;
+
 			button.record { display: none; }
 			button.record-red { display: none; }
 		}
@@ -251,33 +257,126 @@ body.page_record_dream {
 	}
 
 	.validate-recording-buttons {
-		margin-top: 40px;
+		margin-top: 0;
 
 		button {
 			display: block;
-			width: 200px;
 			margin: 10px auto;
 		}
 	}
 
 	.send-dream-form {
 		.form-entry {
-			margin: 10px;
+			padding: 10px;
+		    position: relative;
+		    background: rgba(0, 0, 0, 0.2);
+		    border-radius: 11px;
+		    margin-bottom: 10px;
 
 			label {
 				display: block;
+				line-height: 24px;
+				margin-bottom: 4px;
+				overflow: hidden;
 			}
 
 			input[type="text"],
 			input[type="date"] {
 				display: block;
 				width: 100%;
+				padding: 9px;
+				line-height: normal;
+				font-size: 14px;
+				border: none;
+				border-radius: 5px;
 			}
 
 			input[type="checkbox"],
 			input[type="radio"] {
-				display: inline-block;
+				display: block;
+			    float: left;
+			    width: 5%;
+			    height: 0;
+			    padding-top: 5%;
+			    vertical-align: middle;
+			    -webkit-appearance: none;
+			    background: #fff;
+			    border: none;
+			    border-radius: 4px;
+			    margin: 0;
+			    transform: translateY(-50%);
+				top: 50%;
+				position: absolute;
+
+				&:checked:after {
+					position: absolute;
+				    top: 46%;
+				    left: 50%;
+				    content: " ";
+				    height: 4px;
+				    width: 9px;
+				    border-bottom: 3px solid #000;
+				    border-left: 3px solid #000;
+				    background: none;
+				    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+				    transform-origin: center center;
+				}
 			}
+
+			.checkbox-label {
+				display: block;
+				float: left;
+				width: 95%;
+				margin-left: 5%;
+				padding-left: 10px;
+				font-size: 16px;
+				line-height: normal;
+			}
+
+			small {
+				display: block;
+				margin-top: 6px;
+				color: #ddd;
+			}
+
+			button.submit {
+				border: 1px solid grey;
+				padding: 20px;
+				font-size: 18px;
+				border-radius: 6px;
+				cursor: pointer;
+
+				&:hover {
+					background: #eee;
+				}
+			}
+		}
+	}
+}
+
+
+/*
+ * DREAM SUBMITTED - SUCCESS PAGE
+ */
+body.page_record_dream_success {
+	
+	.link-to-user-dream {
+		background: rgba(0, 0, 0, 0.2);
+		padding: 10px;
+		border-radius: 10px;
+		margin-bottom: 10px;
+
+		strong {
+			font-weight: 400;
+			display: block;
+		}
+
+		code {
+			padding: 10px;
+			display: block;
+			background: rgba(255, 255, 255, 0.5);
+			border-radius: 5px;
+			margin-top: 10px;
 		}
 	}
 }

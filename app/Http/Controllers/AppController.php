@@ -9,8 +9,13 @@ use App\Dream;
 class AppController extends Controller
 {
 	/* GET: Homepage */
-    public function welcome() {
-    	$initial_dream = Dream::get_one_random();
+    public function welcome(Request $request, $dream_id = null) {
+
+    	if( $dream_id ) {
+    		$initial_dream = Dream::findOrFail($dream_id);
+    	} else {
+    		$initial_dream = Dream::get_one_random();
+    	}
 
     	return view('welcome', [
     		"dream" => $initial_dream
@@ -71,16 +76,21 @@ class AppController extends Controller
 		    $data = base64_decode($data);
 
 		    if( Storage::disk('public')->put($recording_filename, $data) ) {
-		    	return redirect()->route('record_dream_success');
+		    	return redirect()->route('record_dream_success', ['dream_id' => $dream->id]);
 		    }
 		}
 
+		// Die if dream can't be recorded for any reason
 		$dream->delete();
 	    dd('error');
     }
 
     /* GET: Dream record / saving success */
-    public function record_dream_success() {
-    	return view('record_dream_success');
+    public function record_dream_success($dream_id) {
+    	$dream = Dream::findOrFail($dream_id);
+
+    	return view('record_dream_success', [
+    		'dream' => $dream
+    	]);
     }
 }

@@ -115,15 +115,6 @@ body.page_record_dream .validate-recording-buttons button {
 	overflow: hidden;
 }
 
-body.page_record_dream .send-dream-form .form-entry {
-	display: block;
-    width: 80%;
-    /* height: 30px; */
-    margin: 0 auto 20px;
-}
-
-.page_record_dream_success { padding:50px; margin:0 auto; }
-
 .page_record_dream_success a:link, 
 .record-another-dream { 
 	color:#FFFFFF 
@@ -131,7 +122,8 @@ body.page_record_dream .send-dream-form .form-entry {
 
 .app-about.opened .text-wrapper {
     font-size: 20px;
-    overflow: scroll; 
+    overflow-x: hidden;
+    overflow-y: scroll; 
 	line-height:28px; 
     left: 0;
     right: 0;
@@ -143,13 +135,6 @@ body.page_record_dream .send-dream-form .form-entry {
 
 .page_welcome .header-bar img.back {
 	display:none;
-}
-
-button.submit {
-	border: 1px solid grey;
-    padding:20px;
-	font-size:18px;
-    margin: 0 auto 40px 0; 
 }
 
 .hide-when-recording, 

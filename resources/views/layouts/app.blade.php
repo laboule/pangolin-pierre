@@ -10,20 +10,19 @@
         <title>Les rêves du pangolin</title>
     </head>
     <body class="page_{{ Route::currentRouteName() }}">
-  <div class="header-bar">
-        <a href="javascript:history.back()">
-            <img src="img/btn_back.svg" alt="" style="float:left;" class="back"/>
-        </a>
-        <div class="app-about">
-           <div class="text-wrapper">
-                @lang("Description du projet")
-            </div>
-
-            <a href="#" class="read-more">
-               <div style="float:right;"><img src="/img/infos.svg" width="33" height="33" alt=""  /></div>
+        <div class="header-bar">
+            <a href="javascript:history.back()">
+                <img src="img/btn_back.svg" alt="" style="float:left;" class="back"/>
             </a>
+
+            <div class="app-about">
+               <div class="text-wrapper">
+                    @lang("Description du projet")
+                </div>
+
+                <a href="#" class="read-more"></a>
+            </div>
         </div>
-    </div>
         
 
         <div id="app-wrapper">

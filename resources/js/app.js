@@ -150,13 +150,17 @@ $( function() {
 			}, 1000);
 		}
 
+		function changeRecorderStateAttr(new_state) {
+			$('.audio-control-wrapper.recorder').attr('data-state', new_state);
+		}
+
 		function stopRecordingTimer() {
 			clearInterval(audioTimerInterval);
 		}
 
 		function onRecordingActuallyStarted() {
 			$page.addClass('is-recording');
-			$('.audio-control-wrapper.recorder').attr('data-state', 'is-active');
+			changeRecorderStateAttr('is-active');
 
 		    recordButton.disabled = true;
 		    stopButton.disabled = false;
@@ -165,14 +169,14 @@ $( function() {
 		}
 
 		function onRecordingIsPreparing() {
-			$('.audio-control-wrapper.recorder').attr('data-state', 'is-loading');
+			changeRecorderStateAttr('is-loading');
 
 		    recordButton.disabled = true;
 		    stopButton.disabled = true;
 		}
 
 		function onRecordingStop() {
-			$('.audio-control-wrapper.recorder').attr('data-state', '');
+			changeRecorderStateAttr('');
 
 	    	stopButton.disabled = true;
 	    	recordButton.disabled = false;
@@ -181,12 +185,12 @@ $( function() {
 		}
 
 		function onRecordingIsEncoding() {
-			$('.audio-control-wrapper.recorder').attr('data-state', 'is-encoding');
+			changeRecorderStateAttr('is-encoding');
 		}
 
 		function onEncodingComplete() {
 			toggle_step(2);
-			$('.audio-control-wrapper.recorder').attr('data-state', '');
+			changeRecorderStateAttr('');
 			$page.removeClass('is-recording');
 		}
 

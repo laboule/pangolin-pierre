@@ -15,8 +15,12 @@
     </div>
 
     <div class="thanks-links">
-        <!--<a href="{{ action('AppController@record_dream') }}" class="record-another-dream">-->
-        <a href="http://lesrevesdupangolin.com" class="record-another-dream">
+        <div class="link-to-user-dream">
+            <strong>@lang('Merci - Tu peux écouter ton rêve à cette adresse :')</strong>
+            <code>{{ $dream->get_public_url() }}</code>
+        </div>
+
+        <a href="{{ route('welcome') }}" class="record-another-dream">
             @lang('Merci - Enregistre un autre rêve')
         </a>
     </div>
