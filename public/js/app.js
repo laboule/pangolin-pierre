@@ -19347,6 +19347,7 @@ $(function () {
       };
 
       window.currently_active_audio_element = native_audio_el;
+      native_audio_el.muted = false;
       native_audio_el.addEventListener('ended', handle_end_of_playback, false);
       native_audio_el.play();
     } else {
@@ -19367,7 +19368,11 @@ $(function () {
       }
 
       return false;
-    });
+    }); // If .audio-control-wrapper item has data-autoplay attribute, automatically start playing it
+
+    if ($('.audio-control-wrapper.player[data-autoplay="1"]').length) {
+      $('.play-dream').click();
+    }
   }
   /*
    * RECORD DREAM PAGE
@@ -19376,8 +19381,9 @@ $(function () {
 
   if ($('body.page_record_dream').length) {
     var toggle_step = function toggle_step(step) {
-      $('[data-step]').hide();
-      $('[data-step="' + step + '"]').show();
+      $('[data-step]').removeClass('shown');
+      $current_step_div = $('[data-step="' + step + '"]');
+      $current_step_div.addClass('shown');
     };
 
     var startRecordingTimer = function startRecordingTimer() {
@@ -19529,9 +19535,10 @@ $(function () {
     /* Reset / Accept recording buttons */
 
 
-    var ENCODING_TYPE = 'mp3'; // wav, mp3, or ogg
+    var $current_step_div = $('[data-step="1"]');
+    var ENCODING_TYPE = window.global_public_data.dream_audio_format; // wav, mp3, or ogg
 
-    var TIME_LIMIT = 60 * 30; // 30 minutes
+    var TIME_LIMIT = window.global_public_data.dream_max_length; // Max length of recording in seconds
 
     var URL = window.URL || window.webkitURL;
     var gumStream; //stream from getUserMedia()

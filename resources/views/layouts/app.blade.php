@@ -16,11 +16,18 @@
         <meta property="og:image"              content="https://lesrevesdupangolin.com/img/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
 
         <title>Les rêves du pangolin</title>
+
+        <script>
+            window.global_public_data = {
+                dream_audio_format: '{{ \App\Dream::DREAM_AUDIO_FORMAT }}',
+                dream_max_length: {{ \App\Dream::DREAM_AUDIO_MAX_DURATION }}
+            };
+        </script>
     </head>
     <body class="page_{{ Route::currentRouteName() }}">
         <div class="header-bar">
             <a href="javascript:history.back()">
-                <img src="img/btn_back.svg" alt="" style="float:left;" class="back"/>
+                <img src="/img/btn_back.svg" alt="" style="float:left;" class="back"/>
             </a>
 
             <div class="app-about">

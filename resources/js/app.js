@@ -71,6 +71,7 @@ $( function() {
 
 			window.currently_active_audio_element = native_audio_el;
 
+			native_audio_el.muted = false;
 			native_audio_el.addEventListener('ended', handle_end_of_playback, false);
 			native_audio_el.play();
 		} else {
@@ -78,7 +79,6 @@ $( function() {
 			stop_audio_element_playback(native_audio_el);
 		}
 	});
-
 
 	/*
 	 * HOMEPAGE
@@ -94,6 +94,11 @@ $( function() {
 
 			return false;
 		});
+
+		// If .audio-control-wrapper item has data-autoplay attribute, automatically start playing it
+		if( $('.audio-control-wrapper.player[data-autoplay="1"]').length ) {
+			$('.play-dream').click();
+		}
 	}
 
 
@@ -103,13 +108,16 @@ $( function() {
 	 */
 	if( $('body.page_record_dream').length ) {
 
+		var $current_step_div = $('[data-step="1"]');
+
 		function toggle_step(step) {
-			$('[data-step]').hide();
-			$('[data-step="'+step+'"]').show();
+			$('[data-step]').removeClass('shown');
+			$current_step_div = $('[data-step="'+step+'"]');
+			$current_step_div.addClass('shown');
 		}
 
-		var ENCODING_TYPE = 'mp3'; // wav, mp3, or ogg
-		var TIME_LIMIT = 60 * 30; // 30 minutes
+		var ENCODING_TYPE = window.global_public_data.dream_audio_format; // wav, mp3, or ogg
+		var TIME_LIMIT = window.global_public_data.dream_max_length; // Max length of recording in seconds
 
 		var URL = window.URL || window.webkitURL;
 
@@ -229,7 +237,7 @@ $( function() {
 
 					onComplete: function(recorder, blob) {
 						__log("Encoding complete");
-						createAudioElementFromBlob(blob,recorder.encoding);
+						createAudioElementFromBlob(blob, recorder.encoding);
 						onEncodingComplete();
 					}
 				});

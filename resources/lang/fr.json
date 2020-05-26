@@ -9,7 +9,7 @@
     "Dépot description": "Dépose un rêve en retour",
     "Enregistre ton rêve": "Enregistre ton rêve",
     "Enregistre ton rêve - intro": "<p>Tous les rêves et cauchemars<br>sont les bienvenus.</p>",
-    "Enregistre ton rêve - start": "<p>Appuie pour lancer l’enregistrement</p>",
+    "Enregistre ton rêve - start": "<p>Appuie pour lancer l’enregistrement (Maximum :dream_max_duration)</p>",
     "Enregistre ton rêve - stop": "<p>Appuie pour stopper l’enregistrement</p>",
     "Enregistre ton rêve - description": "<p>Ça ne marche pas?<br>Essaie avec un autre navigateur</p>",
     "Valide ton rêve": "Valide ton rêve",

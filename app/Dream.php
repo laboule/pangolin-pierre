@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Dream extends Model
 {
     /**
+     * Default data
+    **/
+
+    // Format to use to encode dream audio recording
+    const DREAM_AUDIO_FORMAT = "mp3";
+
+    // Max duration of a dream recording in seconds
+    const DREAM_AUDIO_MAX_DURATION = 60 * 30; // 30 minutes
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -21,13 +31,20 @@ class Dream extends Model
         return self::all()->random(1)[0];
     }
 
-    /* Instances helpers */
-    public function get_recording_filename($extension) {
-    	return 'dream_'.$this->id.'.'.$extension;
+
+    /* Static Generic helpers */
+    static public function get_human_readable_max_recording_duration() {
+        return \Carbon\CarbonInterval::seconds(self::DREAM_AUDIO_MAX_DURATION)->cascade()->forHumans();
     }
 
-    public function get_recording_file_url($extension) {
-        $filename = $this->get_recording_filename($extension);
+
+    /* Instances helpers */
+    public function get_recording_filename() {
+    	return 'dream_'.$this->id.'.'.self::DREAM_AUDIO_FORMAT;
+    }
+
+    public function get_recording_file_url() {
+        $filename = $this->get_recording_filename();
 
         return '/storage/' . $filename;
     }
