@@ -6,17 +6,18 @@
         @lang("Les rêves du pangolin")
     </h1>
 
+    @if(isset($dream))
     <div class="home-interaction-block listen">
         <div class="player">
             <x-audio-wrapper kind="player" :autoplay="$autoplay" :dream="$dream" />
         </div>
-        
+
         <div class="text play-dream">
             @lang("Écouter un rêve")
 
-            <span class="dream-meta user_name play">{{ $dream->user_name }}, 
-                @lang('dream user age', ["age" => $dream->user_age]), 
-                {{ $dream->user_city }}, 
+            <span class="dream-meta user_name play">{{ $dream->user_name }},
+                @lang('dream user age', ["age" => $dream->user_age]),
+                {{ $dream->user_city }},
                 @if( $dream->dream_date )
                     @lang('dream date', ["date" => $dream->dream_date->format('j F Y')])
                 @endif
@@ -27,6 +28,7 @@
             @lang('Écouter un autre rêve')
         </a>
     </div>
+    @endif
 
     <div class="logo_revespango"></div>
 
