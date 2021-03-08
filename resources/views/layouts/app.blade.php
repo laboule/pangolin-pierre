@@ -8,7 +8,7 @@
         <link href="{{ asset('css/ui.css').'?'.uniqid() }}" rel="stylesheet">
 
         <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
-        
+
         <meta property="og:url"                content="https://lesrevesdupangolin.com" />
         <meta property="og:type"               content="website" />
         <meta property="og:title"              content="Les rêves du Pangolin" />
@@ -38,7 +38,7 @@
                 <a href="#" class="read-more"></a>
             </div>
         </div>
-        
+
 
         <div id="app-wrapper">
             @yield('content')
