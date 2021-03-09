@@ -9,7 +9,7 @@
     "Dépot description": "Dépose un rêve en retour",
     "Enregistre ton rêve": "Enregistre ton rêve",
     "Enregistre ton rêve - intro": "<p>Tous les rêves et cauchemars<br>sont les bienvenus.</p>",
-    "Enregistre ton rêve - start": "<p>Appuie pour lancer l’enregistrement (Maximum :dream_max_duration)</p>",
+    "Enregistre ton rêve - start": "<p>Appuie pour lancer l’enregistrement</p>",
     "Enregistre ton rêve - stop": "<p>Appuie pour stopper l’enregistrement</p>",
     "Enregistre ton rêve - description": "<p>Ça ne marche pas?<br>Essaie avec un autre navigateur</p>",
     "Valide ton rêve": "Valide ton rêve",
@@ -35,5 +35,8 @@
     "dream user age": ":age ans",
     "dream date": "Le :date",
     "recorder - before record loading": "Une petite seconde ...",
-    "recorder - while encoding loading": "Encodage en cours ..."
+    "recorder - while encoding loading": "Encodage en cours ...",
+    "modalContent1":"Vous avez écouté plusieurs rêves. Pour que ceux-ci puissent continuer à résonner, en avez vous un à nous raconter?",
+    "yesRecordDream":"Oui, enregistrer un rêve",
+    "noKeepListening":"Non, continuer l'écoute"
 }

@@ -11,21 +11,12 @@ class AppController extends Controller {
 	public function welcome(Request $request, $dream_id = null) {
 
 		// If a dream ID is present in the URL, load it.
-		// If not, load a random dream.
+		$initial_dream = null;
 		if ($dream_id) {
 			$initial_dream = Dream::findOrFail($dream_id);
-		} else {
-			$initial_dream = Dream::get_one_random();
 		}
 
-		// if there is an "autoplay=1" GET paremeter, set the $autoplay
-		// template var to 1 or true to start playing the dream automatically.
-		// (if the GET parameter is just "autoplay", it won't work. It must be "autoplay=1")
-		// If not, the user must click on "play" to start the dream.
-		$autoplay = $request->input('autoplay');
-
 		return view('welcome', [
-			"autoplay" => $autoplay,
 			"dream" => $initial_dream,
 		]);
 	}

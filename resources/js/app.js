@@ -1,319 +1,283 @@
-require('./bootstrap');
+require("./bootstrap");
 
 const LOG_STUFF = true;
 
-function __log(what) {
-	if( LOG_STUFF ) {
+const __log = (what) => {
+	if (LOG_STUFF) {
 		console.log(what);
 	}
-}
+};
 
-$( function() {
+const capitalize = (s) => {
+	if (typeof s !== "string") return "";
+	return s.charAt(0).toUpperCase() + s.slice(1);
+};
 
+const generateRandomNumber = (start = 0, end = 1) =>
+	Math.floor(Math.random() * (end - start + 1)) + start;
+
+$(function() {
 	/*
-	 * GENERAL UI INTERACTIONS
+	 * HOME PAGE
 	 */
-	$(document).on('click', '.app-about .read-more', function(e) {
-		e.preventDefault();
+	/** info button */
+	$(".read-more").click(() => $(".text-wrapper").toggle());
+	$("#close-info").click(() => $(".text-wrapper").hide());
+	let listenCount = 0;
+	let modalCount = generateRandomNumber(10,15);
+	console.log("Display modal after", modalCount, "listens");
 
-		let $this = $(this);
-		let $about_block = $this.closest('.app-about');
+	const updateDomWithNewDream = (dream) => {
+		let { user_name, dream_is_nsfw, user_city, dream_date, url } = dream;
+		let date = new Date(dream_date);
+		const options = { year: "numeric", month: "long" };
+		date = date.toLocaleDateString("fr-FR", options);
+		$("#name").text(capitalize(user_name.toLowerCase()));
+		$("#city").text(capitalize(user_city.toLowerCase()));
+		$("#date").text(capitalize(date));
+		$("#audio").attr("src", url);
+		dream_is_nsfw ? $("#nsfw").show() : $("#nsfw").hide();
+	};
 
-		$about_block.toggleClass('opened');
+	/** Fetch a dream from api */
+	const fetchDream = async function() {
+		let dream = await $.get("http://localhost:8000/api/dream");
+		return dream;
+	};
 
-		if( $about_block.hasClass('opened') ) {
-			$this.html($this.attr('data-opened-text'));
-		} else {
-			$this.html($this.attr('data-closed-text'));
+	const showButton = (button = "play") => {
+		if (button === "play") {
+			$("#stop").hide();
+			$("#play").show();
+		} else if (button === "stop") {
+			$("#play").hide();
+			$("#stop").show();
 		}
+	};
 
-		return false;
-	});
-
-	/*
-	 * GENERAL AUDIO PLAYER INTERACTIONS
-	 */
-	window.currently_active_audio_element = null;
-
-	function stop_audio_element_playback(audio_el) {
-		audio_el.pause();
-		audio_el.src = audio_el.src;
-
-		window.currently_active_audio_element = null;
-
-		$(audio_el).closest('.audio-control-wrapper').attr('data-state', '');
+	/** If a dream is passed from welcome controller */
+	if ($("#listen-container").data("dream")) {
+		let dream = $("#listen-container").data("dream");
+		updateDomWithNewDream(dream);
 	}
 
-	$('body').on('click', '.audio-control-wrapper.player button', function(e) {
-		e.preventDefault();
-
-		let $button = $(this);
-		let $wrapper = $button.closest('.audio-control-wrapper');
-		let $audio_el = $wrapper.find('.native-audio-el-container audio').eq(0);
-
-		if( ! $audio_el.length ) {
-			__log("Can't start playback: No native audio element found.");
-			return false;
-		}
-
-		let native_audio_el = $audio_el[0];
-
-		if( $wrapper.attr('data-state') != 'is-active' ) {
-			/* Play audio */
-			$wrapper.attr('data-state', 'is-active');
-
-			var handle_end_of_playback = function() {
-				$wrapper.attr('data-state', '');
-				native_audio_el.removeEventListener('ended', handle_end_of_playback, false);
-
-				window.currently_active_audio_element = null;
+	/** First button : "Ecouter un rêve" => fetch a dream  and show player */
+	$("#listen-button").click(async function() {
+		$(this).hide();
+		$("#listen-player").show();
+		let dream = await fetchDream();
+		if (dream) {
+			updateDomWithNewDream(dream);
+			let audio = $("#audio")[0];
+			if (audio) {
+				showButton("stop");
+				audio.play();
 			}
-
-			window.currently_active_audio_element = native_audio_el;
-
-			native_audio_el.muted = false;
-			native_audio_el.addEventListener('ended', handle_end_of_playback, false);
-			native_audio_el.play();
-		} else {
-			/* Stop audio */
-			stop_audio_element_playback(native_audio_el);
 		}
 	});
 
-	/*
-	 * HOMEPAGE
-	 */
-	if( $('body.page_welcome').length ) {
+	/** Stop audio */
+	$("#stop").click(function() {
+		let audio = $("#audio")[0];
+		showButton("play");
+		if (audio) audio.pause();
+	});
+	/** Play audio */
+	$("#play").click(function() {
+		let audio = $("#audio")[0];
+		showButton("stop");
+		if (audio) audio.play();
+	});
 
-		$(document).on('click', '.play-dream', function(e) {
-			e.preventDefault();
-
-			if( $('.audio-control-wrapper.player').attr('data-state') != 'is-active') {
-				$('.audio-control-wrapper.player #start_playing').click();
-			}
-
-			return false;
-		});
-
-		// If .audio-control-wrapper item has data-autoplay attribute, automatically start playing it
-		if( $('.audio-control-wrapper.player[data-autoplay="1"]').length ) {
-			$('.play-dream').click();
+	/** Next dream */
+	$("#next").click(async function() {
+		let dream = await fetchDream();
+		if (dream) {
+			updateDomWithNewDream(dream);
+			showButton("stop");
+			let audio = $("#audio")[0];
+			if (audio) audio.play();
 		}
-	}
+	});
 
+	/** progress bar and autoplay */
+	$("#audio").bind("timeupdate", async function() {
+		let widthOfProgressBar = this.currentTime / this.duration;
+		let newWidth = Math.floor(widthOfProgressBar * $(".listen-container .total-bar").width());
+		$(".listen-container .bar").width(newWidth);
+		// On audio end
+		if (widthOfProgressBar === 1) {
+			// show play button and fetch a new dream
+			showButton("play");
+			let dream = await fetchDream();
+			if (dream) {
+				// update dom
+				updateDomWithNewDream(dream);
 
+				// Check listen count
+				listenCount++;
+				if (listenCount >= modalCount) {
+					// show modal
+					$(".listen-modal").show();
+					// reset count
+					listenCount = 0;
+					modalCount = generateRandomNumber(5, 10);
+					return;
+				}
+
+				// autoplay audio
+				showButton("stop");
+				let audio = $("#audio")[0];
+				if (audio) audio.play();
+			}
+		}
+	});
+
+	$("#continue-listen, #close-listen-modal").click(() => {
+		$(".listen-modal").hide();
+		// autoplay audio
+		showButton("stop");
+		let audio = $("#audio")[0];
+		if (audio) audio.play();
+	});
 
 	/*
 	 * RECORD DREAM PAGE
 	 */
-	if( $('body.page_record_dream').length ) {
 
-		var $current_step_div = $('[data-step="1"]');
+	let currentStep = $(".record-container").data("step");
+	const ENCODING_TYPE = window.global_public_data.dream_audio_format; // wav, mp3, or ogg
+	const TIME_LIMIT = window.global_public_data.dream_max_length; // Max length of recording in seconds
+	const URL = window.URL || window.webkitURL;
 
-		function toggle_step(step) {
-			$('[data-step]').removeClass('shown');
-			$current_step_div = $('[data-step="'+step+'"]');
-			$current_step_div.addClass('shown');
-		}
+	let gumStream; //stream from getUserMedia()
+	let recorder; //WebAudioRecorder object
+	let input; //MediaStreamAudioSourceNode  we'll be recording
+	let encodingType; //holds selected encoding for resulting audio (file)
 
-		var ENCODING_TYPE = window.global_public_data.dream_audio_format; // wav, mp3, or ogg
-		var TIME_LIMIT = window.global_public_data.dream_max_length; // Max length of recording in seconds
+	let AudioContext = window.AudioContext || window.webkitAudioContext;
+	let audioContext; //new audio context to help us record
+	let audioTimerInterval = null;
 
-		var URL = window.URL || window.webkitURL;
+	$(".record-container .record").click(async function() {
+		$(this).hide();
+		$(".record-container .record-description").hide();
+		$(".loading-encoder.start").show();
+		await startRecording();
+	});
 
-		var gumStream; 						//stream from getUserMedia()
-		var recorder; 						//WebAudioRecorder object
-		var input; 							//MediaStreamAudioSourceNode  we'll be recording
-		var encodingType; 					//holds selected encoding for resulting audio (file)
+	$(".record-container .stop").click(async function() {
+		$(this).hide();
+		$(".record-container .stop-description").hide();
+		$(".loading-encoder.end").show();
+		await stopRecording();
+	});
 
-		var AudioContext = window.AudioContext || window.webkitAudioContext;
-		var audioContext; //new audio context to help us record
+	function startRecordingTimer() {
+		let [mins, secs] = [0, 0];
+		audioTimerInterval = setInterval(function() {
+			secs++;
+			if (secs >= 60) {
+				mins++;
+				secs = 0;
+			}
+			const minutes = ("0" + mins).slice(-2);
+			const seconds = ("0" + secs).slice(-2);
+			$(".audio-timer").text(`${minutes}:${seconds}`);
+		}, 1000);
+	}
 
-		var $page = $('body.page_record_dream');
+	function stopRecordingTimer() {
+		clearInterval(audioTimerInterval);
+	}
 
-		var recordButton = document.getElementById("start_recording");
-		var stopButton = document.getElementById("stop_recording");
+	const toggleStep = step =>
+	{
+		$(`.step-${currentStep}`).hide();
+		currentStep = step;
+		$(`.step-${currentStep}`).show();
+	}
+	const onComplete = (recorder, blob) => {
+		__log("Encoding complete");
+		stopRecordingTimer();
+		$(".record-container .loading-encoder.end").hide();
+		createAudioElementFromBlob(blob, recorder.encoding);
+		toggleStep(2)
+	}
 
-		var $audioCSSTimer = $('.audio-timer');
-		var audioTimerMinSecs = [0, 0];
-		var audioTimerInterval = null;
+	const onEncoderLoaded = (recorder, encoding) => {
+		__log(encoding + " encoder loaded");
+		startRecordingTimer();
+		$(".record-container .description").hide();
+		$(".record-container .audio-timer").show();
+		$(".record-container .loading-encoder.start").hide();
+		$(".record-container .stop").show();
+		$(".record-container .stop-description").show();
+	}
 
-		recordButton.addEventListener("click", startRecording, false);
-		stopButton.addEventListener("click", stopRecording, false);
+	async function startRecording() {
+		try {
+			console.log("startRecording() called");
+			const constraints = { audio: true, video: false };
+			let stream = await navigator.mediaDevices.getUserMedia(constraints);
+			__log(
+				"getUserMedia() success, stream created, initializing WebAudioRecorder..."
+			);
+			audioContext = new AudioContext();
+			gumStream = stream;
+			input = audioContext.createMediaStreamSource(stream);
 
-		function startRecordingTimer() {
-			audioTimerMinSecs = [0, 0];
+			//stop the input from playing back through the speakers
+			//input.connect(audioContext.destination)
+			encodingType = ENCODING_TYPE;
 
-			audioTimerInterval = setInterval( function() {
-				audioTimerMinSecs[1] += 1;
-				if( audioTimerMinSecs[1] >= 60 ) {
-					audioTimerMinSecs[0] += 1;
-					audioTimerMinSecs[1] = 0;
-				}
-
-				var mins = ("0" + audioTimerMinSecs[0]).slice(-2);
-				var secs = ("0" + audioTimerMinSecs[1]).slice(-2);
-
-				$audioCSSTimer.text(mins + ":" + secs);
-			}, 1000);
-		}
-
-		function changeRecorderStateAttr(new_state) {
-			$('.audio-control-wrapper.recorder').attr('data-state', new_state);
-		}
-
-		function stopRecordingTimer() {
-			clearInterval(audioTimerInterval);
-		}
-
-		function onRecordingActuallyStarted() {
-			$page.addClass('is-recording');
-			changeRecorderStateAttr('is-active');
-
-		    recordButton.disabled = true;
-		    stopButton.disabled = false;
-
-		    startRecordingTimer();
-		}
-
-		function onRecordingIsPreparing() {
-			changeRecorderStateAttr('is-loading');
-
-		    recordButton.disabled = true;
-		    stopButton.disabled = true;
-		}
-
-		function onRecordingStop() {
-			changeRecorderStateAttr('');
-
-	    	stopButton.disabled = true;
-	    	recordButton.disabled = false;
-
-	    	stopRecordingTimer();
-		}
-
-		function onRecordingIsEncoding() {
-			changeRecorderStateAttr('is-encoding');
-		}
-
-		function onEncodingComplete() {
-			toggle_step(2);
-			changeRecorderStateAttr('');
-			$page.removeClass('is-recording');
-		}
-
-		function startRecording() {
-			__log("startRecording() called");
-
-		    var constraints = { audio: true, video:false }
-
-		    onRecordingIsPreparing();
-
-			navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-				__log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
-
-				audioContext = new AudioContext();
-				gumStream = stream;
-				input = audioContext.createMediaStreamSource(stream);
-
-				//stop the input from playing back through the speakers
-				//input.connect(audioContext.destination)
-
-				encodingType = ENCODING_TYPE;
-
-				recorder = new WebAudioRecorder(input, {
-					workerDir: "js/webaudiorecorder/", // must end with slash
-					encoding: encodingType,
-					numChannels: 2, //2 is the default, mp3 encoding supports only 2
-
-					onEncoderLoading: function(recorder, encoding) {
-						__log("Loading "+encoding+" encoder...");
-					},
-
-					onEncoderLoaded: function(recorder, encoding) {
-						__log(encoding+" encoder loaded");
-						onRecordingActuallyStarted();
-					},
-
-					onComplete: function(recorder, blob) {
-						__log("Encoding complete");
-						createAudioElementFromBlob(blob, recorder.encoding);
-						onEncodingComplete();
-					}
-				});
-
-				recorder.setOptions({
-					timeLimit: TIME_LIMIT,
-					encodeAfterRecord: true,
-					ogg: {quality: 0.5},
-					mp3: {bitRate: 160}
-			    });
-
-				recorder.startRecording();
-
-				__log("Recording started");
-
-			}).catch(function(err) {
-				onRecordingStop();
+			recorder = new WebAudioRecorder(input, {
+				workerDir: "js/webaudiorecorder/", // must end with slash
+				encoding: encodingType,
+				numChannels: 2, //2 is the default, mp3 encoding supports only 2
+				onEncoderLoading: (recorder, encoding) =>
+					__log("Loading " + encoding + " encoder..."),
+				onEncoderLoaded,
+				onComplete,
 			});
+
+			recorder.setOptions({
+				timeLimit: TIME_LIMIT,
+				encodeAfterRecord: true,
+				ogg: { quality: 0.5 },
+				mp3: { bitRate: 160 },
+			});
+
+			recorder.startRecording();
+
+			__log("Recording started");
+		} catch (e) {
+			console.log("error startRecording", e);
+			stopRecordingTimer();
 		}
+	}
 
-		function stopRecording() {
-			__log("stopRecording() called");
+	function stopRecording() {
+		__log("stopRecording() called");
 
-			//stop microphone access
-			gumStream.getAudioTracks()[0].stop();
+		//stop microphone access
+		gumStream.getAudioTracks()[0].stop();
 
-			//disable the stop button
-			onRecordingStop();
-			onRecordingIsEncoding();
+		//tell the recorder to finish the recording (stop recording + encode the recorded audio)
+		recorder.finishRecording();
 
-			//tell the recorder to finish the recording (stop recording + encode the recorded audio)
-			recorder.finishRecording();
+		__log("Recording stopped");
+	}
 
-			__log('Recording stopped');
-		}
+	function createAudioElementFromBlob(blob, encoding) {
+		const url = URL.createObjectURL(blob);
+		$("#audio-record").attr("src", url);
 
-		function createAudioElementFromBlob(blob, encoding) {
-			var url = URL.createObjectURL(blob);
-			var au = document.createElement('audio');
-			var au_wrapper = document.createElement('div');
-
-			//add controls to the <audio> element
-			au.controls = true;
-			au.src = url;
-
-			//add the new audio and a elements to the au_wrapper element
-			au_wrapper.appendChild(au);
-
-			//add the au_wrapper element to the ordered list
-			$('.native-audio-el-container').html('');
-			$('.native-audio-el-container')[0].appendChild(au_wrapper);
-
-			// Adds binary data to form input
-			var reader = new FileReader();
-			reader.onload = function(event){
-                $('#form_audio_data').val( event.target.result );
-            };
-            reader.readAsDataURL(blob);
-		}
-
-
-		/* Reset / Accept recording buttons */
-		$('.validate-recording-buttons button').on('click', function(e) {
-			e.preventDefault();
-
-			if( window.currently_active_audio_element ) {
-				stop_audio_element_playback(window.currently_active_audio_element);
-			}
-
-			if( $(this).hasClass('start-again') ) {
-				toggle_step(1);
-			}
-
-			if( $(this).hasClass('validate') ) {
-				toggle_step(3);
-			}
-		})
+		// Adds binary data to form input
+		var reader = new FileReader();
+		reader.onload = function() {
+			$("#form_audio_data").val(reader.result);
+		};
+		reader.readAsDataURL(blob);
 	}
 });

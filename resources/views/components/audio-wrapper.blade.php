@@ -1,7 +1,6 @@
 <div class="audio-control-wrapper {{ $kind }}" data-autoplay="{{ $autoplay }}">
-	
-	@if( $kind == "player" )
 
+	@if( $kind == "player" )
     	<button id="start_playing" class="audio-control play">Start playing</button>
     	<button id="stop_playing" class="audio-control stop">Stop playing</button>
 
