@@ -82,7 +82,9 @@ $(function() {
 
 	/** Fetch a dream from api */
 	const fetchDream = async function() {
-		let dream = await $.get(app_url + "/api/dream?not=" + currDream.id);
+		let url = app_url + "/api/dream";
+		url = currDream.id ? url+"?not="+currDream.id : url;
+		let dream = await $.get(url);
 		currDream = dream;
 		return dream;
 	};
