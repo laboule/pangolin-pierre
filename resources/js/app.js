@@ -267,7 +267,7 @@ $(function() {
 
 		// Hide previous errors
 		$("#error-email").hide();
-		$("#error-email").hide();
+		$("#error-lang").hide();
 
 		// retrieve and format values
 		let values = $("form").serializeArray();
@@ -275,17 +275,14 @@ $(function() {
 			acc[name] = value;
 			return acc;
 		}, {});
-
-		console.log(values);
-
 		if (!values.user_email) {
 			$("#error-email").show();
-			return;
 		}
 		if (!values.dream_language) {
 			$("#error-lang").show();
-			return;
 		}
+		// cancel submission if errors
+		if(!(values.user_email && values.dream_language)) return;
 
 		try {
 			let res = await $.post(app_url + "/api/record_dream", {

@@ -20448,7 +20448,7 @@ $(function () {
               e.preventDefault(); // Hide previous errors
 
               $("#error-email").hide();
-              $("#error-email").hide(); // retrieve and format values
+              $("#error-lang").hide(); // retrieve and format values
 
               values = $("form").serializeArray();
               values = values.reduce(function (acc, _ref9) {
@@ -20457,31 +20457,29 @@ $(function () {
                 acc[name] = value;
                 return acc;
               }, {});
-              console.log(values);
 
-              if (values.user_email) {
+              if (!values.user_email) {
+                $("#error-email").show();
+              }
+
+              if (!values.dream_language) {
+                $("#error-lang").show();
+              } // cancel submission if errors
+
+
+              if (values.user_email && values.dream_language) {
                 _context8.next = 9;
                 break;
               }
 
-              $("#error-email").show();
               return _context8.abrupt("return");
 
             case 9:
-              if (values.dream_language) {
-                _context8.next = 12;
-                break;
-              }
-
-              $("#error-lang").show();
-              return _context8.abrupt("return");
-
-            case 12:
-              _context8.prev = 12;
-              _context8.next = 15;
+              _context8.prev = 9;
+              _context8.next = 12;
               return $.post(app_url + "/api/record_dream", _objectSpread({}, values));
 
-            case 15:
+            case 12:
               res = _context8.sent;
 
               if (res && res.status === "success") {
@@ -20493,22 +20491,22 @@ $(function () {
                 alert("impossible de sauvegarder le rêve !");
               }
 
-              _context8.next = 23;
+              _context8.next = 20;
               break;
 
-            case 19:
-              _context8.prev = 19;
-              _context8.t0 = _context8["catch"](12);
+            case 16:
+              _context8.prev = 16;
+              _context8.t0 = _context8["catch"](9);
               console.log("error", _context8.t0); // show error message
 
               alert("impossible de sauvegarder le rêve !");
 
-            case 23:
+            case 20:
             case "end":
               return _context8.stop();
           }
         }
-      }, _callee8, null, [[12, 19]]);
+      }, _callee8, null, [[9, 16]]);
     }));
 
     return function (_x2) {
