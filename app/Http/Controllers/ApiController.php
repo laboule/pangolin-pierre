@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Storage;
 class ApiController extends Controller {
 	public function getDream(Request $request) {
 		$notId = $request->query('not', '');
-		$dream = Dream::where('id', '!=', $notId)->get()->random(1)->first();
+		$dream = Dream::all()->filter(function ($value, $key) use ($notId) {
+			return $value->id !== $notId;
+		})->random(1)->first();
 		$dream->url = $dream->get_recording_file_url();
 		return response()->json($dream);
 	}
