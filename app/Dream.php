@@ -30,7 +30,7 @@ class Dream extends Model {
 	 */
 	static public function get_one_random() {
 		$dreams = self::all();
-		return !$dreams->isEmpty() ? $dreams->random()->first() : null;
+		return !$dreams->isEmpty() ? $dreams->random(1)->first() : null;
 	}
 
 	/* Static Generic helpers */
@@ -50,6 +50,6 @@ class Dream extends Model {
 	}
 
 	public function get_public_url() {
-		return route('welcome', ['dream_id' => $this->id]);
+		return route('welcome', ['access_id' => $this->access_id]);
 	}
 }

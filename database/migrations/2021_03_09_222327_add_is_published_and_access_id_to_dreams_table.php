@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserCityToDreamsTable extends Migration {
+class AddIsPublishedAndAccessIdToDreamsTable extends Migration {
 	/**
 	 * Run the migrations.
 	 *
@@ -12,7 +12,8 @@ class AddUserCityToDreamsTable extends Migration {
 	 */
 	public function up() {
 		Schema::table('dreams', function (Blueprint $table) {
-			$table->string('user_city', 100);
+			$table->boolean('is_published')->default(false);
+			$table->string('access_id')->nullable();
 		});
 	}
 
@@ -23,7 +24,8 @@ class AddUserCityToDreamsTable extends Migration {
 	 */
 	public function down() {
 		Schema::table('dreams', function (Blueprint $table) {
-			$table->dropColumn('user_city');
+			$table->dropColumn('is_published');
+			$table->dropColumn('access_id');
 		});
 	}
 }

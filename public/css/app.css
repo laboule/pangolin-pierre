@@ -10978,17 +10978,22 @@ a.text-dark:focus {
   }
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  margin: 0px;
   height: 100%;
   width: 100%;
-  background-image: url(/img/bg-sm.png);
+  background: url(/img/bg-sm.png) no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   font-family: "Barlow", serif;
   font-weight: 100;
   font-size: 18px;
+  line-height: 24px;
   color: #ffffff;
+  overflow-x: hidden;
 }
 
 .container-fluid,
@@ -10999,6 +11004,78 @@ body {
   padding: 0px 30px;
 }
 
+/** CUSTOM SCROLLBAR */
+
+/* Width */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: red;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.9;
+}
+
+/** DATEPICKER **/
+
+.ui-datepicker {
+  display: none;
+  background-color: #e82d1e;
+  color: white;
+  width: 300px;
+  padding: 10px 0px 10px 10px;
+  border-radius: 4px;
+}
+
+.ui-datepicker .ui-datepicker-title {
+  font-size: 22px;
+}
+
+.ui-datepicker .ui-datepicker-calendar {
+  width: 100%;
+}
+
+.ui-datepicker th {
+  font-weight: 500;
+}
+
+.ui-datepicker td > a,
+.ui-datepicker td > a:hover,
+.ui-datepicker .ui-datepicker-next,
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next:hover,
+.ui-datepicker .ui-datepicker-prev:hover {
+  color: white;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.ui-datepicker .ui-datepicker-header {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+/** CUSTOM BUTTON **/
+
 .button {
   cursor: pointer;
   transition: opacity 300ms;
@@ -11007,6 +11084,8 @@ body {
 .button:hover {
   opacity: 0.8;
 }
+
+/** HOME PAGE **/
 
 .listen-container #stop,
 .listen-container #listen-player {
@@ -11033,6 +11112,8 @@ body {
   font-weight: 700;
 }
 
+/** RECORD PAGE **/
+
 .record-container .step-2,
 .record-container .step-3,
 .record-container .step-4 {
@@ -11045,12 +11126,13 @@ body {
 
 .record-container .description,
 .record-container .record-description,
-.record-container .stop-description {
+.record-container .stop-description,
+.record-container #restart {
   font-size: 22px;
 }
 
 .record-container .description {
-  margin-bottom: 200px;
+  margin-bottom: 155px;
 }
 
 .record-container .stop-description {
@@ -11060,7 +11142,10 @@ body {
 .record-container .audio-timer {
   display: none;
   font-size: 58px;
-  margin-bottom: 164px;
+}
+
+.record-container .step-1 .audio-timer {
+  margin-bottom: 140px;
 }
 
 .record-container .stop {
@@ -11115,6 +11200,181 @@ body {
   text-align: center;
 }
 
+.record-container #rec-stop {
+  display: none;
+}
+
+.record-container .button-save {
+  font-size: 18px;
+  color: #ff2828 !important;
+  background-color: #ffffff;
+  border-radius: 68px;
+  padding: 21px 48px;
+  border: none;
+}
+
+.record-container .button-save a {
+  color: #ff2828;
+}
+
+.record-container .send-dream-form .form-entry {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.record-container .send-dream-form .form-entry label {
+  display: block;
+  line-height: 24px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+.record-container .send-dream-form .form-entry select,
+.record-container .send-dream-form .form-entry #dream_date {
+  display: block;
+  background-color: #f78275;
+  padding: 10px 15px;
+  width: 100%;
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  appearance: none;
+  -moz-appearance: none;
+  /* Firefox */
+  -webkit-appearance: none;
+  /* Safari and Chrome */
+}
+
+.record-container .send-dream-form .form-entry select {
+  background-image: url("/img/chevron-down.svg");
+  background-repeat: no-repeat;
+  background-position: bottom 50% right 18px;
+}
+
+.record-container .send-dream-form .form-entry #dream_date {
+  background-image: url("/img/calendar.svg");
+  background-repeat: no-repeat;
+  background-position: bottom 50% right 15px;
+}
+
+.record-container .send-dream-form .form-entry input[type=text],
+.record-container .send-dream-form .form-entry input[type=date],
+.record-container .send-dream-form .form-entry input[type=email] {
+  display: block;
+  background-color: #f78275 !important;
+  padding: 10px 15px;
+  width: 100%;
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+}
+
+.record-container .send-dream-form .form-entry ::-webkit-input-placeholder {
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+}
+
+.record-container .send-dream-form .form-entry ::-moz-placeholder {
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+}
+
+.record-container .send-dream-form .form-entry :-ms-input-placeholder {
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+}
+
+.record-container .send-dream-form .form-entry ::-ms-input-placeholder {
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+}
+
+.record-container .send-dream-form .form-entry ::placeholder {
+  color: white;
+  line-height: normal;
+  font-size: 18px;
+}
+
+.record-container .send-dream-form .form-entry input:focus,
+.record-container .send-dream-form .form-entry select:focus {
+  outline: none;
+}
+
+.record-container .send-dream-form .form-entry .checkbox-label {
+  display: block;
+  float: left;
+  width: 95%;
+  margin-left: 5%;
+  padding-left: 10px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.record-container .send-dream-form .form-entry small {
+  display: block;
+  margin-top: 6px;
+  color: white;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: left;
+}
+
+.record-container .send-dream-form .form-entry .error {
+  display: none;
+  font-size: 10px;
+  color: white;
+  line-height: 14px;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.record-container .send-dream-form .form-entry.checkbox-wrapper {
+  position: relative;
+}
+
+.record-container .send-dream-form .form-entry.checkbox-wrapper input {
+  opacity: 0;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  left: -1000px;
+}
+
+.record-container .send-dream-form .form-entry.checkbox-wrapper input + label {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-align: left;
+  margin-left: 30px;
+}
+
+.record-container .send-dream-form .form-entry.checkbox-wrapper input + label:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid white;
+}
+
+.record-container .send-dream-form .form-entry.checkbox-wrapper input:checked + label:before {
+  background: url(/img/tick.svg);
+  background-repeat: no-repeat;
+  background-size: 15px auto;
+  background-position: center;
+}
+
 .progress-container {
   position: relative;
   width: 311px;
@@ -11142,15 +11402,15 @@ body {
 }
 
 .progress-container .bar-25 {
-  width: calc(0.25*311px);
+  width: calc(0.25 *311px);
 }
 
 .progress-container .bar-50 {
-  width: calc(0.5*311px);
+  width: calc(0.5 *311px);
 }
 
 .progress-container .bar-75 {
-  width: calc(0.75*311px);
+  width: calc(0.75 *311px);
 }
 
 .progress-container .bar-100 {
@@ -11224,15 +11484,15 @@ body {
   }
 
   .record-container .progress-container .bar-25 {
-    width: calc(0.25*345px);
+    width: calc(0.25 *345px);
   }
 
   .record-container .progress-container .bar-50 {
-    width: calc(0.5*345px);
+    width: calc(0.5 *345px);
   }
 
   .record-container .progress-container .bar-75 {
-    width: calc(0.75*345px);
+    width: calc(0.75 *345px);
   }
 
   .record-container .progress-container .bar-100 {

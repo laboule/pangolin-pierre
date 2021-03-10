@@ -16,7 +16,48 @@ const capitalize = (s) => {
 const generateRandomNumber = (start = 0, end = 1) =>
 	Math.floor(Math.random() * (end - start + 1)) + start;
 
+/**
+ * Datepicker configuration
+ */
+$.datepicker.regional["fr"] = {
+	prevText: "<",
+	nextText: ">",
+	monthNames: [
+		"Janvier",
+		"Février",
+		"Mars",
+		"Avril",
+		"Mai",
+		"Juin",
+		"Juillet",
+		"Août",
+		"Septembre",
+		"Octobre",
+		"Novembre",
+		"Décembre",
+	],
+	monthNamesShort: [
+		"Jan",
+		"Fév",
+		"Mar",
+		"Avr",
+		"Mai",
+		"Jun",
+		"Jul",
+		"Aoû",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Déc",
+	],
+	dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+	dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+};
+$.datepicker.setDefaults($.datepicker.regional["fr"]);
+
 $(function() {
+	const app_url = $("body").data("appurl");
+	let currDream = {};
 	/*
 	 * HOME PAGE
 	 */
@@ -24,7 +65,7 @@ $(function() {
 	$(".read-more").click(() => $(".text-wrapper").toggle());
 	$("#close-info").click(() => $(".text-wrapper").hide());
 	let listenCount = 0;
-	let modalCount = generateRandomNumber(10,15);
+	let modalCount = generateRandomNumber(2,3);
 	console.log("Display modal after", modalCount, "listens");
 
 	const updateDomWithNewDream = (dream) => {
@@ -41,7 +82,8 @@ $(function() {
 
 	/** Fetch a dream from api */
 	const fetchDream = async function() {
-		let dream = await $.get("http://localhost:8000/api/dream");
+		let dream = await $.get(app_url + "/api/dream?not=" + currDream.id);
+		currDream = dream;
 		return dream;
 	};
 
@@ -56,9 +98,16 @@ $(function() {
 	};
 
 	/** If a dream is passed from welcome controller */
-	if ($("#listen-container").data("dream")) {
-		let dream = $("#listen-container").data("dream");
+	if ($(".listen-container").data("dream")) {
+		let dream = $(".listen-container").data("dream");
+		console.log("dream", dream);
 		updateDomWithNewDream(dream);
+		$("#listen-button").hide();
+		$("#listen-player").show();
+		let audio = $("#audio")[0];
+		if (audio) {
+			showButton("play");
+		}
 	}
 
 	/** First button : "Ecouter un rêve" => fetch a dream  and show player */
@@ -103,7 +152,9 @@ $(function() {
 	/** progress bar and autoplay */
 	$("#audio").bind("timeupdate", async function() {
 		let widthOfProgressBar = this.currentTime / this.duration;
-		let newWidth = Math.floor(widthOfProgressBar * $(".listen-container .total-bar").width());
+		let newWidth = Math.floor(
+			widthOfProgressBar * $(".listen-container .total-bar").width()
+		);
 		$(".listen-container .bar").width(newWidth);
 		// On audio end
 		if (widthOfProgressBar === 1) {
@@ -121,7 +172,7 @@ $(function() {
 					$(".listen-modal").show();
 					// reset count
 					listenCount = 0;
-					modalCount = generateRandomNumber(5, 10);
+					modalCount = generateRandomNumber(2,3);
 					return;
 				}
 
@@ -144,7 +195,6 @@ $(function() {
 	/*
 	 * RECORD DREAM PAGE
 	 */
-
 	let currentStep = $(".record-container").data("step");
 	const ENCODING_TYPE = window.global_public_data.dream_audio_format; // wav, mp3, or ogg
 	const TIME_LIMIT = window.global_public_data.dream_max_length; // Max length of recording in seconds
@@ -173,6 +223,89 @@ $(function() {
 		await stopRecording();
 	});
 
+	$("#rec-play").click(() => {
+		$("#rec-play").hide();
+		$("#rec-stop").show();
+		let audio = $("#audio-record")[0];
+		if (audio) audio.play();
+	});
+	$("#rec-stop").click(() => {
+		$("#rec-stop").hide();
+		$("#rec-play").show();
+		let audio = $("#audio-record")[0];
+		if (audio) audio.pause();
+	});
+
+	$("#save-dream").click(() => {
+		let audio = $("#audio-record")[0];
+		if (audio) audio.pause();
+		toggleStep(3);
+	});
+
+	$("#audio-record").bind("timeupdate", async function(e) {
+		let currentTime = this.currentTime;
+		if (currentTime > 0) {
+			let mins = Math.floor(currentTime / 60);
+			let secs = Math.floor(currentTime - mins * 60);
+			// console.log(mins, secs)
+			const minutes = ("0" + mins).slice(-2);
+			const seconds = ("0" + secs).slice(-2);
+			$(".audio-timer").text(`${minutes}:${seconds}`);
+		}
+		if (currentTime === this.duration) {
+			$("#rec-stop").hide();
+			$("#rec-play").show();
+		}
+	});
+
+	$("#dream_date").datepicker();
+
+	/**Form Submit handler **/
+	$("#submit").click(async (e) => {
+		// prevent submission
+		e.preventDefault();
+
+		// Hide previous errors
+		$("#error-email").hide();
+		$("#error-email").hide();
+
+		// retrieve and format values
+		let values = $("form").serializeArray();
+		values = values.reduce((acc, { name, value }) => {
+			acc[name] = value;
+			return acc;
+		}, {});
+
+		console.log(values);
+
+		if (!values.user_email) {
+			$("#error-email").show();
+			return;
+		}
+		if (!values.dream_language) {
+			$("#error-lang").show();
+			return;
+		}
+
+		try {
+			let res = await $.post(app_url + "/api/record_dream", {
+				...values,
+			});
+			if (res && res.status === "success") {
+				// final step
+				toggleStep(4);
+			} else {
+				console.log("there was an error", res);
+				// show error message
+				alert("impossible de sauvegarder le rêve !");
+			}
+		} catch (e) {
+			console.log("error", e);
+			// show error message
+			alert("impossible de sauvegarder le rêve !");
+		}
+	});
+
 	function startRecordingTimer() {
 		let [mins, secs] = [0, 0];
 		audioTimerInterval = setInterval(function() {
@@ -191,19 +324,17 @@ $(function() {
 		clearInterval(audioTimerInterval);
 	}
 
-	const toggleStep = step =>
-	{
+	const toggleStep = (step) => {
 		$(`.step-${currentStep}`).hide();
 		currentStep = step;
 		$(`.step-${currentStep}`).show();
-	}
+	};
 	const onComplete = (recorder, blob) => {
 		__log("Encoding complete");
-		stopRecordingTimer();
 		$(".record-container .loading-encoder.end").hide();
 		createAudioElementFromBlob(blob, recorder.encoding);
-		toggleStep(2)
-	}
+		toggleStep(2);
+	};
 
 	const onEncoderLoaded = (recorder, encoding) => {
 		__log(encoding + " encoder loaded");
@@ -213,7 +344,7 @@ $(function() {
 		$(".record-container .loading-encoder.start").hide();
 		$(".record-container .stop").show();
 		$(".record-container .stop-description").show();
-	}
+	};
 
 	async function startRecording() {
 		try {
@@ -259,6 +390,7 @@ $(function() {
 
 	function stopRecording() {
 		__log("stopRecording() called");
+		stopRecordingTimer();
 
 		//stop microphone access
 		gumStream.getAudioTracks()[0].stop();

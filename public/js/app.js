@@ -20039,6 +20039,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -20063,13 +20069,29 @@ var generateRandomNumber = function generateRandomNumber() {
   var end = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   return Math.floor(Math.random() * (end - start + 1)) + start;
 };
+/**
+ * Datepicker configuration
+ */
 
+
+$.datepicker.regional["fr"] = {
+  prevText: "<",
+  nextText: ">",
+  monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+  monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+  dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+  dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"]
+};
+$.datepicker.setDefaults($.datepicker.regional["fr"]);
 $(function () {
+  var app_url = $("body").data("appurl");
+  var currDream = {};
   /*
    * HOME PAGE
    */
 
   /** info button */
+
   $(".read-more").click(function () {
     return $(".text-wrapper").toggle();
   });
@@ -20077,7 +20099,7 @@ $(function () {
     return $(".text-wrapper").hide();
   });
   var listenCount = 0;
-  var modalCount = generateRandomNumber(10, 15);
+  var modalCount = generateRandomNumber(2, 3);
   console.log("Display modal after", modalCount, "listens");
 
   var updateDomWithNewDream = function updateDomWithNewDream(dream) {
@@ -20109,13 +20131,14 @@ $(function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return $.get("http://localhost:8000/api/dream");
+              return $.get(app_url + "/api/dream?not=" + currDream.id);
 
             case 2:
               dream = _context.sent;
+              currDream = dream;
               return _context.abrupt("return", dream);
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -20142,15 +20165,24 @@ $(function () {
   /** If a dream is passed from welcome controller */
 
 
-  if ($("#listen-container").data("dream")) {
-    var dream = $("#listen-container").data("dream");
+  if ($(".listen-container").data("dream")) {
+    var dream = $(".listen-container").data("dream");
+    console.log("dream", dream);
     updateDomWithNewDream(dream);
+    $("#listen-button").hide();
+    $("#listen-player").show();
+    var audio = $("#audio")[0];
+
+    if (audio) {
+      showButton("play");
+    }
   }
   /** First button : "Ecouter un rêve" => fetch a dream  and show player */
 
 
   $("#listen-button").click( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var dream, audio;
+    var dream, _audio;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -20165,11 +20197,12 @@ $(function () {
 
             if (dream) {
               updateDomWithNewDream(dream);
-              audio = $("#audio")[0];
+              _audio = $("#audio")[0];
 
-              if (audio) {
+              if (_audio) {
                 showButton("stop");
-                audio.play();
+
+                _audio.play();
               }
             }
 
@@ -20197,7 +20230,8 @@ $(function () {
   /** Next dream */
 
   $("#next").click( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-    var dream, audio;
+    var dream, _audio2;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -20211,8 +20245,8 @@ $(function () {
             if (dream) {
               updateDomWithNewDream(dream);
               showButton("stop");
-              audio = $("#audio")[0];
-              if (audio) audio.play();
+              _audio2 = $("#audio")[0];
+              if (_audio2) _audio2.play();
             }
 
           case 4:
@@ -20225,7 +20259,7 @@ $(function () {
   /** progress bar and autoplay */
 
   $("#audio").bind("timeupdate", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-    var widthOfProgressBar, newWidth, _dream, audio;
+    var widthOfProgressBar, newWidth, _dream, _audio3;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
@@ -20267,14 +20301,14 @@ $(function () {
             $(".listen-modal").show(); // reset count
 
             listenCount = 0;
-            modalCount = generateRandomNumber(5, 10);
+            modalCount = generateRandomNumber(2, 3);
             return _context4.abrupt("return");
 
           case 16:
             // autoplay audio
             showButton("stop");
-            audio = $("#audio")[0];
-            if (audio) audio.play();
+            _audio3 = $("#audio")[0];
+            if (_audio3) _audio3.play();
 
           case 19:
           case "end":
@@ -20348,6 +20382,139 @@ $(function () {
       }
     }, _callee6, this);
   })));
+  $("#rec-play").click(function () {
+    $("#rec-play").hide();
+    $("#rec-stop").show();
+    var audio = $("#audio-record")[0];
+    if (audio) audio.play();
+  });
+  $("#rec-stop").click(function () {
+    $("#rec-stop").hide();
+    $("#rec-play").show();
+    var audio = $("#audio-record")[0];
+    if (audio) audio.pause();
+  });
+  $("#save-dream").click(function () {
+    var audio = $("#audio-record")[0];
+    if (audio) audio.pause();
+    toggleStep(3);
+  });
+  $("#audio-record").bind("timeupdate", /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(e) {
+      var currentTime, mins, secs, minutes, seconds;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              currentTime = this.currentTime;
+
+              if (currentTime > 0) {
+                mins = Math.floor(currentTime / 60);
+                secs = Math.floor(currentTime - mins * 60); // console.log(mins, secs)
+
+                minutes = ("0" + mins).slice(-2);
+                seconds = ("0" + secs).slice(-2);
+                $(".audio-timer").text("".concat(minutes, ":").concat(seconds));
+              }
+
+              if (currentTime === this.duration) {
+                $("#rec-stop").hide();
+                $("#rec-play").show();
+              }
+
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, this);
+    }));
+
+    return function (_x) {
+      return _ref7.apply(this, arguments);
+    };
+  }());
+  $("#dream_date").datepicker();
+  /**Form Submit handler **/
+
+  $("#submit").click( /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(e) {
+      var values, res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              // prevent submission
+              e.preventDefault(); // Hide previous errors
+
+              $("#error-email").hide();
+              $("#error-email").hide(); // retrieve and format values
+
+              values = $("form").serializeArray();
+              values = values.reduce(function (acc, _ref9) {
+                var name = _ref9.name,
+                    value = _ref9.value;
+                acc[name] = value;
+                return acc;
+              }, {});
+              console.log(values);
+
+              if (values.user_email) {
+                _context8.next = 9;
+                break;
+              }
+
+              $("#error-email").show();
+              return _context8.abrupt("return");
+
+            case 9:
+              if (values.dream_language) {
+                _context8.next = 12;
+                break;
+              }
+
+              $("#error-lang").show();
+              return _context8.abrupt("return");
+
+            case 12:
+              _context8.prev = 12;
+              _context8.next = 15;
+              return $.post(app_url + "/api/record_dream", _objectSpread({}, values));
+
+            case 15:
+              res = _context8.sent;
+
+              if (res && res.status === "success") {
+                // final step
+                toggleStep(4);
+              } else {
+                console.log("there was an error", res); // show error message
+
+                alert("impossible de sauvegarder le rêve !");
+              }
+
+              _context8.next = 23;
+              break;
+
+            case 19:
+              _context8.prev = 19;
+              _context8.t0 = _context8["catch"](12);
+              console.log("error", _context8.t0); // show error message
+
+              alert("impossible de sauvegarder le rêve !");
+
+            case 23:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, null, [[12, 19]]);
+    }));
+
+    return function (_x2) {
+      return _ref8.apply(this, arguments);
+    };
+  }());
 
   function startRecordingTimer() {
     var mins = 0,
@@ -20379,7 +20546,6 @@ $(function () {
   var onComplete = function onComplete(recorder, blob) {
     __log("Encoding complete");
 
-    stopRecordingTimer();
     $(".record-container .loading-encoder.end").hide();
     createAudioElementFromBlob(blob, recorder.encoding);
     toggleStep(2);
@@ -20401,23 +20567,23 @@ $(function () {
   }
 
   function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
       var constraints, stream;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context9.prev = _context9.next) {
             case 0:
-              _context7.prev = 0;
+              _context9.prev = 0;
               console.log("startRecording() called");
               constraints = {
                 audio: true,
                 video: false
               };
-              _context7.next = 5;
+              _context9.next = 5;
               return navigator.mediaDevices.getUserMedia(constraints);
 
             case 5:
-              stream = _context7.sent;
+              stream = _context9.sent;
 
               __log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
 
@@ -20453,28 +20619,29 @@ $(function () {
 
               __log("Recording started");
 
-              _context7.next = 21;
+              _context9.next = 21;
               break;
 
             case 17:
-              _context7.prev = 17;
-              _context7.t0 = _context7["catch"](0);
-              console.log("error startRecording", _context7.t0);
+              _context9.prev = 17;
+              _context9.t0 = _context9["catch"](0);
+              console.log("error startRecording", _context9.t0);
               stopRecordingTimer();
 
             case 21:
             case "end":
-              return _context7.stop();
+              return _context9.stop();
           }
         }
-      }, _callee7, null, [[0, 17]]);
+      }, _callee9, null, [[0, 17]]);
     }));
     return _startRecording.apply(this, arguments);
   }
 
   function stopRecording() {
-    __log("stopRecording() called"); //stop microphone access
+    __log("stopRecording() called");
 
+    stopRecordingTimer(); //stop microphone access
 
     gumStream.getAudioTracks()[0].stop(); //tell the recorder to finish the recording (stop recording + encode the recorded audio)
 

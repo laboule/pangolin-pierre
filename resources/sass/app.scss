@@ -1,4 +1,5 @@
 @import "node_modules/bootstrap-scss/bootstrap";
+
 /*
  * CSS3 Animations Keyframes
  */
@@ -12,23 +13,93 @@
     }
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    margin: 0px;
     height: 100%;
     width: 100%;
-    background-image: url(/img/bg-sm.png);
+    background: url(/img/bg-sm.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     font-family: "Barlow", serif;
     font-weight: 100;
     font-size: 18px;
+    line-height: 24px;
     color: #ffffff;
+    overflow-x: hidden;
 }
 
 .container-fluid {
     padding: 0px 30px;
 }
 
+/** CUSTOM SCROLLBAR */
+/* Width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: red;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.9;
+}
+
+/** DATEPICKER **/
+.ui-datepicker {
+    display: none;
+    background-color: #e82d1e;
+    color: white;
+    width: 300px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 4px;
+    .ui-datepicker-title {
+        font-size: 22px;
+    }
+    .ui-datepicker-calendar {
+        width: 100%;
+    }
+
+    th {
+        font-weight: 500;
+    }
+
+    td > a,
+    td > a:hover,
+    .ui-datepicker-next,
+    .ui-datepicker-prev,
+    .ui-datepicker-next:hover,
+    .ui-datepicker-prev:hover {
+        color: white;
+    }
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+        font-size: 20px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .ui-datepicker-header {
+        display: flex;
+        margin-bottom: 10px;
+    }
+}
+
+/** CUSTOM BUTTON **/
 .button {
     cursor: pointer;
     transition: opacity 300ms;
@@ -38,9 +109,8 @@ body {
     opacity: 0.8;
 }
 
-
+/** HOME PAGE **/
 .listen-container {
-
     #stop,
     #listen-player {
         display: none;
@@ -63,54 +133,55 @@ body {
 
         #record-dream {
             font-weight: 700;
-
         }
     }
-
-
-
 }
 
-.record-container
-{
-    .step-2,.step-3,.step-4
-    {
+/** RECORD PAGE **/
+.record-container {
+    .step-2,
+    .step-3,
+    .step-4 {
         display: none;
     }
-    .title
-    {
+
+    .title {
         font-size: 30px;
     }
-    .description,.record-description, .stop-description
-    {
+
+    .description,
+    .record-description,
+    .stop-description,
+    #restart {
         font-size: 22px;
     }
-    .description
-    {
-        margin-bottom: 200px;
+
+    .description {
+        margin-bottom: 155px;
     }
 
-    .stop-description
-    {
+    .stop-description {
         display: none;
     }
 
-    .audio-timer
-    {
+    .audio-timer {
         display: none;
         font-size: 58px;
-        margin-bottom: 164px;
     }
 
-    .stop
-    {
+    .step-1 .audio-timer {
+        margin-bottom: 140px;
+    }
+
+    .stop {
         display: none;
     }
-    .record-buttons-container
-    { 
+
+    .record-buttons-container {
         position: relative;
         width: 300px;
     }
+
     .loading-encoder {
         $loader_size: 92px;
         $border_size: 6px;
@@ -139,8 +210,8 @@ body {
                 width: $loader_size;
                 height: $loader_size;
                 margin: 0;
-                margin-top: - ($border_size / 2);
-                margin-left: - ($border_size / 2);
+                margin-top: -($border_size / 2);
+                margin-left: -($border_size / 2);
                 border-radius: 50%;
                 border: $border_size solid white;
                 border-color: white transparent white transparent;
@@ -152,8 +223,152 @@ body {
             position: absolute;
             left: 0;
             right: 0;
-            top: $loader_size*1.2;
+            top: $loader_size * 1.2;
             text-align: center;
+        }
+    }
+
+    #rec-stop {
+        display: none;
+    }
+
+    .button-save {
+        font-size: 18px;
+        color: #ff2828 !important;
+        background-color: #ffffff;
+        border-radius: 68px;
+        padding: 21px 48px;
+        border: none;
+
+        a {
+            color: #ff2828;
+        }
+    }
+
+    .send-dream-form {
+        .form-entry {
+            position: relative;
+            margin-bottom: 30px;
+
+            label {
+                display: block;
+                line-height: 24px;
+                margin-bottom: 4px;
+                overflow: hidden;
+            }
+
+            select,
+            #dream_date {
+                display: block;
+                background-color: #f78275;
+                padding: 10px 15px;
+                width: 100%;
+                color: white;
+                line-height: normal;
+                font-size: 18px;
+                border: none;
+                border-radius: 5px;
+                appearance: none;
+                -moz-appearance: none; /* Firefox */
+                -webkit-appearance: none; /* Safari and Chrome */
+            }
+
+            select {
+                background-image: url("/img/chevron-down.svg");
+                background-repeat: no-repeat;
+                background-position: bottom 50% right 18px;
+            }
+
+            #dream_date {
+                background-image: url("/img/calendar.svg");
+                background-repeat: no-repeat;
+                background-position: bottom 50% right 15px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="email"] {
+                display: block;
+                background-color: #f78275 !important;
+                padding: 10px 15px;
+                width: 100%;
+                color: white;
+                line-height: normal;
+                font-size: 18px;
+                border: none;
+                border-radius: 5px;
+            }
+
+            ::placeholder {
+                color: white;
+                line-height: normal;
+                font-size: 18px;
+            }
+
+            input:focus,
+            select:focus {
+                outline: none;
+            }
+
+            .checkbox-label {
+                display: block;
+                float: left;
+                width: 95%;
+                margin-left: 5%;
+                padding-left: 10px;
+                font-size: 18px;
+                line-height: 24px;
+            }
+
+            small {
+                display: block;
+                margin-top: 6px;
+                color: white;
+                font-size: 18px;
+                line-height: 24px;
+                text-align: left;
+            }
+
+            .error {
+                display: none;
+                font-size: 10px;
+                color: white;
+                line-height: 14px;
+                text-align: left;
+                margin-top: 5px;
+            }
+
+            &.checkbox-wrapper {
+                position: relative;
+                input {
+                    opacity: 0;
+                    width: 1em;
+                    height: 1em;
+                    position: absolute;
+                    left: -1000px;
+                }
+                input + label {
+                    cursor: pointer;
+                    user-select: none;
+                    text-align: left;
+                    margin-left: 30px;
+                }
+                input + label:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 22px;
+                    height: 22px;
+                    border: 2px solid white;
+                }
+                input:checked + label:before {
+                    background: url(/img/tick.svg);
+                    background-repeat: no-repeat;
+                    background-size: 15px auto;
+                    background-position: center;
+                }
+            }
         }
     }
 }
@@ -184,21 +399,22 @@ body {
         }
 
         .bar-25 {
-            width: calc(0.25*#{$width-bar});
+            width: calc(0.25 *#{$width-bar});
         }
+
         .bar-50 {
-            width: calc(0.5*#{$width-bar});
+            width: calc(0.5 *#{$width-bar});
         }
+
         .bar-75 {
-            width: calc(0.75*#{$width-bar});
+            width: calc(0.75 *#{$width-bar});
         }
+
         .bar-100 {
             width: $width-bar;
         }
     }
 }
-
-
 
 @include progressbar($width-bar: 311px);
 
@@ -223,8 +439,6 @@ body {
     display: none;
 }
 
-
-
 @include media-breakpoint-up(md) {
     body {
         background-image: url(/img/bg-lg.png);
@@ -238,7 +452,6 @@ body {
     }
 
     .listen-container {
-
         .listen-modal {
             width: 40%;
             left: 30%;
