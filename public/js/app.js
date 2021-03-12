@@ -20099,7 +20099,9 @@ $(function () {
     return $(".text-wrapper").hide();
   });
   var listenCount = 0;
-  var modalCount = generateRandomNumber(2, 3);
+  var minListens = 2;
+  var maxListens = 3;
+  var modalCount = generateRandomNumber(minListens, maxListens);
   console.log("Display modal after", modalCount, "listens");
 
   var updateDomWithNewDream = function updateDomWithNewDream(dream) {
@@ -20125,20 +20127,22 @@ $(function () {
 
   var fetchDream = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var dream;
+      var url, dream;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return $.get(app_url + "/api/dream?not=" + currDream.id);
+              url = app_url + "/api/dream";
+              url = currDream.id ? url + "?not=" + currDream.id : url;
+              _context.next = 4;
+              return $.get(url);
 
-            case 2:
+            case 4:
               dream = _context.sent;
               currDream = dream;
               return _context.abrupt("return", dream);
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -20267,7 +20271,13 @@ $(function () {
           case 0:
             widthOfProgressBar = this.currentTime / this.duration;
             newWidth = Math.floor(widthOfProgressBar * $(".listen-container .total-bar").width());
-            $(".listen-container .bar").width(newWidth); // On audio end
+            $(".listen-container .bar").width(newWidth);
+
+            if (widthOfProgressBar > 0.5) {
+              // Check listen count
+              listenCount++;
+            } // On audio end
+
 
             if (!(widthOfProgressBar === 1)) {
               _context4.next = 19;
@@ -20276,10 +20286,10 @@ $(function () {
 
             // show play button and fetch a new dream
             showButton("play");
-            _context4.next = 7;
+            _context4.next = 8;
             return fetchDream();
 
-          case 7:
+          case 8:
             _dream = _context4.sent;
 
             if (!_dream) {
@@ -20288,9 +20298,7 @@ $(function () {
             }
 
             // update dom
-            updateDomWithNewDream(_dream); // Check listen count
-
-            listenCount++;
+            updateDomWithNewDream(_dream);
 
             if (!(listenCount >= modalCount)) {
               _context4.next = 16;
@@ -20301,7 +20309,7 @@ $(function () {
             $(".listen-modal").show(); // reset count
 
             listenCount = 0;
-            modalCount = generateRandomNumber(2, 3);
+            modalCount = generateRandomNumber(minListens, maxListens);
             return _context4.abrupt("return");
 
           case 16:
@@ -20434,7 +20442,9 @@ $(function () {
       return _ref7.apply(this, arguments);
     };
   }());
-  $("#dream_date").datepicker();
+  $("#dream_date").datepicker({
+    dateFormat: "dd/mm/yy"
+  }, "defaultDate");
   /**Form Submit handler **/
 
   $("#submit").click( /*#__PURE__*/function () {
@@ -20617,16 +20627,18 @@ $(function () {
 
               __log("Recording started");
 
-              _context9.next = 21;
+              _context9.next = 23;
               break;
 
             case 17:
               _context9.prev = 17;
               _context9.t0 = _context9["catch"](0);
               console.log("error startRecording", _context9.t0);
+              $(".record-container .loading-encoder.start").hide();
+              $(".record-container .record").show();
               stopRecordingTimer();
 
-            case 21:
+            case 23:
             case "end":
               return _context9.stop();
           }

@@ -15,7 +15,7 @@
                  @lang("Enregistre ton rêve - intro")
             </div>
             <div class="audio-timer">00:00</div>
-            <div class="record-buttons-container mb-4">
+            <div class="record-buttons-container mb-2">
                 <div class="record mb-4 button">
                     <img src="img/rec.svg" alt="record" width="92"/>
                 </div>
@@ -98,10 +98,64 @@
 
             <div class="form-entry">
                 <select name="dream_language" id="dream_language" required>
-                    <option value="" disabled selected>@lang('form input - dream_language')</option>
-                    <option value="french">Français</option>
-                    <option value="english">Anglais</option>
-                    <option value="spanish">Espagnol</option>
+                  <option value="" disabled selected>@lang('form input - dream_language')</option>
+                  <option value="Afrikaans">Afrikaans</option>
+                  <option value="Albanian">Albanais</option>
+                  <option value="Arabic">Arabique</option>
+                  <option value="Armenian">Arménien</option>
+                  <option value="Basque">Basque</option>
+                  <option value="Bengali">Bengalais</option>
+                  <option value="Bulgarian">Bulgare</option>
+                  <option value="Catalan">Catalan</option>
+                  <option value="Cambodian">Cambodgien</option>
+                  <option value="Chinese (Mandarin)">Chinois (Mandarin)</option>
+                  <option value="Croatian">Croate</option>
+                  <option value="Czech">Tchèque</option>
+                  <option value="Danish">Danois</option>
+                  <option value="Dutch">Hollandais</option>
+                  <option value="English">Anglais</option>
+                  <option value="Estonian">Estonien</option>
+                  <option value="Fiji">Fidjien</option>
+                  <option value="Finnish">Finnois</option>
+                  <option value="French">Français</option>
+                  <option value="Georgian">Géorgien</option>
+                  <option value="German">Allemand</option>
+                  <option value="Greek">Grec</option>
+                  <option value="Hebrew">Hébreux</option>
+                  <option value="Hindi">Hindi</option>
+                  <option value="Hungarian">Hongrois</option>
+                  <option value="Icelandic">Icelandais</option>
+                  <option value="Indonesian">Indonésien</option>
+                  <option value="Irish">Irlandais</option>
+                  <option value="Italian">Italien</option>
+                  <option value="Japanese">Japonais</option>
+                  <option value="Javanese">Indonésien</option>
+                  <option value="Korean">Coréen</option>
+                  <option value="Latin">Latin</option>
+                  <option value="Latvian">Latvian</option>
+                  <option value="Lithuanian">Letton</option>
+                  <option value="Macedonian">Macédonien</option>
+                  <option value="Malay">Malais</option>
+                  <option value="Mongolian">Mongol</option>
+                  <option value="Nepali">Népalais</option>
+                  <option value="Norwegian">Norvégien</option>
+                  <option value="Persian">Persan</option>
+                  <option value="Polish">Polonais</option>
+                  <option value="Portuguese">Portugais</option>
+                  <option value="Romanian">Roumain</option>
+                  <option value="Russian">Russe</option>
+                  <option value="Serbian">Serbe</option>
+                  <option value="Slovak">Slovaque</option>
+                  <option value="Slovenian">Slovénien</option>
+                  <option value="Spanish">Espagnol</option>
+                  <option value="Swahili">Swahili</option>
+                  <option value="Swedish ">Suédois </option>
+                  <option value="Tamil">Tamoul</option>
+                  <option value="Thai">Thailandais</option>
+                  <option value="Tibetan">Tibétain</option>
+                  <option value="Turkish">Turc</option>
+                  <option value="Ukrainian">Ukrénien</option>
+                  <option value="Vietnamese">Viétnamien</option>
                 </select>
                 <div class="error" id="error-lang">@lang('form input - error lang')</div>
             </div>

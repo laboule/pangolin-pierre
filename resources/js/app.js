@@ -65,7 +65,9 @@ $(function() {
 	$(".read-more").click(() => $(".text-wrapper").toggle());
 	$("#close-info").click(() => $(".text-wrapper").hide());
 	let listenCount = 0;
-	let modalCount = generateRandomNumber(2,3);
+	let minListens = 2;
+	let maxListens = 3;
+	let modalCount = generateRandomNumber(minListens, maxListens);
 	console.log("Display modal after", modalCount, "listens");
 
 	const updateDomWithNewDream = (dream) => {
@@ -83,7 +85,7 @@ $(function() {
 	/** Fetch a dream from api */
 	const fetchDream = async function() {
 		let url = app_url + "/api/dream";
-		url = currDream.id ? url+"?not="+currDream.id : url;
+		url = currDream.id ? url + "?not=" + currDream.id : url;
 		let dream = await $.get(url);
 		currDream = dream;
 		return dream;
@@ -158,6 +160,11 @@ $(function() {
 			widthOfProgressBar * $(".listen-container .total-bar").width()
 		);
 		$(".listen-container .bar").width(newWidth);
+
+		if (widthOfProgressBar > 0.5) {
+			// Check listen count
+			listenCount++;
+		}
 		// On audio end
 		if (widthOfProgressBar === 1) {
 			// show play button and fetch a new dream
@@ -167,14 +174,12 @@ $(function() {
 				// update dom
 				updateDomWithNewDream(dream);
 
-				// Check listen count
-				listenCount++;
 				if (listenCount >= modalCount) {
 					// show modal
 					$(".listen-modal").show();
 					// reset count
 					listenCount = 0;
-					modalCount = generateRandomNumber(2,3);
+					modalCount = generateRandomNumber(minListens, maxListens);
 					return;
 				}
 
@@ -260,7 +265,7 @@ $(function() {
 		}
 	});
 
-	$("#dream_date").datepicker();
+	$("#dream_date").datepicker({ dateFormat: "dd/mm/yy" }, "defaultDate");
 
 	/**Form Submit handler **/
 	$("#submit").click(async (e) => {
@@ -284,7 +289,7 @@ $(function() {
 			$("#error-lang").show();
 		}
 		// cancel submission if errors
-		if(!(values.user_email && values.dream_language)) return;
+		if (!(values.user_email && values.dream_language)) return;
 
 		try {
 			let res = await $.post(app_url + "/api/record_dream", {
@@ -368,7 +373,7 @@ $(function() {
 				onEncoderLoading: (recorder, encoding) =>
 					__log("Loading " + encoding + " encoder..."),
 				onEncoderLoaded,
-				onComplete,
+				onComplete		
 			});
 
 			recorder.setOptions({
@@ -383,6 +388,8 @@ $(function() {
 			__log("Recording started");
 		} catch (e) {
 			console.log("error startRecording", e);
+			$(".record-container .loading-encoder.start").hide();
+			$(".record-container .record").show()
 			stopRecordingTimer();
 		}
 	}

@@ -11034,15 +11034,16 @@ body {
 
 .ui-datepicker {
   display: none;
-  background-color: #e82d1e;
+  background-color: #cb2401;
   color: white;
-  width: 300px;
+  width: 350px;
   padding: 10px 0px 10px 10px;
   border-radius: 4px;
+  font-size: 22px;
 }
 
 .ui-datepicker .ui-datepicker-title {
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .ui-datepicker .ui-datepicker-calendar {
@@ -11051,6 +11052,11 @@ body {
 
 .ui-datepicker th {
   font-weight: 500;
+}
+
+.ui-datepicker td > a {
+  display: block;
+  margin-bottom: 5px;
 }
 
 .ui-datepicker td > a,
@@ -11062,9 +11068,18 @@ body {
   color: white;
 }
 
+.ui-datepicker td > a:hover {
+  font-weight: bold;
+}
+
+.ui-datepicker .ui-state-highlight {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
   margin-right: 10px;
 }
@@ -11330,7 +11345,9 @@ body {
 .record-container .send-dream-form .form-entry .error {
   display: none;
   font-size: 10px;
+  background-color: #1E35FF;
   color: white;
+  padding: 2px;
   line-height: 14px;
   text-align: left;
   margin-top: 5px;

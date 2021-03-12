@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dream;
+use App\Mail\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,9 +11,11 @@ class ApiController extends Controller {
 	public function getDream(Request $request) {
 		$notId = $request->query('not', '');
 		$dream = Dream::all()->filter(function ($value, $key) use ($notId) {
-			return $value->id !== $notId;
+			return $value->id != $notId;
 		})->random(1)->first();
+		// && $value->dream_is_published
 		$dream->url = $dream->get_recording_file_url();
+		unset($dream->access_id);
 		return response()->json($dream);
 	}
 
@@ -55,6 +58,20 @@ class ApiController extends Controller {
 		// Die if dream can't be recorded for any reason
 		$dream->delete();
 		return response()->json(["status" => "error", "message" => "Impossible to add dream"]);
+	}
+
+	public function validateDream(Request $req, $accessId, Mailer $mailer) {
+		$dream = Dream::where("access_id", $accessId)->first();
+		if (isset($dream) && !$dream->dream_is_published) {
+			$dream->dream_is_published = true;
+			$dream->save();
+			$res = $mailer->sendDreamValidated(["email" => $dream->user_email, "name" => $dream->user_name, "url" => env("APP_URL") . "/" . $dream->access_id]);
+			return "L'email a été envoyé !";
+			// return response()->json(["success" => $res]);
+		}
+
+		return "Le rêve n'existe pas ou il est déjà publié";
+		// return response()->json(["error" => "Le rêve n'existe pas ou il est déjà publié"]);
 	}
 
 }
