@@ -106,29 +106,31 @@ $(function() {
 	/** If a dream is passed from welcome controller */
 	if ($(".listen-container").data("dream")) {
 		let dream = $(".listen-container").data("dream");
+		let autoplay = $(".listen-container").data("autoplay");
 		// console.log("dream", dream);
 		updateDomWithNewDream(dream);
-		$("#listen-button").hide();
-		$("#listen-player").show();
-		let audio = $("#audio")[0];
-		if (audio) {
+
+		if (autoplay) {
+			$("#listen-button").hide();
+			$("#listen-player").show();
 			showButton("play");
 		}
+		// let audio = $("#audio")[0];
+		// if (audio) {
+		// 	showButton("play");
+		// }
 	}
 
 	/** First button : "Ecouter un rêve" => fetch a dream  and show player */
 	$("#listen-button").click(async function() {
 		$(this).hide();
 		$("#listen-player").show();
-		let dream = await fetchDream();
-		if (dream) {
-			updateDomWithNewDream(dream);
-			let audio = $("#audio")[0];
-			if (audio) {
-				showButton("stop");
-				audio.play();
-			}
+		let audio = $("#audio")[0];
+		if (audio) {
+			showButton("stop");
+			audio.play();
 		}
+		// let dream = await fetchDream();
 	});
 
 	/** Stop audio */
@@ -338,10 +340,20 @@ $(function() {
 		clearInterval(audioTimerInterval);
 	}
 
-	const toggleStep = (step) => {
+	const toggleStep = async (step) => {
 		$(`.step-${currentStep}`).hide();
 		currentStep = step;
 		$(`.step-${currentStep}`).show();
+
+		// alert on quit tab (are you sure you want to quit ?)
+		if ([2, 3, 4].includes(currentStep)) {
+			window.addEventListener("beforeunload", function(e) {
+				let confirmationMessage =
+					"Tu n'es qu'à un click de déposer ton rêve. Es-tu sûr de vouloir quitter la page ?";
+				(e || window.event).returnValue = confirmationMessage; //Gecko + IE
+				return confirmationMessage; //Webkit, Safari, Chrome
+			});
+		}
 	};
 	const onComplete = (recorder, blob) => {
 		__log("Encoding complete");

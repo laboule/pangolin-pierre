@@ -12,13 +12,20 @@ class AppController extends Controller {
 
 		// If a dream ID is present in the URL, load it.
 		$initial_dream = null;
+		$autoplay;
 		if ($access_id) {
 			$initial_dream = Dream::where('access_id', $access_id)->where('dream_is_published', "1")->firstOrFail();
-			$initial_dream->url = $initial_dream->get_recording_file_url();
+			$autoplay = true;
+		} else {
+			$initial_dream = Dream::where('dream_is_published', '1')->get()->random(1)->first();
+			$autoplay = false;
 		}
+
+		$initial_dream->url = $initial_dream->get_recording_file_url();
 
 		return view('welcome', [
 			"dream" => $initial_dream,
+			"autoplay" => $autoplay,
 		]);
 	}
 

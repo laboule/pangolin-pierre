@@ -20172,47 +20172,41 @@ $(function () {
 
 
   if ($(".listen-container").data("dream")) {
-    var dream = $(".listen-container").data("dream"); // console.log("dream", dream);
+    var dream = $(".listen-container").data("dream");
+    var autoplay = $(".listen-container").data("autoplay"); // console.log("dream", dream);
 
     updateDomWithNewDream(dream);
-    $("#listen-button").hide();
-    $("#listen-player").show();
-    var audio = $("#audio")[0];
 
-    if (audio) {
+    if (autoplay) {
+      $("#listen-button").hide();
+      $("#listen-player").show();
       showButton("play");
-    }
+    } // let audio = $("#audio")[0];
+    // if (audio) {
+    // 	showButton("play");
+    // }
+
   }
   /** First button : "Ecouter un rêve" => fetch a dream  and show player */
 
 
   $("#listen-button").click( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var dream, _audio;
-
+    var audio;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             $(this).hide();
             $("#listen-player").show();
-            _context2.next = 4;
-            return fetchDream();
+            audio = $("#audio")[0];
+
+            if (audio) {
+              showButton("stop");
+              audio.play();
+            } // let dream = await fetchDream();
+
 
           case 4:
-            dream = _context2.sent;
-
-            if (dream) {
-              updateDomWithNewDream(dream);
-              _audio = $("#audio")[0];
-
-              if (_audio) {
-                showButton("stop");
-
-                _audio.play();
-              }
-            }
-
-          case 6:
           case "end":
             return _context2.stop();
         }
@@ -20236,8 +20230,7 @@ $(function () {
   /** Next dream */
 
   $("#next").click( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-    var dream, _audio2;
-
+    var dream, audio;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -20252,8 +20245,8 @@ $(function () {
               prevCount = currCount;
               updateDomWithNewDream(dream);
               showButton("stop");
-              _audio2 = $("#audio")[0];
-              if (_audio2) _audio2.play();
+              audio = $("#audio")[0];
+              if (audio) audio.play();
             }
 
           case 4:
@@ -20266,7 +20259,7 @@ $(function () {
   /** progress bar and autoplay */
 
   $("#audio").bind("timeupdate", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-    var widthOfProgressBar, newWidth, _audio3, _dream, _audio4;
+    var widthOfProgressBar, newWidth, audio, _dream, _audio;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
@@ -20284,8 +20277,8 @@ $(function () {
             }
 
             showButton("play");
-            _audio3 = $("#audio")[0];
-            if (_audio3) _audio3.pause(); // show modal
+            audio = $("#audio")[0];
+            if (audio) audio.pause(); // show modal
 
             $(".listen-modal").show(); // reset count
 
@@ -20320,8 +20313,8 @@ $(function () {
               prevCount = currCount; // autoplay audio
 
               showButton("stop");
-              _audio4 = $("#audio")[0];
-              if (_audio4) _audio4.play();
+              _audio = $("#audio")[0];
+              if (_audio) _audio.play();
             }
 
           case 19:
@@ -20551,11 +20544,37 @@ $(function () {
     clearInterval(audioTimerInterval);
   }
 
-  var toggleStep = function toggleStep(step) {
-    $(".step-".concat(currentStep)).hide();
-    currentStep = step;
-    $(".step-".concat(currentStep)).show();
-  };
+  var toggleStep = /*#__PURE__*/function () {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(step) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              $(".step-".concat(currentStep)).hide();
+              currentStep = step;
+              $(".step-".concat(currentStep)).show(); // alert on quit tab (are you sure you want to quit ?)
+
+              if ([2, 3, 4].includes(currentStep)) {
+                window.addEventListener("beforeunload", function (e) {
+                  var confirmationMessage = "Tu n'es qu'à un click de déposer ton rêve. Es-tu sûr de vouloir quitter la page ?";
+                  (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+
+                  return confirmationMessage; //Webkit, Safari, Chrome
+                });
+              }
+
+            case 4:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }));
+
+    return function toggleStep(_x3) {
+      return _ref10.apply(this, arguments);
+    };
+  }();
 
   var onComplete = function onComplete(recorder, blob) {
     __log("Encoding complete");
@@ -20581,23 +20600,23 @@ $(function () {
   }
 
   function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
       var constraints, stream;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
-              _context9.prev = 0;
+              _context10.prev = 0;
               console.log("startRecording() called");
               constraints = {
                 audio: true,
                 video: false
               };
-              _context9.next = 5;
+              _context10.next = 5;
               return navigator.mediaDevices.getUserMedia(constraints);
 
             case 5:
-              stream = _context9.sent;
+              stream = _context10.sent;
 
               __log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
 
@@ -20633,23 +20652,23 @@ $(function () {
 
               __log("Recording started");
 
-              _context9.next = 23;
+              _context10.next = 23;
               break;
 
             case 17:
-              _context9.prev = 17;
-              _context9.t0 = _context9["catch"](0);
-              console.log("error startRecording", _context9.t0);
+              _context10.prev = 17;
+              _context10.t0 = _context10["catch"](0);
+              console.log("error startRecording", _context10.t0);
               $(".record-container .loading-encoder.start").hide();
               $(".record-container .record").show();
               stopRecordingTimer();
 
             case 23:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
         }
-      }, _callee9, null, [[0, 17]]);
+      }, _callee10, null, [[0, 17]]);
     }));
     return _startRecording.apply(this, arguments);
   }
