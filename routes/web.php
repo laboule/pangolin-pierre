@@ -16,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/record_dream', 'AppController@record_dream')
 	->name('record_dream');
 
+Route::get('/admin', function () {
+	return view("admin");
+})->middleware('auth.basic');
+
 Route::get('/{access_id?}', 'AppController@welcome')
 	->name('welcome');

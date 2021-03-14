@@ -64,9 +64,10 @@ $(function() {
 	/** info button */
 	$(".read-more").click(() => $(".text-wrapper").toggle());
 	$("#close-info").click(() => $(".text-wrapper").hide());
-	let listenCount = 0;
-	let minListens = 2;
-	let maxListens = 3;
+	let currCount = 0;
+	let prevCount = 0;
+	let minListens = 5;
+	let maxListens = 10;
 	let modalCount = generateRandomNumber(minListens, maxListens);
 	console.log("Display modal after", modalCount, "listens");
 
@@ -104,7 +105,7 @@ $(function() {
 	/** If a dream is passed from welcome controller */
 	if ($(".listen-container").data("dream")) {
 		let dream = $(".listen-container").data("dream");
-		console.log("dream", dream);
+		// console.log("dream", dream);
 		updateDomWithNewDream(dream);
 		$("#listen-button").hide();
 		$("#listen-player").show();
@@ -146,6 +147,7 @@ $(function() {
 	$("#next").click(async function() {
 		let dream = await fetchDream();
 		if (dream) {
+			prevCount = currCount;
 			updateDomWithNewDream(dream);
 			showButton("stop");
 			let audio = $("#audio")[0];
@@ -155,15 +157,30 @@ $(function() {
 
 	/** progress bar and autoplay */
 	$("#audio").bind("timeupdate", async function() {
+		// console.log("prevCount", prevCount);
+		// console.log("currCount", currCount);
 		let widthOfProgressBar = this.currentTime / this.duration;
 		let newWidth = Math.floor(
 			widthOfProgressBar * $(".listen-container .total-bar").width()
 		);
 		$(".listen-container .bar").width(newWidth);
 
-		if (widthOfProgressBar > 0.5) {
-			// Check listen count
-			listenCount++;
+		if (currCount >= modalCount && widthOfProgressBar < 0.5) {
+			showButton("play");
+			let audio = $("#audio")[0];
+			if (audio) audio.pause();
+			// show modal
+			$(".listen-modal").show();
+			// reset count
+			currCount = 0;
+			prevCount = 0;
+			modalCount = generateRandomNumber(minListens, maxListens);
+			return;
+		}
+
+		if (widthOfProgressBar > 0.5 && currCount === prevCount) {
+			// listenCount++;
+			currCount = prevCount + 1;
 		}
 		// On audio end
 		if (widthOfProgressBar === 1) {
@@ -173,16 +190,7 @@ $(function() {
 			if (dream) {
 				// update dom
 				updateDomWithNewDream(dream);
-
-				if (listenCount >= modalCount) {
-					// show modal
-					$(".listen-modal").show();
-					// reset count
-					listenCount = 0;
-					modalCount = generateRandomNumber(minListens, maxListens);
-					return;
-				}
-
+				prevCount = currCount;
 				// autoplay audio
 				showButton("stop");
 				let audio = $("#audio")[0];
@@ -282,6 +290,7 @@ $(function() {
 			acc[name] = value;
 			return acc;
 		}, {});
+
 		if (!values.user_email) {
 			$("#error-email").show();
 		}
@@ -373,7 +382,7 @@ $(function() {
 				onEncoderLoading: (recorder, encoding) =>
 					__log("Loading " + encoding + " encoder..."),
 				onEncoderLoaded,
-				onComplete		
+				onComplete,
 			});
 
 			recorder.setOptions({
@@ -389,7 +398,7 @@ $(function() {
 		} catch (e) {
 			console.log("error startRecording", e);
 			$(".record-container .loading-encoder.start").hide();
-			$(".record-container .record").show()
+			$(".record-container .record").show();
 			stopRecordingTimer();
 		}
 	}

@@ -20098,9 +20098,10 @@ $(function () {
   $("#close-info").click(function () {
     return $(".text-wrapper").hide();
   });
-  var listenCount = 0;
-  var minListens = 2;
-  var maxListens = 3;
+  var currCount = 0;
+  var prevCount = 0;
+  var minListens = 5;
+  var maxListens = 10;
   var modalCount = generateRandomNumber(minListens, maxListens);
   console.log("Display modal after", modalCount, "listens");
 
@@ -20170,8 +20171,8 @@ $(function () {
 
 
   if ($(".listen-container").data("dream")) {
-    var dream = $(".listen-container").data("dream");
-    console.log("dream", dream);
+    var dream = $(".listen-container").data("dream"); // console.log("dream", dream);
+
     updateDomWithNewDream(dream);
     $("#listen-button").hide();
     $("#listen-player").show();
@@ -20247,6 +20248,7 @@ $(function () {
             dream = _context3.sent;
 
             if (dream) {
+              prevCount = currCount;
               updateDomWithNewDream(dream);
               showButton("stop");
               _audio2 = $("#audio")[0];
@@ -20263,19 +20265,38 @@ $(function () {
   /** progress bar and autoplay */
 
   $("#audio").bind("timeupdate", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-    var widthOfProgressBar, newWidth, _dream, _audio3;
+    var widthOfProgressBar, newWidth, _audio3, _dream, _audio4;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
+            // console.log("prevCount", prevCount);
+            // console.log("currCount", currCount);
             widthOfProgressBar = this.currentTime / this.duration;
             newWidth = Math.floor(widthOfProgressBar * $(".listen-container .total-bar").width());
             $(".listen-container .bar").width(newWidth);
 
-            if (widthOfProgressBar > 0.5) {
-              // Check listen count
-              listenCount++;
+            if (!(currCount >= modalCount && widthOfProgressBar < 0.5)) {
+              _context4.next = 12;
+              break;
+            }
+
+            showButton("play");
+            _audio3 = $("#audio")[0];
+            if (_audio3) _audio3.pause(); // show modal
+
+            $(".listen-modal").show(); // reset count
+
+            currCount = 0;
+            prevCount = 0;
+            modalCount = generateRandomNumber(minListens, maxListens);
+            return _context4.abrupt("return");
+
+          case 12:
+            if (widthOfProgressBar > 0.5 && currCount === prevCount) {
+              // listenCount++;
+              currCount = prevCount + 1;
             } // On audio end
 
 
@@ -20286,37 +20307,21 @@ $(function () {
 
             // show play button and fetch a new dream
             showButton("play");
-            _context4.next = 8;
+            _context4.next = 17;
             return fetchDream();
 
-          case 8:
+          case 17:
             _dream = _context4.sent;
 
-            if (!_dream) {
-              _context4.next = 19;
-              break;
+            if (_dream) {
+              // update dom
+              updateDomWithNewDream(_dream);
+              prevCount = currCount; // autoplay audio
+
+              showButton("stop");
+              _audio4 = $("#audio")[0];
+              if (_audio4) _audio4.play();
             }
-
-            // update dom
-            updateDomWithNewDream(_dream);
-
-            if (!(listenCount >= modalCount)) {
-              _context4.next = 16;
-              break;
-            }
-
-            // show modal
-            $(".listen-modal").show(); // reset count
-
-            listenCount = 0;
-            modalCount = generateRandomNumber(minListens, maxListens);
-            return _context4.abrupt("return");
-
-          case 16:
-            // autoplay audio
-            showButton("stop");
-            _audio3 = $("#audio")[0];
-            if (_audio3) _audio3.play();
 
           case 19:
           case "end":

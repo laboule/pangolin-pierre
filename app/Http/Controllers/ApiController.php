@@ -6,12 +6,13 @@ use App\Dream;
 use App\Mail\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use \Carbon\Carbon;
 
 class ApiController extends Controller {
 	public function getDream(Request $request) {
 		$notId = $request->query('not', '');
-		$dream = Dream::all()->filter(function ($value, $key) use ($notId) {
-			return $value->id != $notId;
+		$dream = Dream::all()->filter(function ($dream, $key) use ($notId) {
+			return $dream->id != $notId && $dream->dream_is_published;
 		})->random(1)->first();
 		// && $value->dream_is_published
 		$dream->url = $dream->get_recording_file_url();
@@ -37,7 +38,9 @@ class ApiController extends Controller {
 		$dream->user_country = $request->user_country ?? "inconnu";
 		$dream->user_email = $request->user_email;
 		$dream->user_email_optin = isset($request->user_email_optin);
-		$dream->dream_date = $request->dream_date ?? \Carbon\Carbon::now()->toDateTimeString();
+		$dream->dream_date = $request->dream_date ? Carbon::createFromFormat('d/m/Y', $request->dream_date)
+			->format('Y-m-d') : Carbon::now()->toDateTimeString();
+
 		$dream->dream_language = $request->dream_language;
 		$dream->dream_is_nsfw = isset($request->dream_is_nsfw);
 		$dream->user_city = $request->user_city ?? "inconnue";
@@ -66,12 +69,10 @@ class ApiController extends Controller {
 			$dream->dream_is_published = true;
 			$dream->save();
 			$res = $mailer->sendDreamValidated(["email" => $dream->user_email, "name" => $dream->user_name, "url" => env("APP_URL") . "/" . $dream->access_id]);
-			return "L'email a été envoyé !";
-			// return response()->json(["success" => $res]);
+			return response()->json(["success" => $res]);
 		}
 
-		return "Le rêve n'existe pas ou il est déjà publié";
-		// return response()->json(["error" => "Le rêve n'existe pas ou il est déjà publié"]);
+		return response()->json(["error" => "Le rêve n'existe pas ou il est déjà publié"]);
 	}
 
 }

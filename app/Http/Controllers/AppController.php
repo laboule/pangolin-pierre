@@ -12,7 +12,7 @@ class AppController extends Controller {
 		// If a dream ID is present in the URL, load it.
 		$initial_dream = null;
 		if ($access_id) {
-			$initial_dream = Dream::where('access_id', $access_id)->firstOrFail();
+			$initial_dream = Dream::where('access_id', $access_id)->where('dream_is_published', "1")->firstOrFail();
 			$initial_dream->url = $initial_dream->get_recording_file_url();
 		}
 
