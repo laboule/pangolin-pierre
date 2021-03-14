@@ -80,6 +80,7 @@ $(function() {
 		$("#city").text(capitalize(user_city.toLowerCase()));
 		$("#date").text(capitalize(date));
 		$("#audio").attr("src", url);
+		// console.log("dream url", url)
 		dream_is_nsfw ? $("#nsfw").show() : $("#nsfw").hide();
 	};
 

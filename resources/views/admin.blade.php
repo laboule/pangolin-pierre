@@ -10,20 +10,51 @@
 <div class="container" data-appurl="{{env("APP_URL")}}">
 	<div class="d-flex flex-column align-items-center mt-3">
 		<h3>INTERFACE ADMIN</h3>
-		<div class="alert alert-danger alert-dismissible fade show my-3" id="alert-error" role="alert">
-		  Le rêve est déjà publié ou n'existe pas !
-		  <button type="button" class="close" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
+
+		<div class="d-flex align-items-center align-self-start my-1">
+			<input type="text" class="form-control mr-1" placeholder="access_id du rêve" id="access_id" name="access_id" />
+			<button class="btn btn-primary" id="button-publish">Valider</button>
 		</div>
-			<div class="alert alert-success alert-dismissible fade show my-3" id="alert-success" role="alert">
-		  Le rêve a été publié !
-		  <button type="button" class="close" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
+		<div class="align-self-start">
+			<div class="alert alert-danger alert-dismissible fade show" id="alert-error" role="alert">
+			  Le rêve est déjà publié ou n'existe pas !
+			  <button type="button" class="close" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+				<div class="alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
+			  Le rêve a été publié !
+			  <button type="button" class="close" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
 		</div>
-			<input type="text" placeholder="access_id du rêve" id="access_id" name="access_id" />
-			<button class="mt-2" id="button-publish">Valider</button>
+		<table class="table table-dark mt-3">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Nom</th>
+		      <th scope="col">Date du rêve</th>
+		      <th scope="col">Langue</th>
+		      <th scope="col">URL</th>
+		      <th scope="col">Email</th>
+		      <th scope="col">Access ID</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	@foreach ($dreams as $dream)
+			    <tr>
+			      <th scope="row">{{$dream->id}}</th>
+			      <td>{{$dream->user_name ?? "inconnu"}}</td>
+			      <td>{{$dream->date ?? "inconnue"}}</td>
+			      <td>{{$dream->dream_language ?? "inconnu"}}</td>
+			      <td><a href="{{$dream->url ?? "#"}}" target="_blank">Ecouter</a></td>
+			      <td>{{$dream->user_email ?? "inconuu"}}</td>
+			      <td>{{$dream->access_id ?? "inconnu"}}</td>
+		    	</tr>
+			@endforeach
+		  </tbody>
+		</table>
 
 
 	</div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Dream;
 use Illuminate\Http\Request;
+use \Carbon\Carbon;
 
 class AppController extends Controller {
 	/* GET: Homepage */
@@ -24,5 +25,15 @@ class AppController extends Controller {
 	/* GET: Record dream */
 	public function record_dream() {
 		return view('record_dream');
+	}
+
+	/* Admin view */
+	public function admin() {
+		$dreams = Dream::where('dream_is_published', '0')->get()->map(function ($dream) {
+			$dream->url = $dream->get_recording_file_url();
+			$dream->date = Carbon::parse($dream->dream_date)->format("d/m/Y");
+			return $dream;
+		});
+		return view('admin', ["dreams" => $dreams]);
 	}
 }
