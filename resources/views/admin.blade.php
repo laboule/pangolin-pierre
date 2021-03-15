@@ -14,7 +14,7 @@
             <h3>INTERFACE ADMIN</h3>
             <div class="d-flex align-items-center align-self-start my-1">
                 <input type="text" class="form-control mr-1" placeholder="access_id du rêve" id="access_id" name="access_id" />
-                <button class="btn btn-primary" id="button-publish">Valider</button>
+                <button class="btn btn-primary" id="button-publish">Publier</button>
             </div>
             <div class="align-self-start">
                 <div class="alert alert-danger alert-dismissible fade show" id="alert-error" role="alert">

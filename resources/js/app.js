@@ -63,6 +63,15 @@ $.datepicker.regional["fr"] = {
 };
 $.datepicker.setDefaults($.datepicker.regional["fr"]);
 
+/** Alert on unload */
+function handleUnload(e) {
+	let confirmationMessage =
+		"Tu n'es qu'à un click de déposer ton rêve. Es-tu sûr de vouloir quitter la page ?";
+	(e || window.event).returnValue = confirmationMessage; //Gecko + IE
+	return confirmationMessage; //Webkit, Safari, Chrome
+}
+
+
 $(function() {
 	const app_url = $("body").data("appurl");
 	let currDream = {};
@@ -357,13 +366,12 @@ $(function() {
 		$(`.step-${currentStep}`).show();
 
 		// alert on quit tab (are you sure you want to quit ?)
-		if ([2, 3, 4].includes(currentStep)) {
-			window.addEventListener("beforeunload", function(e) {
-				let confirmationMessage =
-					"Tu n'es qu'à un click de déposer ton rêve. Es-tu sûr de vouloir quitter la page ?";
-				(e || window.event).returnValue = confirmationMessage; //Gecko + IE
-				return confirmationMessage; //Webkit, Safari, Chrome
-			});
+		if ([2, 3].includes(currentStep)) {
+			window.addEventListener("beforeunload", handleUnload);
+		}
+		// remove listener on step 1 & 4
+		if ([1, 4].includes(currentStep)) {
+			window.removeEventListener("beforeunload", handleUnload);
 		}
 	};
 	const onComplete = (recorder, blob) => {

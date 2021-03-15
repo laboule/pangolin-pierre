@@ -26,7 +26,7 @@
     <script>
     window.global_public_data = {
         dream_audio_format: '{{ \App\Dream::DREAM_AUDIO_FORMAT }}',
-        dream_max_length: { {\ App\ Dream::DREAM_AUDIO_MAX_DURATION } }
+        dream_max_length: '{{\ App\ Dream::DREAM_AUDIO_MAX_DURATION }}'
     };
 
     </script>
