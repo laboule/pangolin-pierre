@@ -103,23 +103,6 @@ $(function() {
 		}
 	};
 
-	/** If a dream is passed from welcome controller */
-	if ($(".listen-container").data("dream")) {
-		let dream = $(".listen-container").data("dream");
-		let autoplay = $(".listen-container").data("autoplay");
-		// console.log("dream", dream);
-		updateDomWithNewDream(dream);
-
-		if (autoplay) {
-			$("#listen-button").hide();
-			$("#listen-player").show();
-			showButton("play");
-		}
-		// let audio = $("#audio")[0];
-		// if (audio) {
-		// 	showButton("play");
-		// }
-	}
 
 	/** First button : "Ecouter un rêve" => fetch a dream  and show player */
 	$("#listen-button").click(async function() {
@@ -157,6 +140,27 @@ $(function() {
 			if (audio) audio.play();
 		}
 	});
+
+		/** If a dream is passed from welcome controller */
+	if ($(".listen-container").data("dream")) {
+		let dream = $(".listen-container").data("dream");
+		let autoplay = $(".listen-container").data("autoplay");
+		// console.log("dream", dream);
+		updateDomWithNewDream(dream);
+
+		if (autoplay) {
+			$("#listen-button").hide();
+			$("#listen-player").show();
+			// $("#play").click();
+			showButton("play");
+			// let audio = $("#audio")[0];
+			// // audio.muted = false;
+			// if (audio) {
+			// 	showButton("stop");
+			// 	audio.play();
+			// }
+		}
+	}
 
 	/** progress bar and autoplay */
 	$("#audio").bind("timeupdate", async function() {
