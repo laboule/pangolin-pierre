@@ -22,8 +22,9 @@ class AppController extends Controller {
 				$initial_dream = $dreams->random(1)->first();
 			}
 		}
-
-		$initial_dream->url = $initial_dream->get_recording_file_url();
+		if ($initial_dream) {
+			$initial_dream->url = $initial_dream->get_recording_file_url();
+		}
 
 		return view('welcome', [
 			"dream" => $initial_dream,
