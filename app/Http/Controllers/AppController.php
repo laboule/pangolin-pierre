@@ -17,7 +17,10 @@ class AppController extends Controller {
 			$initial_dream = Dream::where('access_id', $access_id)->where('dream_is_published', "1")->firstOrFail();
 			$autoplay = true; // activate autoplay
 		} else {
-			$initial_dream = Dream::where('dream_is_published', '1')->get()->random(1)->first();
+			$dreams = Dream::where('dream_is_published', '1')->get();
+			if (!$dreams->isEmpty()) {
+				$initial_dream = $dreams->random(1)->first();
+			}
 		}
 
 		$initial_dream->url = $initial_dream->get_recording_file_url();
