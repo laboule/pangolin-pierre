@@ -11,9 +11,11 @@ class AddAccessIdToDreamsTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		Schema::table('dreams', function (Blueprint $table) {
-			$table->string('access_id')->nullable();
-		});
+		if (!Schema::hasColumn('dreams', 'access_id')) {
+			Schema::table('dreams', function (Blueprint $table) {
+				$table->string('access_id')->nullable();
+			});
+		}
 	}
 
 	/**
