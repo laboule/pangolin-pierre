@@ -12,10 +12,10 @@ class AppController extends Controller {
 
 		// If a dream ID is present in the URL, load it.
 		$initial_dream = null;
-		$autoplay = (bool) $request->input('autoplay');
+		$autoplay = (bool) $request->input('autoplay'); // query param ?autoplay=1
 		if ($access_id) {
 			$initial_dream = Dream::where('access_id', $access_id)->where('dream_is_published', "1")->firstOrFail();
-			$autoplay = true;
+			$autoplay = true; // activate autoplay
 		} else {
 			$initial_dream = Dream::where('dream_is_published', '1')->get()->random(1)->first();
 		}

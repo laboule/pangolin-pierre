@@ -20058,16 +20058,27 @@ var __log = function __log(what) {
     console.log(what);
   }
 };
+/** Capitalize the first letter of a string */
+
 
 var capitalize = function capitalize(s) {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+/** Generate a random number between start and end */
+
 
 var generateRandomNumber = function generateRandomNumber() {
   var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
   var end = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   return Math.floor(Math.random() * (end - start + 1)) + start;
+};
+/** Email validator via regex */
+
+
+var validateEmail = function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
 };
 /**
  * Datepicker configuration
@@ -20469,7 +20480,7 @@ $(function () {
                 return acc;
               }, {});
 
-              if (!values.user_email) {
+              if (!values.user_email || !validateEmail(values.user_email)) {
                 $("#error-email").show();
               }
 

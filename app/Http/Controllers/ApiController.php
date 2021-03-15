@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 use \Carbon\Carbon;
 
 class ApiController extends Controller {
+	/**
+	 * Get a random dream
+	 * @param  Request $request http request
+	 * @return Symfony\Component\HttpFoundation\Response  http response
+	 */
 	public function getDream(Request $request) {
 		$notId = $request->query('not', '');
 		$dream = Dream::all()->filter(function ($dream, $key) use ($notId) {
@@ -20,7 +25,11 @@ class ApiController extends Controller {
 		return response()->json($dream);
 	}
 
-	/* POST: Store dream */
+	/**
+	 * Store a dream
+	 * @param  Request $request http request
+	 * @return Symfony\Component\HttpFoundation\Response  http response
+	 */
 	public function storeDream(Request $request) {
 
 		$validated_data = $request->validate([
@@ -58,11 +67,19 @@ class ApiController extends Controller {
 			}
 		}
 
-		// Die if dream can't be recorded for any reason
+		// delete dream if storage failed
 		$dream->delete();
 		return response()->json(["status" => "error", "message" => "Impossible to add dream"]);
 	}
 
+	/**
+	 * Validate/publish a dream
+	 * Send a mail to the dream's owner with a link
+	 * @param  Request $req      http request
+	 * @param  String  $accessId dream's access id
+	 * @param  Mailer  $mailer   Mail instance
+	 * @return Symfony\Component\HttpFoundation\Response  http response
+	 */
 	public function validateDream(Request $req, $accessId, Mailer $mailer) {
 		$dream = Dream::where("access_id", $accessId)->first();
 		if (isset($dream) && !$dream->dream_is_published) {

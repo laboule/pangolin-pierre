@@ -8,13 +8,21 @@ const __log = (what) => {
 	}
 };
 
+/** Capitalize the first letter of a string */
 const capitalize = (s) => {
 	if (typeof s !== "string") return "";
 	return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
+/** Generate a random number between start and end */
 const generateRandomNumber = (start = 0, end = 1) =>
 	Math.floor(Math.random() * (end - start + 1)) + start;
+
+/** Email validator via regex */
+const validateEmail = (email) => {
+	const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(String(email).toLowerCase());
+};
 
 /**
  * Datepicker configuration
@@ -103,7 +111,6 @@ $(function() {
 		}
 	};
 
-
 	/** First button : "Ecouter un rêve" => fetch a dream  and show player */
 	$("#listen-button").click(async function() {
 		$(this).hide();
@@ -142,7 +149,7 @@ $(function() {
 		}
 	});
 
-		/** If a dream is passed from welcome controller */
+	/** If a dream is passed from welcome controller */
 	if ($(".listen-container").data("dream")) {
 		let dream = $(".listen-container").data("dream");
 		let autoplay = $(".listen-container").data("autoplay");
@@ -298,7 +305,7 @@ $(function() {
 			return acc;
 		}, {});
 
-		if (!values.user_email) {
+		if (!values.user_email || !validateEmail(values.user_email)) {
 			$("#error-email").show();
 		}
 		if (!values.dream_language) {

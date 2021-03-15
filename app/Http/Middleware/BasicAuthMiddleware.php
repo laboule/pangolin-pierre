@@ -8,7 +8,7 @@ use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 class BasicAuthMiddleware extends AuthenticateWithBasicAuth {
 	/**
 	 * Handle an incoming request.
-	 *
+	 * Change authentication field from email to name
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  \Closure  $next
 	 * @return mixed

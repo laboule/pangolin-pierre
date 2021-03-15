@@ -55,10 +55,10 @@
                     </div>
                 </div>
                 <div id="restart" class="button mb-4">
-                    <a class="text-decoration-none text-white" href="{{route('record_dream')}}"><u>Recommencer</u></a>
+                    <a class="text-decoration-none text-white" href="{{route('record_dream')}}"><u>@lang("Recommencer")</u></a>
                 </div>
                 <div id="save-dream" class="button button-save">
-                    Enregistrer
+                    @lang("Enregistrer")
                 </div>
             </div>
         </div>
@@ -99,63 +99,63 @@
             <div class="form-entry">
                 <select name="dream_language" id="dream_language" required>
                   <option value="" disabled selected>@lang('form input - dream_language')</option>
-                  <option value="Afrikaans">Afrikaans</option>
-                  <option value="Albanian">Albanais</option>
-                  <option value="Arabic">Arabique</option>
-                  <option value="Armenian">Arménien</option>
-                  <option value="Basque">Basque</option>
-                  <option value="Bengali">Bengalais</option>
-                  <option value="Bulgarian">Bulgare</option>
-                  <option value="Catalan">Catalan</option>
-                  <option value="Cambodian">Cambodgien</option>
-                  <option value="Chinese (Mandarin)">Chinois (Mandarin)</option>
-                  <option value="Croatian">Croate</option>
-                  <option value="Czech">Tchèque</option>
-                  <option value="Danish">Danois</option>
-                  <option value="Dutch">Hollandais</option>
-                  <option value="English">Anglais</option>
-                  <option value="Estonian">Estonien</option>
-                  <option value="Fiji">Fidjien</option>
-                  <option value="Finnish">Finnois</option>
-                  <option value="French">Français</option>
-                  <option value="Georgian">Géorgien</option>
-                  <option value="German">Allemand</option>
-                  <option value="Greek">Grec</option>
-                  <option value="Hebrew">Hébreux</option>
-                  <option value="Hindi">Hindi</option>
-                  <option value="Hungarian">Hongrois</option>
-                  <option value="Icelandic">Icelandais</option>
-                  <option value="Indonesian">Indonésien</option>
-                  <option value="Irish">Irlandais</option>
-                  <option value="Italian">Italien</option>
-                  <option value="Japanese">Japonais</option>
-                  <option value="Javanese">Indonésien</option>
-                  <option value="Korean">Coréen</option>
-                  <option value="Latin">Latin</option>
-                  <option value="Latvian">Latvian</option>
-                  <option value="Lithuanian">Letton</option>
-                  <option value="Macedonian">Macédonien</option>
-                  <option value="Malay">Malais</option>
-                  <option value="Mongolian">Mongol</option>
-                  <option value="Nepali">Népalais</option>
-                  <option value="Norwegian">Norvégien</option>
-                  <option value="Persian">Persan</option>
-                  <option value="Polish">Polonais</option>
-                  <option value="Portuguese">Portugais</option>
-                  <option value="Romanian">Roumain</option>
-                  <option value="Russian">Russe</option>
-                  <option value="Serbian">Serbe</option>
-                  <option value="Slovak">Slovaque</option>
-                  <option value="Slovenian">Slovénien</option>
-                  <option value="Spanish">Espagnol</option>
-                  <option value="Swahili">Swahili</option>
-                  <option value="Swedish ">Suédois </option>
-                  <option value="Tamil">Tamoul</option>
-                  <option value="Thai">Thailandais</option>
-                  <option value="Tibetan">Tibétain</option>
-                  <option value="Turkish">Turc</option>
-                  <option value="Ukrainian">Ukrénien</option>
-                  <option value="Vietnamese">Viétnamien</option>
+                  <option value="French">@lang("Français")</option>
+                  <option value="Afrikaans">@lang("Afrikaans")</option>
+                  <option value="Albanian">@lang("Albanais")</option>
+                  <option value="Arabic">@lang("Arabique")</option>
+                  <option value="Armenian">@lang("Arménien")</option>
+                  <option value="Basque">@lang("Basque")</option>
+                  <option value="Bengali">@lang("Bengalais")</option>
+                  <option value="Bulgarian">@lang("Bulgare")</option>
+                  <option value="Catalan">@lang("Catalan")</option>
+                  <option value="Cambodian">@lang("Cambodgien")</option>
+                  <option value="Chinese (Mandarin)">@lang("Chinois (Mandarin)")</option>
+                  <option value="Croatian">@lang("Croate")</option>
+                  <option value="Czech">@lang("Tchèque")</option>
+                  <option value="Danish">@lang("Danois")</option>
+                  <option value="Dutch">@lang("Hollandais")</option>
+                  <option value="English">@lang("Anglais")</option>
+                  <option value="Estonian">@lang("Estonien")</option>
+                  <option value="Fiji">@lang("Fidjien")</option>
+                  <option value="Finnish">@lang("Finnois")</option>
+                  <option value="Georgian">@lang("Géorgien")</option>
+                  <option value="German">@lang("Allemand")</option>
+                  <option value="Greek">@lang("Grec")</option>
+                  <option value="Hebrew">@lang("Hébreux")</option>
+                  <option value="Hindi">@lang("Hindi")</option>
+                  <option value="Hungarian">@lang("Hongrois")</option>
+                  <option value="Icelandic">@lang("Icelandais")</option>
+                  <option value="Indonesian">@lang("Indonésien")</option>
+                  <option value="Irish">@lang("Irlandais")</option>
+                  <option value="Italian">@lang("Italien")</option>
+                  <option value="Japanese">@lang("Japonais")</option>
+                  <option value="Javanese">@lang("Indonésien")</option>
+                  <option value="Korean">@lang("Coréen")</option>
+                  <option value="Latin">@lang("Latin")</option>
+                  <option value="Latvian">@lang("Latvian")</option>
+                  <option value="Lithuanian">@lang("Letton")</option>
+                  <option value="Macedonian">@lang("Macédonien")</option>
+                  <option value="Malay">@lang("Malais")</option>
+                  <option value="Mongolian">@lang("Mongol")</option>
+                  <option value="Nepali">@lang("Népalais")</option>
+                  <option value="Norwegian">@lang("Norvégien")</option>
+                  <option value="Persian">@lang("Persan")</option>
+                  <option value="Polish">@lang("Polonais")</option>
+                  <option value="Portuguese">@lang("Portugais")</option>
+                  <option value="Romanian">@lang("Roumain")</option>
+                  <option value="Russian">@lang("Russe")</option>
+                  <option value="Serbian">@lang("Serbe")</option>
+                  <option value="Slovak">@lang("Slovaque")</option>
+                  <option value="Slovenian">@lang("Slovénien")</option>
+                  <option value="Spanish">@lang("Espagnol")</option>
+                  <option value="Swahili">@lang("Swahili")</option>
+                  <option value="Swedish ">@lang("Suédois ")</option>
+                  <option value="Tamil">@lang("Tamoul")</option>
+                  <option value="Thai">@lang("Thailandais")</option>
+                  <option value="Tibetan">@lang("Tibétain")</option>
+                  <option value="Turkish">@lang("Turc")</option>
+                  <option value="Ukrainian">@lang("Ukrénien")</option>
+                  <option value="Vietnamese">@lang("Viétnamien")</option>
                 </select>
                 <div class="error" id="error-lang">@lang('form input - error lang')</div>
             </div>

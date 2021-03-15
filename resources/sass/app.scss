@@ -15,14 +15,14 @@
 
 html {
     height: 100%;
-    // background-color:  #d3d3d3;
+    width: 100%;
 }
 
 body {
     margin: 0px;
     height: 100%;
     width: 100%;
-    background: url(/img/bg-sm.png) no-repeat center center fixed;
+    background: url(/img/bg-sm.png) no-repeat center 60% fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -30,7 +30,7 @@ body {
     font-family: "Barlow", serif;
     font-weight: 100;
     font-size: 18px;
-    line-height: 24px;
+    line-height: 22px;
     color: #ffffff;
     overflow-x: hidden;
 }
@@ -52,7 +52,8 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: red;
+    background: #e9e7e8;
+    border-radius: 10px;
 }
 
 /* Handle on hover */
@@ -95,8 +96,7 @@ body {
     td > a:hover {
         font-weight: bold;
     }
-    .ui-state-highlight 
-    {
+    .ui-state-highlight {
         text-decoration: underline;
         font-weight: bold;
     }
@@ -111,6 +111,17 @@ body {
         display: flex;
         margin-bottom: 10px;
     }
+}
+
+/** GLOBAL STYLE FOR TEXT **/
+h1 {
+    font-size: 30px;
+    line-height: 36px;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 28px;
 }
 
 /** CUSTOM BUTTON **/
@@ -346,11 +357,11 @@ body {
             .error {
                 display: none;
                 font-size: 10px;
-                background-color: #1E35FF;
-                color:white;
-                padding:2px;
+                background-color: #1e35ff;
+                color: white;
+                padding: 2px;
                 line-height: 14px;
-                text-align: left;
+                text-align: center;
                 margin-top: 5px;
             }
 
@@ -434,6 +445,7 @@ body {
 
 @include progressbar($width-bar: 311px);
 
+/** GENERAL MODAL */
 .custom-modal {
     position: fixed;
     z-index: 20;
@@ -455,6 +467,7 @@ body {
     display: none;
 }
 
+/** BREAKPOINTS */
 @include media-breakpoint-up(md) {
     body {
         background-image: url(/img/bg-lg.png);
