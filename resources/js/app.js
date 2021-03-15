@@ -416,6 +416,7 @@ $(function() {
 			console.log("error startRecording", e);
 			$(".record-container .loading-encoder.start").hide();
 			$(".record-container .record").show();
+			$(".record-container .record-description").show();
 			stopRecordingTimer();
 		}
 	}

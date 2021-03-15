@@ -20654,7 +20654,7 @@ $(function () {
 
               __log("Recording started");
 
-              _context10.next = 23;
+              _context10.next = 24;
               break;
 
             case 17:
@@ -20663,9 +20663,10 @@ $(function () {
               console.log("error startRecording", _context10.t0);
               $(".record-container .loading-encoder.start").hide();
               $(".record-container .record").show();
+              $(".record-container .record-description").show();
               stopRecordingTimer();
 
-            case 23:
+            case 24:
             case "end":
               return _context10.stop();
           }
