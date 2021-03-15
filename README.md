@@ -13,3 +13,8 @@
 ## DEPLOYMENT
 - Make sure to run ```php artisan config:cache```
 - Compile and minimy assets : ```npm run production```
+
+# USAGE
+## ADMIN INTERFACE
+The interface is located on /admin, to generate access credentials run this custom artisan command :
+```php artisan user:create {{username}} {{password}}```
