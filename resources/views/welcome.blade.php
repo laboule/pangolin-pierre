@@ -19,7 +19,7 @@
             <img src="img/play.svg" id="play" alt="play" height="40" class="button mr-4" />
             <img src="img/next.svg" alt="next" id="next" class="button" />
         </div>
-        <audio class="d-none" id="audio" src=""></audio>
+        <audio class="d-none" id="audio" muted controls src=""></audio>
     </div>
 </div>
 </div>

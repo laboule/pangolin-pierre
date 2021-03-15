@@ -20180,6 +20180,7 @@ $(function () {
             $(this).hide();
             $("#listen-player").show();
             audio = $("#audio")[0];
+            audio.muted = false;
 
             if (audio) {
               showButton("stop");
@@ -20187,7 +20188,7 @@ $(function () {
             } // let dream = await fetchDream();
 
 
-          case 4:
+          case 5:
           case "end":
             return _context2.stop();
         }
@@ -20247,11 +20248,10 @@ $(function () {
 
     if (autoplay) {
       $("#listen-button").hide();
-      $("#listen-player").show(); // $("#play").click();
-
-      showButton("play"); // let audio = $("#audio")[0];
-      // // audio.muted = false;
-      // if (audio) {
+      $("#listen-player").show();
+      var audio = $("#audio")[0];
+      audio.muted = false;
+      $("#play").click(); // if (audio) {
       // 	showButton("stop");
       // 	audio.play();
       // }
@@ -20261,7 +20261,7 @@ $(function () {
 
 
   $("#audio").bind("timeupdate", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-    var widthOfProgressBar, newWidth, audio, _dream, _audio;
+    var widthOfProgressBar, newWidth, _audio, _dream, _audio2;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
@@ -20279,8 +20279,8 @@ $(function () {
             }
 
             showButton("play");
-            audio = $("#audio")[0];
-            if (audio) audio.pause(); // show modal
+            _audio = $("#audio")[0];
+            if (_audio) _audio.pause(); // show modal
 
             $(".listen-modal").show(); // reset count
 
@@ -20315,8 +20315,8 @@ $(function () {
               prevCount = currCount; // autoplay audio
 
               showButton("stop");
-              _audio = $("#audio")[0];
-              if (_audio) _audio.play();
+              _audio2 = $("#audio")[0];
+              if (_audio2) _audio2.play();
             }
 
           case 19:

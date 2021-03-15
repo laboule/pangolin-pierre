@@ -109,6 +109,7 @@ $(function() {
 		$(this).hide();
 		$("#listen-player").show();
 		let audio = $("#audio")[0];
+		audio.muted = false;
 		if (audio) {
 			showButton("stop");
 			audio.play();
@@ -151,10 +152,9 @@ $(function() {
 		if (autoplay) {
 			$("#listen-button").hide();
 			$("#listen-player").show();
-			// $("#play").click();
-			showButton("play");
-			// let audio = $("#audio")[0];
-			// // audio.muted = false;
+			let audio = $("#audio")[0];
+			audio.muted = false;
+			$("#play").click();
 			// if (audio) {
 			// 	showButton("stop");
 			// 	audio.play();
