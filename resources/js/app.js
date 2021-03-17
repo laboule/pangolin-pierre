@@ -395,11 +395,13 @@ $(function() {
 		try {
 			console.log("startRecording() called");
 			const constraints = { audio: true, video: false };
+		
 			let stream = await navigator.mediaDevices.getUserMedia(constraints);
 			__log(
 				"getUserMedia() success, stream created, initializing WebAudioRecorder..."
 			);
 			audioContext = new AudioContext();
+			
 			gumStream = stream;
 			input = audioContext.createMediaStreamSource(stream);
 
@@ -416,7 +418,7 @@ $(function() {
 				onEncoderLoaded,
 				onComplete,
 			});
-
+			
 			recorder.setOptions({
 				timeLimit: TIME_LIMIT,
 				encodeAfterRecord: true,

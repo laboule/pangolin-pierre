@@ -207,13 +207,13 @@
                         @lang("Merci - description 2")
                     </div>
                     <div class="w-75 d-flex align-items-center justify-content-around">
-                        <a href="#" class="button">
-                            <img src="img/facebook.svg" alt="facebook" height="40" />
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lesrevesdupangolin.com/" class="button">
+                            <img src="img/facebook.svg"  alt="facebook" height="40" />
                         </a>
-                        <a href="#" class="button">
+                        <a target="_blank" href="#" class="button">
                             <img src="img/instagram.svg" alt="instagram" height="40" />
                         </a>
-                        <a href="#" class="button">
+                        <a target="_blank" href="https://twitter.com/intent/tweet?url=https://lesrevesdupangolin.com" class="button">
                             <img src="img/twitter.svg" alt="twitter" height="40" />
                         </a>
                     </div>
