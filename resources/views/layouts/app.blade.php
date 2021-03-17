@@ -38,8 +38,9 @@
 
 <body data-appurl="{{env('APP_URL')}}">
     <div class="container-fluid">
-        <div class="row d-flex justify-content-center pt-3 pb-2">
-            <div class="col-12 col-sm-10 col-md-8 col-xl-6 col-xxl-5 d-flex flex-row justify-content-between">
+        <div class="d-flex flex-column justify-content-between h-100">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-sm-10 col-md-6 col-xxl-5 d-flex flex-row justify-content-between header">
                 <div>
                     <a href="javascript:history.back()" class="button {{Route::currentRouteName() === "welcome" ? "d-none" : ""}}">
                         <img src="/img/btn_back.svg" alt="retour" width="16" height="30" />
@@ -47,7 +48,7 @@
                 </div>
                 <div class="app-about">
                     <div class="custom-modal text-wrapper">
-                        <div class="button d-flex justify-content-end mb-5 mr-2" id="close-info">
+                        <div class="button d-flex justify-content-end close-modal-button" id="close-info">
                             <img src="/img/close.svg" alt="close" width="29" />
                         </div>
                         @lang("Description du projet")
@@ -59,6 +60,7 @@
             </div>
         </div>
         @yield('content')
+    </div>
     </div>
 </body>
 

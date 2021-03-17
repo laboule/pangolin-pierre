@@ -13,6 +13,7 @@
     }
 }
 
+/** General styling (fonts...) */
 html {
     height: 100%;
     width: 100%;
@@ -28,16 +29,44 @@ body {
     -o-background-size: cover;
     background-size: cover;
     font-family: "Barlow", serif;
-    font-weight: 100;
+    font-weight: 500;
     font-size: 18px;
     line-height: 22px;
     color: #ffffff;
-    overflow-x: hidden;
+    overflow-x:hidden;
 }
 
-.container-fluid {
-    padding: 0px 30px;
+.container-fluid
+{
+    height: 100%;
+    width: 100%;
 }
+
+[class*="row"],
+img {
+    // border: 1px green solid;
+}
+[class*="col"] {
+    padding: 0px;
+    // border: 1px yellow solid;
+}
+
+.text-h1 {
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 500;
+}
+
+.text-h2 {
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 500;
+}
+
+strong {
+    font-weight: 700;
+}
+
 
 /** CUSTOM SCROLLBAR */
 /* Width */
@@ -113,17 +142,6 @@ body {
     }
 }
 
-/** GLOBAL STYLE FOR TEXT **/
-h1 {
-    font-size: 30px;
-    line-height: 36px;
-}
-
-h2 {
-    font-size: 22px;
-    line-height: 28px;
-}
-
 /** CUSTOM BUTTON **/
 .button {
     cursor: pointer;
@@ -134,281 +152,350 @@ h2 {
     opacity: 0.8;
 }
 
-/** HOME PAGE **/
-.listen-container {
-    #stop,
-    #listen-player {
-        display: none;
+/** Pages styling (home page, record page) */
+@mixin pageStyle($spacing) {
+    .row
+    {
+        padding-left: $spacing;
+        padding-right: $spacing;
+    }
+    /** HEADER */
+    .header {
+        margin: $spacing 0px;
     }
 
-    .player-title {
-        font-size: 30px;
-    }
-
-    .player-content {
+    /** GENERAL MODAL */
+    .custom-modal {
+        position: fixed;
+        z-index: 20;
+        display: block;
+        text-align: left;
         font-size: 18px;
-    }
-
-    .listen-modal {
         overflow: hidden;
-
-        #continue-listen {
-            cursor: pointer;
-        }
-
-        #record-dream {
-            font-weight: 700;
-        }
-    }
-}
-
-/** RECORD PAGE **/
-.record-container {
-    .step-2,
-    .step-3,
-    .step-4 {
-        display: none;
-    }
-
-    .title {
-        font-size: 30px;
-    }
-
-    .description,
-    .record-description,
-    .stop-description,
-    #restart {
-        font-size: 22px;
-    }
-
-    .description {
-        margin-bottom: 155px;
-    }
-
-    .stop-description {
-        display: none;
-    }
-
-    .audio-timer {
-        display: none;
-        font-size: 58px;
-    }
-
-    .step-1 .audio-timer {
-        margin-bottom: 140px;
-    }
-
-    .stop {
-        display: none;
-    }
-
-    .record-buttons-container {
-        position: relative;
-        width: 300px;
-    }
-
-    .loading-encoder {
-        $loader_size: 92px;
-        $border_size: 6px;
-
-        display: none;
-
-        position: absolute;
-        top: 0;
+        line-height: 24px;
         left: 0;
-        bottom: 0;
-        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+        overflow: scroll;
+        background: url(/img/bg-sm.png) no-repeat center 60% fixed;
+        background-size: cover;
+        padding: 2 * $spacing;
+        display: none;
 
-        .generic-loader {
-            display: block;
-            width: $loader_size;
-            height: $loader_size;
-            margin: auto;
+        .close-modal-button {
+            margin-bottom: 2 * $spacing;
+        }
+    }
+
+    /** HOME PAGE **/
+    .listen-container {
+        .record-dream-button {
+            margin-bottom: 2*$spacing;
+        }
+
+        .banner {
+            margin-top: $spacing;
+            margin-bottom: 1.27*$spacing;
+        }
+
+        #stop,
+        #listen-player {
+            display: none;
+        }
+
+        .listen-modal {
+            overflow: hidden;
+
+            #content {
+                margin-bottom: 2 * $spacing;
+            }
+            #continue-listen {
+                cursor: pointer;
+                margin-bottom: 2 * $spacing;
+            }
+
+            #record-dream {
+                font-weight: 700;
+                margin-bottom: 4 * $spacing;
+            }
+        }
+    }
+
+    /** RECORD PAGE **/
+    .record-container {
+        .step-2,
+        .step-3,
+        .step-4 {
+            display: none;
+        }
+
+        .header-record
+        {
+            // Fixed height so that bottom button doesn't wiggle
+            height: 200px;
+        }
+
+        .title, .progress-container, 
+        {
+            margin-bottom: $spacing;
+        }
+
+        .stop-description {
+            display: none;
+        }
+
+        .audio-timer {
+            display: none;
+            line-height:60px;
+            font-size: 58px;
+        }
+
+        .stop {
+            display: none;
+        }
+
+        .record-buttons-col
+        {
+            margin-bottom: 2*$spacing;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .record-buttons-container {
+            width: 300px;
+            margin-bottom: $spacing;
+        }
+
+
+        .loading-encoder {
+            $loader_size: 92px;
+            $border_size: 6px;
+            display: none;
             position: absolute;
-            top: $loader_size * 0.5;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
 
-            &:after {
-                content: " ";
+            .generic-loader {
                 display: block;
                 width: $loader_size;
                 height: $loader_size;
-                margin: 0;
-                margin-top: -($border_size / 2);
-                margin-left: -($border_size / 2);
-                border-radius: 50%;
-                border: $border_size solid white;
-                border-color: white transparent white transparent;
-                animation: lds-dual-ring 1.2s linear infinite;
-            }
-        }
+                margin: auto;
+                position: absolute;
+                top: $loader_size * 0.5;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
 
-        .label {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: $loader_size * 1.2;
-            text-align: center;
-        }
-    }
-
-    #rec-stop {
-        display: none;
-    }
-
-    .button-save {
-        font-size: 18px;
-        color: #ff2828 !important;
-        background-color: #ffffff;
-        border-radius: 68px;
-        padding: 21px 48px;
-        border: none;
-
-        a {
-            color: #ff2828;
-        }
-    }
-
-    .send-dream-form {
-        .form-entry {
-            position: relative;
-            margin-bottom: 30px;
-
-            label {
-                display: block;
-                line-height: 24px;
-                margin-bottom: 4px;
-                overflow: hidden;
+                &:after {
+                    content: " ";
+                    display: block;
+                    width: $loader_size;
+                    height: $loader_size;
+                    margin: 0;
+                    margin-top: -($border_size / 2);
+                    margin-left: -($border_size / 2);
+                    border-radius: 50%;
+                    border: $border_size solid white;
+                    border-color: white transparent white transparent;
+                    animation: lds-dual-ring 1.2s linear infinite;
+                }
             }
 
-            select,
-            #dream_date {
-                display: block;
-                background-color: #f78275;
-                padding: 10px 15px;
-                width: 100%;
-                color: white;
-                line-height: normal;
-                font-size: 18px;
-                border: none;
-                border-radius: 5px;
-                appearance: none;
-                -moz-appearance: none; /* Firefox */
-                -webkit-appearance: none; /* Safari and Chrome */
-            }
-
-            select {
-                background-image: url("/img/chevron-down.svg");
-                background-repeat: no-repeat;
-                background-position: bottom 50% right 18px;
-            }
-
-            #dream_date {
-                background-image: url("/img/calendar.svg");
-                background-repeat: no-repeat;
-                background-position: bottom 50% right 15px;
-            }
-
-            input[type="text"],
-            input[type="date"],
-            input[type="email"] {
-                display: block;
-                background-color: #f78275 !important;
-                padding: 10px 15px;
-                width: 100%;
-                color: white;
-                line-height: normal;
-                font-size: 18px;
-                border: none;
-                border-radius: 5px;
-            }
-
-            ::placeholder {
-                color: white;
-                line-height: normal;
-                font-size: 18px;
-            }
-
-            input:focus,
-            select:focus {
-                outline: none;
-            }
-
-            .checkbox-label {
-                display: block;
-                float: left;
-                width: 95%;
-                margin-left: 5%;
-                padding-left: 10px;
-                font-size: 18px;
-                line-height: 24px;
-            }
-
-            small {
-                display: block;
-                margin-top: 6px;
-                color: white;
-                font-size: 18px;
-                line-height: 24px;
-                text-align: left;
-            }
-
-            .error {
-                display: none;
-                font-size: 10px;
-                background-color: #1e35ff;
-                color: white;
-                padding: 2px;
-                line-height: 14px;
+            .label {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: $loader_size * 1.1;
                 text-align: center;
-                margin-top: 5px;
             }
+        }
+        #rec-play, #rec-stop
+        {
+            height: 100px;
+            margin-bottom: 50px;
+        }
+        #restart
+        {
+            margin-bottom: 50px;
+        }
 
-            &.checkbox-wrapper {
+        #save-dream
+        {
+            margin-bottom: 2*$spacing;
+        }
+        #rec-stop {
+            display: none;
+        }
+
+        .button-save {
+            font-weight: 500;
+            color: #ff2828 !important;
+            background-color: #ffffff;
+            border-radius: 68px;
+            padding: 21px 48px;
+            border: none;
+
+            a {
+                color: #ff2828;
+            }
+        }
+
+        .thank-text
+        {
+            margin-bottom: $spacing;
+        }
+
+        .end-record
+        {
+            margin-bottom: 2*$spacing;
+        }
+
+        .send-dream-form {
+            .form-entry {
                 position: relative;
-                input {
-                    opacity: 0;
-                    width: 1em;
-                    height: 1em;
-                    position: absolute;
-                    left: -1000px;
+                margin-bottom: $spacing;
+
+                .button-save
+                {
+                    margin-bottom: $spacing;
                 }
-                input + label {
-                    cursor: pointer;
-                    user-select: none;
-                    text-align: left;
-                    margin-left: 30px;
+
+                label {
+                    display: block;
+                    line-height: 24px;
+                    margin-bottom: 4px;
+                    overflow: hidden;
                 }
-                input + label:before {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 22px;
-                    height: 22px;
-                    border: 2px solid white;
+
+                select,
+                #dream_date {
+                    display: block;
+                    background-color: #f78275;
+                    padding: 10px 15px;
+                    width: 100%;
+                    color: white;
+                    line-height: normal;
+                    font-size: 18px;
+                    border: none;
+                    border-radius: 5px;
+                    appearance: none;
+                    -moz-appearance: none; /* Firefox */
+                    -webkit-appearance: none; /* Safari and Chrome */
                 }
-                input:checked + label:before {
-                    background: url(/img/tick.svg);
+
+                select {
+                    background-image: url("/img/chevron-down.svg");
                     background-repeat: no-repeat;
-                    background-size: 15px auto;
-                    background-position: center;
+                    background-position: bottom 50% right 18px;
+                }
+
+                #dream_date {
+                    background-image: url("/img/calendar.svg");
+                    background-repeat: no-repeat;
+                    background-position: bottom 50% right 15px;
+                }
+
+                input[type="text"],
+                input[type="date"],
+                input[type="email"] {
+                    display: block;
+                    background-color: #f78275 !important;
+                    padding: 10px 15px;
+                    width: 100%;
+                    color: white;
+                    line-height: normal;
+                    font-size: 18px;
+                    border: none;
+                    border-radius: 5px;
+                }
+
+                ::placeholder {
+                    color: white;
+                    line-height: normal;
+                    font-size: 18px;
+                }
+
+                input:focus,
+                select:focus {
+                    outline: none;
+                }
+
+                .checkbox-label {
+                    display: block;
+                    float: left;
+                    width: 95%;
+                    margin-left: 5%;
+                    padding-left: 10px;
+                    font-size: 18px;
+                    line-height: 24px;
+                }
+
+                .info-form {
+                    margin-top: 6px;
+                    text-align: left;
+                }
+
+                .error {
+                    display: none;
+                    font-size: 10px;
+                    background-color: #1e35ff;
+                    color: white;
+                    padding: 2px;
+                    line-height: 14px;
+                    text-align: center;
+                    margin-top: 5px;
+                }
+
+                &.checkbox-wrapper {
+                    position: relative;
+                    input {
+                        opacity: 0;
+                        width: 1em;
+                        height: 1em;
+                        position: absolute;
+                        left: -1000px;
+                    }
+                    input + label {
+                        cursor: pointer;
+                        user-select: none;
+                        text-align: left;
+                        margin-left: 30px;
+                    }
+                    input + label:before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 22px;
+                        height: 22px;
+                        border: 2px solid white;
+                    }
+                    input:checked + label:before {
+                        background: url(/img/tick.svg);
+                        background-repeat: no-repeat;
+                        background-size: 15px auto;
+                        background-position: center;
+                    }
                 }
             }
         }
     }
 }
 
+/** PROGRESSBAR */
 @mixin progressbar($width-bar) {
     .progress-container {
         position: relative;
-        width: $width-bar;
         height: 4px;
+        $newWidth: min(#{$width-bar}, 315px);
+        width: $newWidth;
 
         .total-bar {
             position: absolute;
-            width: $width-bar;
+            width: $newWidth;
             height: 4px;
             opacity: 0.4;
             border: 4px solid #ffffff;
@@ -426,53 +513,35 @@ h2 {
         }
 
         .bar-25 {
-            width: calc(0.25 *#{$width-bar});
+            width: calc(0.25 *#{$newWidth});
         }
 
         .bar-50 {
-            width: calc(0.5 *#{$width-bar});
+            width: calc(0.5 *#{$newWidth});
         }
 
         .bar-75 {
-            width: calc(0.75 *#{$width-bar});
+            width: calc(0.75 *#{$newWidth});
         }
 
         .bar-100 {
-            width: $width-bar;
+            width: $newWidth;
         }
     }
 }
 
-@include progressbar($width-bar: 311px);
-
-/** GENERAL MODAL */
-.custom-modal {
-    position: fixed;
-    z-index: 20;
-    display: block;
-    text-align: left;
-    font-size: 18px;
-    overflow: hidden;
-    line-height: 24px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 30px;
-    overflow: scroll;
-    background-image: url(/img/bg-sm.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: none;
-}
+@include progressbar($width-bar: 100vw);
+@include pageStyle($spacing: 25px);
 
 /** BREAKPOINTS */
+@include media-breakpoint-up(sm) {
+    @include pageStyle($spacing: 20px);
+}
 @include media-breakpoint-up(md) {
     body {
         background-image: url(/img/bg-lg.png);
-    }
-
+        // overflow: hidden;
+    }  
     .custom-modal {
         background-image: url(/img/bg-lg.png);
         width: 65%;
