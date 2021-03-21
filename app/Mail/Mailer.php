@@ -22,8 +22,8 @@ class Mailer {
 			'Messages' => [
 				[
 					'From' => [
-						'Email' => "pierre.travacca@gmail.com",
-						'Name' => "Admin",
+						'Email' => config("app.mailjet.from.email"),
+						'Name' => config("app.mailjet.from.name"),
 					],
 					'To' => [
 						[
@@ -46,7 +46,7 @@ class Mailer {
 	 */
 	public function sendDreamValidated($data) {
 		$dataEmail = $data;
-		$dataEmail["templateId"] = (int) 2628418;
+		$dataEmail["templateId"] = (int) config('app.mailjet.templates.published');
 		$dataEmail["subject"] = "[REVES DU PANGOLIN] Ton rêve est en ligne !";
 		$body = $this->constructBody($dataEmail);
 		$response = $this->mj->post(Resources::$Email, ['body' => $body]);

@@ -82,6 +82,8 @@
                 }
                 if (res.success) {
                     $('#alert-success').show()
+                    // reload page after 2 seconds
+                    setTimeout(()=> window.location.reload(), 2000);
                 }
             }
         })
