@@ -206,11 +206,11 @@
                     <div class="text-center w-75 thank-text">
                         @lang("Merci - description 2")
                     </div>
-                    <div class="w-75 d-flex align-items-center justify-content-around">
+                    <div class="w-75 d-flex align-items-center justify-content-around mb-2">
                         <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lesrevesdupangolin.com/" class="button">
                             <img src="img/facebook.svg"  alt="facebook" height="40" />
                         </a>
-                        <a target="_blank" href="#" class="button">
+                        <a target="_blank" href="https://api.whatsapp.com/send?text=https://lesrevesdupangolin.com/" data-action="share/whatsapp/share" class="button">
                             <img src="img/whatsapp.svg" alt="whatsapp" height="40" />
                         </a>
                         <a target="_blank" href="https://twitter.com/intent/tweet?url=https://lesrevesdupangolin.com" class="button">
