@@ -33,7 +33,11 @@
             <img src="img/record-dream-button.svg" alt="Raconter un rêve" />
         </a>
     </div>
-    <div class="custom-modal listen-modal text-center">
+
+<div class="custom-modal listen-modal">
+    <div class="layer">
+    </div>
+    <div class="modal-card text-center">
         <div class="button d-flex justify-content-end close-modal-button" id="close-listen-modal">
             <img src="/img/close.svg" alt="close" width="29" />
         </div>
@@ -43,4 +47,6 @@
         <div id="continue-listen"><u>@lang("noKeepListening")<u></div>
     </div>
 </div>
+</div>
+
 @endsection

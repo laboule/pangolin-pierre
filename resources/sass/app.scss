@@ -33,11 +33,10 @@ body {
     font-size: 18px;
     line-height: 22px;
     color: #ffffff;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
-.container-fluid
-{
+.container-fluid {
     height: 100%;
     width: 100%;
 }
@@ -46,6 +45,7 @@ body {
 img {
     // border: 1px green solid;
 }
+
 [class*="col"] {
     padding: 0px;
     // border: 1px yellow solid;
@@ -66,7 +66,6 @@ img {
 strong {
     font-weight: 700;
 }
-
 
 /** CUSTOM SCROLLBAR */
 /* Width */
@@ -99,9 +98,11 @@ strong {
     padding: 10px 0px 10px 10px;
     border-radius: 4px;
     font-size: 22px;
+
     .ui-datepicker-title {
         font-size: 24px;
     }
+
     .ui-datepicker-calendar {
         width: 100%;
     }
@@ -109,10 +110,12 @@ strong {
     th {
         font-weight: 500;
     }
+
     td > a {
         display: block;
         margin-bottom: 5px;
     }
+
     td > a,
     td > a:hover,
     .ui-datepicker-next,
@@ -126,8 +129,7 @@ strong {
         font-weight: bold;
     }
 
-    tbody tr
-    {
+    tbody tr {
         line-height: 40px;
     }
 
@@ -135,6 +137,7 @@ strong {
         text-decoration: underline;
         font-weight: bold;
     }
+
     .ui-datepicker-prev,
     .ui-datepicker-next {
         font-size: 22px;
@@ -160,11 +163,11 @@ strong {
 
 /** Pages styling (home page, record page) */
 @mixin pageStyle($spacing) {
-    .row
-    {
+    .row {
         padding-left: $spacing;
         padding-right: $spacing;
     }
+
     /** HEADER */
     .header {
         margin: $spacing 0px;
@@ -172,38 +175,54 @@ strong {
 
     /** GENERAL MODAL */
     .custom-modal {
-        position: fixed;
-        z-index: 20;
-        display: block;
-        text-align: left;
-        font-size: 18px;
-        overflow: hidden;
-        line-height: 24px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: scroll;
-        background: url(/img/bg-sm.png) no-repeat center 60% fixed;
-        background-size: cover;
-        padding: $spacing;
-        overflow: auto;
         display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 18;
+        .layer {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            opacity: 0.4;
+            z-index: 19;
+        }
+        .modal-card {
+            position: fixed;
+            z-index: 20;
+            display: block;
+            text-align: left;
+            font-size: 18px;
+            overflow: hidden;
+            line-height: 24px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+            background: url(/img/bg-sm.png) no-repeat center 60% fixed;
+            background-size: cover;
+            padding: $spacing;
+            overflow: auto;
 
-        .close-modal-button {
-            margin-bottom: 2 * $spacing;
+            .close-modal-button {
+                margin-bottom: 2 * $spacing;
+            }
         }
     }
 
     /** HOME PAGE **/
     .listen-container {
         .record-dream-button {
-            margin-bottom: 2*$spacing;
+            margin-bottom: 2 * $spacing;
         }
 
         .banner {
             margin-top: $spacing;
-            margin-bottom: 1.27*$spacing;
+            margin-bottom: 1.27 * $spacing;
         }
 
         #stop,
@@ -217,16 +236,16 @@ strong {
             #content {
                 margin-bottom: 50px;
             }
-             #record-dream {
+
+            #record-dream {
                 font-weight: 700;
                 margin-bottom: 50px;
             }
+
             #continue-listen {
                 cursor: pointer;
                 margin-bottom: 2 * $spacing;
             }
-
- 
         }
     }
 
@@ -238,20 +257,18 @@ strong {
             display: none;
         }
 
-        .header-record
-        {
+        .header-record {
             // Fixed height so that bottom button doesn't wiggle
             height: 180px;
         }
 
-        .title, .progress-container, 
-        {
+        .title,
+        .progress-container {
             margin-bottom: $spacing;
         }
 
-        .step-3 .progress-container
-        {
-            margin-bottom: 1.4*$spacing;
+        .step-3 .progress-container {
+            margin-bottom: 1.4 * $spacing;
         }
 
         .stop-description {
@@ -260,7 +277,7 @@ strong {
 
         .audio-timer {
             display: none;
-            line-height:60px;
+            line-height: 60px;
             font-size: 58px;
         }
 
@@ -268,9 +285,8 @@ strong {
             display: none;
         }
 
-        .record-buttons-col
-        {
-            margin-bottom: 2.2*$spacing;
+        .record-buttons-col {
+            margin-bottom: 2.2 * $spacing;
             min-height: 120px;
             position: relative;
         }
@@ -279,7 +295,6 @@ strong {
             width: 300px;
             margin-bottom: $spacing;
         }
-
 
         .loading-encoder {
             $loader_size: 92px;
@@ -324,20 +339,21 @@ strong {
                 text-align: center;
             }
         }
-        #rec-play, #rec-stop
-        {
+
+        #rec-play,
+        #rec-stop {
             height: 100px;
             margin-bottom: 50px;
         }
-        #restart
-        {
+
+        #restart {
             margin-bottom: 50px;
         }
 
-        #save-dream
-        {
-            margin-bottom: 2.2*$spacing;
+        #save-dream {
+            margin-bottom: 2.2 * $spacing;
         }
+
         #rec-stop {
             display: none;
         }
@@ -355,14 +371,12 @@ strong {
             }
         }
 
-        .thank-text
-        {
+        .thank-text {
             margin-bottom: $spacing;
         }
 
-        .end-record
-        {
-            margin-bottom: 2.2*$spacing;
+        .end-record {
+            margin-bottom: 2.2 * $spacing;
         }
 
         .send-dream-form {
@@ -370,9 +384,8 @@ strong {
                 position: relative;
                 margin-bottom: $spacing;
 
-                .button-save
-                {
-                    margin-bottom: 2.2*$spacing;
+                .button-save {
+                    margin-bottom: 2.2 * $spacing;
                 }
 
                 label {
@@ -394,8 +407,10 @@ strong {
                     border: none;
                     border-radius: 5px;
                     appearance: none;
-                    -moz-appearance: none; /* Firefox */
-                    -webkit-appearance: none; /* Safari and Chrome */
+                    -moz-appearance: none;
+                    /* Firefox */
+                    -webkit-appearance: none;
+                    /* Safari and Chrome */
                 }
 
                 select {
@@ -463,6 +478,7 @@ strong {
 
                 &.checkbox-wrapper {
                     position: relative;
+
                     input {
                         opacity: 0;
                         width: 1em;
@@ -470,12 +486,14 @@ strong {
                         position: absolute;
                         left: -1000px;
                     }
+
                     input + label {
                         cursor: pointer;
                         user-select: none;
                         text-align: left;
                         margin-left: 30px;
                     }
+
                     input + label:before {
                         content: "";
                         position: absolute;
@@ -485,6 +503,7 @@ strong {
                         height: 22px;
                         border: 2px solid white;
                     }
+
                     input:checked + label:before {
                         background: url(/img/tick.svg);
                         background-repeat: no-repeat;
@@ -550,24 +569,30 @@ strong {
 @include media-breakpoint-up(sm) {
     @include pageStyle($spacing: 15px);
 }
+
 @include media-breakpoint-up(md) {
     body {
         background-image: url(/img/bg-lg.png);
         // overflow: hidden;
-    }  
+    }
+
     .custom-modal {
-        background-image: url(/img/bg-lg.png);
-        width: 70%;
-        left: 15%;
-        top: 0%;
+        .modal-card {
+            background-image: url(/img/bg-lg.png);
+            width: 70%;
+            left: 15%;
+            top: 0%;
+        }
     }
 
     .listen-container {
         .listen-modal {
-            width: 40%;
-            left: 30%;
-            top: 15%;
-            height: auto;
+            .modal-card {
+                width: 40%;
+                left: 30%;
+                top: 15%;
+                height: auto;
+            }
         }
     }
 
@@ -578,7 +603,7 @@ strong {
 
 // For safari
 @media print {
-  .container {
-    width: auto;
-  }
+    .container {
+        width: auto;
+    }
 }

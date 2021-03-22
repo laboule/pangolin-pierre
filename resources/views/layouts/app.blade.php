@@ -38,31 +38,33 @@
 
 <body data-appurl="{{env('APP_URL')}}">
     <div class="container-fluid">
-      <div class="d-flex flex-column justify-content-between h-100">
-        <div class="row d-flex justify-content-center">
-            <div class="col-12 col-sm-10 col-md-6 col-xxl-5 d-flex flex-row justify-content-between header">
-                <div>
-                    <a href="{{route('welcome')}}" class="button {{Route::currentRouteName() === "welcome" ? "d-none" : ""}}">
-                        <img src="/img/btn_back.svg" alt="retour" width="16" height="30" />
-                    </a>
-                </div>
-                <div class="app-about">
-                    <div class="custom-modal text-wrapper">
-                        <div class="button d-flex justify-content-end close-modal-button" id="close-info">
-                            <img src="/img/close.svg" alt="close" width="29" />
-                        </div>
-                        @lang("Description du projet")
+        <div class="d-flex flex-column justify-content-between h-100">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-sm-10 col-md-6 col-xxl-5 d-flex flex-row justify-content-between header">
+                    <div>
+                        <a href="{{route('welcome')}}" class="button {{Route::currentRouteName() === "welcome" ? "d-none" : ""}}">
+                            <img src="/img/btn_back.svg" alt="retour" width="16" height="30" />
+                        </a>
                     </div>
-                    <a href="#" class="read-more" class="button">
-                        <img src="/img/info.svg" alt="informations" height="35" />
-                    </a>
+                    <div class="app-about">
+                        <div class="custom-modal modal-info">
+                            <div class="layer">
+                            </div>
+                            <div class="modal-card text-wrapper">
+                                <div class="button d-flex justify-content-end close-modal-button" id="close-info">
+                                    <img src="/img/close.svg" alt="close" width="29" />
+                                </div>
+                                @lang("Description du projet")
+                            </div>
+                        </div>
+                        <a href="#" class="read-more" class="button">
+                            <img src="/img/info.svg" alt="informations" height="35" />
+                        </a>
+                    </div>
                 </div>
             </div>
+                @yield('content')
         </div>
-        {{-- <div class="row d-flex flex-column justify-content-start"> --}}
-        @yield('content')
-        {{-- </div> --}}
-    </div>
     </div>
 </body>
 

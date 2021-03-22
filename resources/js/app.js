@@ -79,8 +79,8 @@ $(function() {
 	 * HOME PAGE
 	 */
 	/** info button */
-	$(".read-more").click(() => $(".text-wrapper").toggle());
-	$("#close-info").click(() => $(".text-wrapper").hide());
+	$(".read-more").click(() => $(".modal-info").toggle());
+	$("#close-info").click(() => $(".modal-info").hide());
 	let currCount = 0;
 	let prevCount = 0;
 	let minListens = 5;
