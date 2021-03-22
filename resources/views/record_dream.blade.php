@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="record-container h-100" data-step="1">
+<div class="row d-flex flex-column record-container h-100" data-step="1">
     <audio class="d-none" id="audio-record" src=""></audio>
     <div class="step-1 h-100">
         <div class="d-flex flex-column justify-content-between h-100">
@@ -211,7 +211,7 @@
                             <img src="img/facebook.svg"  alt="facebook" height="40" />
                         </a>
                         <a target="_blank" href="#" class="button">
-                            <img src="img/instagram.svg" alt="instagram" height="40" />
+                            <img src="img/whatsapp.svg" alt="whatsapp" height="40" />
                         </a>
                         <a target="_blank" href="https://twitter.com/intent/tweet?url=https://lesrevesdupangolin.com" class="button">
                             <img src="img/twitter.svg" alt="twitter" height="40" />

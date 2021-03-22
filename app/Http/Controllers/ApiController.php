@@ -52,7 +52,7 @@ class ApiController extends Controller {
 
 		$dream->dream_language = $request->dream_language;
 		$dream->dream_is_nsfw = isset($request->dream_is_nsfw);
-		$dream->user_city = $request->user_city ?? "inconnue";
+		$dream->user_city = $request->user_city ?? "terre";
 		$dream->access_id = uniqid();
 		$dream->save();
 		$recording_filename = $dream->get_recording_filename();

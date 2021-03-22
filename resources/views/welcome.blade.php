@@ -5,10 +5,11 @@
         <div class="col-12 col-sm-9 col-md-5 col-xxl-4 d-flex flex-row justify-content-start" style="height: 155px;">
             <img class="button" id="listen-button" src="img/listen-dream-button.svg" alt="Ecouter un rêve"/>
             <div id="listen-player">
-                <div id="name" class="player-title text-h1">Anthony</div>
+                <div id="name" class="player-title text-h1" style="margin-bottom: 8px;">Anthony</div>
                 <div class="player-content d-flex align-items-center">
                     <img src="img/16.svg" id="nsfw" alt="16 +" width="19" height="19" class="mr-1" />
-                    <span id="city">Paris</span>, <span id="date" class="ml-1">Avril 2020</span></div>
+                    <span id="city">Paris</span>, <span id="date" class="ml-1">Avril 2020</span>
+                </div>
                 <div class="progress-container mt-3">
                     <div class="total-bar"></div>
                     <div class="bar"></div>

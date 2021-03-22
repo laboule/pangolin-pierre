@@ -125,6 +125,12 @@ strong {
     td > a:hover {
         font-weight: bold;
     }
+
+    tbody tr
+    {
+        line-height: 40px;
+    }
+
     .ui-state-highlight {
         text-decoration: underline;
         font-weight: bold;
@@ -177,11 +183,11 @@ strong {
         top: 0;
         width: 100%;
         height: 100%;
-        padding: 30px;
         overflow: scroll;
         background: url(/img/bg-sm.png) no-repeat center 60% fixed;
         background-size: cover;
-        padding: 2 * $spacing;
+        padding: $spacing;
+        overflow: auto;
         display: none;
 
         .close-modal-button {
@@ -209,17 +215,18 @@ strong {
             overflow: hidden;
 
             #content {
-                margin-bottom: 2 * $spacing;
+                margin-bottom: 50px;
+            }
+             #record-dream {
+                font-weight: 700;
+                margin-bottom: 50px;
             }
             #continue-listen {
                 cursor: pointer;
                 margin-bottom: 2 * $spacing;
             }
 
-            #record-dream {
-                font-weight: 700;
-                margin-bottom: 4 * $spacing;
-            }
+ 
         }
     }
 
@@ -234,12 +241,17 @@ strong {
         .header-record
         {
             // Fixed height so that bottom button doesn't wiggle
-            height: 200px;
+            height: 180px;
         }
 
         .title, .progress-container, 
         {
             margin-bottom: $spacing;
+        }
+
+        .step-3 .progress-container
+        {
+            margin-bottom: 1.4*$spacing;
         }
 
         .stop-description {
@@ -258,7 +270,7 @@ strong {
 
         .record-buttons-col
         {
-            margin-bottom: 2*$spacing;
+            margin-bottom: 2.2*$spacing;
             min-height: 120px;
             position: relative;
         }
@@ -324,7 +336,7 @@ strong {
 
         #save-dream
         {
-            margin-bottom: 2*$spacing;
+            margin-bottom: 2.2*$spacing;
         }
         #rec-stop {
             display: none;
@@ -350,7 +362,7 @@ strong {
 
         .end-record
         {
-            margin-bottom: 2*$spacing;
+            margin-bottom: 2.2*$spacing;
         }
 
         .send-dream-form {
@@ -360,7 +372,7 @@ strong {
 
                 .button-save
                 {
-                    margin-bottom: $spacing;
+                    margin-bottom: 2.2*$spacing;
                 }
 
                 label {
@@ -489,16 +501,16 @@ strong {
 @mixin progressbar($width-bar) {
     .progress-container {
         position: relative;
-        height: 4px;
+        height: 2px;
         $newWidth: min(#{$width-bar}, 315px);
         width: $newWidth;
 
         .total-bar {
             position: absolute;
             width: $newWidth;
-            height: 4px;
+            height: 2px;
             opacity: 0.4;
-            border: 4px solid #ffffff;
+            border: 2px solid #ffffff;
             border-radius: 4px;
             filter: blur(1px);
         }
@@ -506,9 +518,10 @@ strong {
         .bar {
             position: absolute;
             width: 1px;
-            height: 4px;
+            height: 2px;
             border-radius: 4px;
-            border: 4px solid #ffffff;
+            border: 2px solid #ffffff;
+            background-color: #ffffff;
             transition: width 200ms linear;
         }
 
@@ -531,11 +544,11 @@ strong {
 }
 
 @include progressbar($width-bar: 100vw);
-@include pageStyle($spacing: 25px);
+@include pageStyle($spacing: 22px);
 
 /** BREAKPOINTS */
 @include media-breakpoint-up(sm) {
-    @include pageStyle($spacing: 20px);
+    @include pageStyle($spacing: 15px);
 }
 @include media-breakpoint-up(md) {
     body {
@@ -544,9 +557,9 @@ strong {
     }  
     .custom-modal {
         background-image: url(/img/bg-lg.png);
-        width: 65%;
-        left: 17.5%;
-        top: 5%;
+        width: 70%;
+        left: 15%;
+        top: 0%;
     }
 
     .listen-container {
@@ -561,4 +574,11 @@ strong {
     .record-container {
         @include progressbar($width-bar: 345px);
     }
+}
+
+// For safari
+@media print {
+  .container {
+    width: auto;
+  }
 }

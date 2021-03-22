@@ -56,7 +56,7 @@ return [
 
 	'asset_url' => env('ASSET_URL', null),
 	'mailjet' => [
-		'from' => ['email' => "pierre.travacca@gmail.com", "name" => "Admin"],
+		'from' => ['email' => "contact@lesrevesdupangolin.com", "name" => "Sarah"],
 		'templates' => [
 			"published" => env('MJ_TEMPLATE_PUBLISHED_ID'),
 		],

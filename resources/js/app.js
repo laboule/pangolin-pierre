@@ -314,14 +314,14 @@ $(function() {
 			return acc;
 		}, {});
 
-		if (!values.user_email || !validateEmail(values.user_email)) {
+		if (!validateEmail(values.user_email)) {
 			$("#error-email").show();
 		}
 		if (!values.dream_language) {
 			$("#error-lang").show();
 		}
 		// cancel submission if errors
-		if (!(values.user_email && values.dream_language)) return;
+		if (!(validateEmail(values.user_email) && values.dream_language)) return;
 
 		try {
 			let res = await $.post(app_url + "/api/record_dream", {
