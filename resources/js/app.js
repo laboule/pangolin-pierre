@@ -71,7 +71,6 @@ function handleUnload(e) {
 	return confirmationMessage; //Webkit, Safari, Chrome
 }
 
-
 $(function() {
 	const app_url = $("body").data("appurl");
 	let currDream = {};
@@ -83,8 +82,8 @@ $(function() {
 	$("#close-info").click(() => $(".modal-info").hide());
 	let currCount = 0;
 	let prevCount = 0;
-	let minListens = 5;
-	let maxListens = 10;
+	let minListens = $(".listen-container").data("minlistens") || 5;
+	let maxListens = $(".listen-container").data("maxListens") || 10;
 	let modalCount = generateRandomNumber(minListens, maxListens);
 	console.log("Display modal after", modalCount, "listens");
 
@@ -162,19 +161,18 @@ $(function() {
 	if ($(".listen-container").data("dream")) {
 		let dream = $(".listen-container").data("dream");
 		let autoplay = $(".listen-container").data("autoplay");
-		// console.log("dream", dream);
+		let showplayer = $(".listen-container").data("showplayer");
+
 		updateDomWithNewDream(dream);
 
-		if (autoplay) {
+		// if showPlayer : show player
+		// if autoplay : launch audio
+		if (showplayer) {
 			$("#listen-button").hide();
 			$("#listen-player").show();
 			let audio = $("#audio")[0];
 			audio.muted = false;
-			$("#play").click();
-			// if (audio) {
-			// 	showButton("stop");
-			// 	audio.play();
-			// }
+			if (autoplay) $("#play").click();
 		}
 	}
 
@@ -299,9 +297,10 @@ $(function() {
 	$("#dream_date").datepicker({ dateFormat: "dd/mm/yy" }, "defaultDate");
 
 	/**Form Submit handler **/
-	$("#submit").click(async (e) => {
+	$("#submit").click(async function(e) {
 		// prevent submission
 		e.preventDefault();
+		$(this).prop("disabled", true);
 
 		// Hide previous errors
 		$("#error-email").hide();
@@ -321,7 +320,10 @@ $(function() {
 			$("#error-lang").show();
 		}
 		// cancel submission if errors
-		if (!(validateEmail(values.user_email) && values.dream_language)) return;
+		if (!(validateEmail(values.user_email) && values.dream_language)) {
+			$(this).prop("disabled", false);
+			return;
+		}
 
 		try {
 			let res = await $.post(app_url + "/api/record_dream", {
@@ -340,6 +342,7 @@ $(function() {
 			// show error message
 			alert("impossible de sauvegarder le rêve !");
 		}
+		$(this).prop("disabled", false);
 	});
 
 	function startRecordingTimer() {
@@ -395,13 +398,13 @@ $(function() {
 		try {
 			console.log("startRecording() called");
 			const constraints = { audio: true, video: false };
-		
+
 			let stream = await navigator.mediaDevices.getUserMedia(constraints);
 			__log(
 				"getUserMedia() success, stream created, initializing WebAudioRecorder..."
 			);
 			audioContext = new AudioContext();
-			
+
 			gumStream = stream;
 			input = audioContext.createMediaStreamSource(stream);
 
@@ -418,7 +421,7 @@ $(function() {
 				onEncoderLoaded,
 				onComplete,
 			});
-			
+
 			recorder.setOptions({
 				timeLimit: TIME_LIMIT,
 				encodeAfterRecord: true,

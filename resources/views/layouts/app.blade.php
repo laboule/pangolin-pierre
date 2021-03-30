@@ -40,7 +40,7 @@
     <div class="container-fluid">
         <div class="d-flex flex-column justify-content-between h-100">
             <div class="row d-flex justify-content-center">
-                <div class="col-12 col-sm-10 col-md-6 col-xxl-5 d-flex flex-row justify-content-between header">
+                <div class="col-12 col-md-6 d-flex flex-row justify-content-between header">
                     <div>
                         <a href="{{route('welcome')}}" class="button {{Route::currentRouteName() === "welcome" ? "d-none" : ""}}">
                             <img src="/img/btn_back.svg" alt="retour" width="16" height="30" />
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-                @yield('content')
+            @yield('content')
         </div>
     </div>
 </body>

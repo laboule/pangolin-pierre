@@ -286,8 +286,8 @@ strong {
         }
 
         .record-buttons-col {
-            margin-bottom: 2.2 * $spacing;
-            min-height: 120px;
+            margin-bottom: 3.5 * $spacing;
+            min-height: 180px;
             position: relative;
         }
 
@@ -301,7 +301,7 @@ strong {
             $border_size: 6px;
             display: none;
             position: absolute;
-            top: 0;
+            top: 10px;
             left: 0;
             bottom: 0;
             right: 0;
@@ -351,7 +351,7 @@ strong {
         }
 
         #save-dream {
-            margin-bottom: 2.2 * $spacing;
+            margin-bottom: 3.5 * $spacing;
         }
 
         #rec-stop {
@@ -376,16 +376,17 @@ strong {
         }
 
         .end-record {
-            margin-bottom: 2.2 * $spacing;
+            margin-bottom: 3.5 * $spacing;
         }
 
         .send-dream-form {
+            // margin-bottom: 3.5*$spacing;
             .form-entry {
                 position: relative;
                 margin-bottom: $spacing;
 
                 .button-save {
-                    margin-bottom: 2.2 * $spacing;
+                    margin-bottom: 2.5*$spacing;
                 }
 
                 label {
@@ -470,10 +471,15 @@ strong {
                     font-size: 10px;
                     background-color: #1e35ff;
                     color: white;
-                    padding: 2px;
+                    padding: 2px 4px;
                     line-height: 14px;
-                    text-align: center;
+                    text-align: left;
                     margin-top: 5px;
+                }
+
+                #submit:disabled
+                {
+                    opacity: 0.8;
                 }
 
                 &.checkbox-wrapper {
@@ -579,8 +585,8 @@ strong {
     .custom-modal {
         .modal-card {
             background-image: url(/img/bg-lg.png);
-            width: 70%;
-            left: 15%;
+            width: 52%;
+            left: 24%;
             top: 0%;
         }
     }

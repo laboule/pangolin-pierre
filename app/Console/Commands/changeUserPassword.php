@@ -6,20 +6,20 @@ use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
-class addUser extends Command {
+class ChangeUserPassword extends Command {
 	/**
 	 * The name and signature of the console command.
 	 *
 	 * @var string
 	 */
-	protected $signature = 'user:create {name : username} {password : mot de passe}';
+	protected $signature = 'user:password {name : username} {password : mot de passe}';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Add a user to the DB';
+	protected $description = 'Change a user password';
 
 	/**
 	 * Create a new command instance.
@@ -38,14 +38,18 @@ class addUser extends Command {
 	public function handle() {
 		try
 		{
-			$user = new User;
-			$user->name = $this->argument('name');
-			$user->password = Hash::make($this->argument('password'));
-			$user->save();
-			$this->info("User added !");
+			$user = User::where('name', $this->argument('name'))->first();
+			if ($user) {
+				$user->password = Hash::make($this->argument('password'));
+				$user->save();
+				$this->info("User password updated !");
+			} else {
+				$this->error("No user found with this name");
+			}
+
 		} catch (\Exception $e) {
 			// var_dump($e);
-			$this->error("Error adding user");
+			$this->error("Error updating user password");
 		}
 	}
 }

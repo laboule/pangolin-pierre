@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="listen-container" data-dream="{{$dream ?? ''}}" data-autoplay="{{$autoplay}}">
+<div class="listen-container" data-dream="{{$dream ?? ''}}" data-autoplay="{{$autoplay}}" data-showplayer="{{$show_player}}" data-minlistens="{{env('MIN_LISTENS', 5)}}" data-minlistens="{{env('MAX_LISTENS', 10)}}">
     <div class="row d-flex justify-content-center">
         <div class="col-12 col-sm-9 col-md-5 col-xxl-4 d-flex flex-row justify-content-start" style="height: 155px;">
             <img class="button" id="listen-button" src="img/listen-dream-button.svg" alt="Ecouter un rêve"/>

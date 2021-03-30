@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="row d-flex flex-column record-container h-100" data-step="1">
+{{-- row d-flex flex-column  --}}
+<div class="record-container h-100" data-step="1">
     <audio class="d-none" id="audio-record" src=""></audio>
     <div class="step-1 h-100">
         <div class="d-flex flex-column justify-content-between h-100">
@@ -73,8 +74,8 @@
             </div>
         </div>
     </div>
-    <div class="step-3 h-100">
-        <div class="h-100 d-flex flex-column justify-content-between">
+    <div class="step-3">
+        <div class="d-flex flex-column justify-content-start">
             <div class="row d-flex justify-content-center">
                 <div class="col-12 col-sm-9 col-md-5 col-xxl-4 d-flex flex-column align-items-center text-center">
                     <div class="title text-h1">@lang("Enregistre ton rêve")</div>

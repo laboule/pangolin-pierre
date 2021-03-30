@@ -56,7 +56,7 @@ return [
 
 	'asset_url' => env('ASSET_URL', null),
 	'mailjet' => [
-		'from' => ['email' => "contact@lesrevesdupangolin.com", "name" => "Sarah"],
+		'from' => ['email' => "contact@lesrevesdupangolin.com", "name" => "Les rêves du Pangolin"],
 		'templates' => [
 			"published" => env('MJ_TEMPLATE_PUBLISHED_ID'),
 		],
