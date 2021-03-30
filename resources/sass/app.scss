@@ -161,8 +161,55 @@ strong {
     opacity: 0.8;
 }
 
+/** PROGRESSBAR */
+@mixin progressbar($width-bar) {
+    .progress-container {
+        position: relative;
+        height: 2px;
+        $newWidth: min(#{$width-bar}, 315px);
+        width: $newWidth;
+
+        .total-bar {
+            position: absolute;
+            width: $newWidth;
+            height: 2px;
+            opacity: 0.4;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            filter: blur(1px);
+        }
+
+        .bar {
+            position: absolute;
+            width: 1px;
+            height: 2px;
+            border-radius: 4px;
+            border: 2px solid #ffffff;
+            background-color: #ffffff;
+            transition: width 200ms linear;
+        }
+
+        .bar-25 {
+            width: calc(0.25 *#{$newWidth});
+        }
+
+        .bar-50 {
+            width: calc(0.5 *#{$newWidth});
+        }
+
+        .bar-75 {
+            width: calc(0.75 *#{$newWidth});
+        }
+
+        .bar-100 {
+            width: $newWidth;
+        }
+    }
+}
+
 /** Pages styling (home page, record page) */
 @mixin pageStyle($spacing) {
+    @include progressbar($width-bar: 100vw);
     .row {
         padding-left: $spacing;
         padding-right: $spacing;
@@ -386,7 +433,7 @@ strong {
                 margin-bottom: $spacing;
 
                 .button-save {
-                    margin-bottom: 2.5*$spacing;
+                    margin-bottom: 2.5 * $spacing;
                 }
 
                 label {
@@ -477,8 +524,7 @@ strong {
                     margin-top: 5px;
                 }
 
-                #submit:disabled
-                {
+                #submit:disabled {
                     opacity: 0.8;
                 }
 
@@ -520,55 +566,27 @@ strong {
             }
         }
     }
-}
 
-/** PROGRESSBAR */
-@mixin progressbar($width-bar) {
-    .progress-container {
-        position: relative;
-        height: 2px;
-        $newWidth: min(#{$width-bar}, 315px);
-        width: $newWidth;
+    @include media-breakpoint-up(md) {
+        .record-container {
+            @include progressbar($width-bar: 345px);
+            .loading-encoder {
+                top: 20px;
+            }
 
-        .total-bar {
-            position: absolute;
-            width: $newWidth;
-            height: 2px;
-            opacity: 0.4;
-            border: 2px solid #ffffff;
-            border-radius: 4px;
-            filter: blur(1px);
-        }
+            #save-dream,
+            .end-record {
+                margin-bottom: 5 * $spacing;
+            }
 
-        .bar {
-            position: absolute;
-            width: 1px;
-            height: 2px;
-            border-radius: 4px;
-            border: 2px solid #ffffff;
-            background-color: #ffffff;
-            transition: width 200ms linear;
-        }
-
-        .bar-25 {
-            width: calc(0.25 *#{$newWidth});
-        }
-
-        .bar-50 {
-            width: calc(0.5 *#{$newWidth});
-        }
-
-        .bar-75 {
-            width: calc(0.75 *#{$newWidth});
-        }
-
-        .bar-100 {
-            width: $newWidth;
+            .send-dream-form .form-entry .button-save,
+            .record-buttons-col {
+                margin-bottom: 4 * $spacing;
+            }
         }
     }
 }
 
-@include progressbar($width-bar: 100vw);
 @include pageStyle($spacing: 22px);
 
 /** BREAKPOINTS */
@@ -600,10 +618,6 @@ strong {
                 height: auto;
             }
         }
-    }
-
-    .record-container {
-        @include progressbar($width-bar: 345px);
     }
 }
 
