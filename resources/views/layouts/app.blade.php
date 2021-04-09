@@ -9,8 +9,12 @@
     <meta property="og:url" content="https://lesrevesdupangolin.com" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Les rêves du Pangolin" />
-    <meta property="og:description" content="Et si on écoutait des rêves" />
-    <meta property="og:image" content="https://lesrevesdupangolin.com/img/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+    <meta property="og:description" content="Et si on se parlait à travers nos rêves? Les rêves du Pangolin est une invitation à ouvrir un dialogue onirique pour porter d’autres voix face à la pandémie, à se relier en déconfinant nos songes." />
+    <meta property="og:image" content="https://lesrevesdupangolin.com/img/les-reves-du-pangolin-fb.png" />
+    <meta name="twitter:title" content="Les rêves du Pangolin">
+    <meta name="twitter:description" content="Et si on se parlait à travers nos rêves? Les rêves du Pangolin est une invitation à ouvrir un dialogue onirique pour porter d’autres voix face à la pandémie, à se relier en déconfinant nos songes.">
+    <meta name="twitter:image" content="https://lesrevesdupangolin.com/img/les-reves-du-pangolin-twitter.png">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Les rêves du pangolin</title>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3S7XD7YCV"></script>
