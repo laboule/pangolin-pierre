@@ -74,6 +74,7 @@ function handleUnload(e) {
 $(function() {
 	const app_url = $("body").data("appurl");
 	let currDream = {};
+	let lastDreamsIds = [];
 	/*
 	 * HOME PAGE
 	 */
@@ -100,13 +101,26 @@ $(function() {
 		dream_is_nsfw ? $("#nsfw").show() : $("#nsfw").hide();
 	};
 
-	/** Fetch a dream from api */
+	/** Fetch a dream from the api */
 	const fetchDream = async function() {
 		let url = app_url + "/api/dream";
-		url = currDream.id ? url + "?not=" + currDream.id : url;
-		let dream = await $.get(url);
-		currDream = dream;
-		return dream;
+		// update last dreams
+		if (currDream?.id) {
+			if (lastDreamsIds.length >= 10) {
+				lastDreamsIds.shift(); // remove first element
+			}
+			lastDreamsIds.push(currDream.id);
+			console.log("dreams to exclude", lastDreamsIds);
+		}
+
+		try {
+			let dream = await $.post(url, { exclude: lastDreamsIds });
+			currDream = dream;
+			console.log("new dream", dream);
+			return dream;
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const showButton = (button = "play") => {

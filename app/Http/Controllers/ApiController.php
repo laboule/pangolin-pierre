@@ -15,10 +15,18 @@ class ApiController extends Controller {
 	 * @return Symfony\Component\HttpFoundation\Response  http response
 	 */
 	public function getDream(Request $request) {
-		$notId = $request->query('not', '');
-		$dream = Dream::all()->filter(function ($dream, $key) use ($notId) {
-			return $dream->id != $notId && $dream->dream_is_published;
+		$excludeIds = $request->exclude ?? [];
+		// find a new dream which id is not in the excludeIds array (prevent repeating
+		// the same dream)
+		$dream = Dream::all()->filter(function ($dream, $key) use ($excludeIds) {
+			return !in_array($dream->id, $excludeIds) && $dream->dream_is_published;
 		})->random(1)->first();
+
+		// if no dream was found fetch a random one, even if it means repeating
+		// the same dream
+		if (!$dream) {
+			$dream = Dream::all()->random(1)->first();
+		}
 		// && $value->dream_is_published
 		$dream->url = $dream->get_recording_file_url();
 		unset($dream->access_id);

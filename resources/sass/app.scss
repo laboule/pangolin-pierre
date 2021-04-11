@@ -262,6 +262,16 @@ strong {
         }
     }
 
+    // Info modal
+    .modal-info {
+        #close-info {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top:0px;
+            right: 0px;
+        }
+    }
+
     /** HOME PAGE **/
     .listen-container {
         min-height: 1px;
