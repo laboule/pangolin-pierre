@@ -4,15 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Les rêves du Pangolin" />
+    <meta name="description" content="Et si on se parlait à travers nos rêves? Les rêves du Pangolin est une invitation à ouvrir un dialogue onirique pour porter d’autres voix face à la pandémie, à se relier en déconfinant nos songes." />
     <link href="{{ asset('css/app.css').'?'.uniqid() }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta property="og:url" content="https://lesrevesdupangolin.com" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Les rêves du Pangolin" />
     <meta property="og:description" content="Et si on se parlait à travers nos rêves? Les rêves du Pangolin est une invitation à ouvrir un dialogue onirique pour porter d’autres voix face à la pandémie, à se relier en déconfinant nos songes." />
-    <meta name="title" content="Les rêves du Pangolin" />
-    <meta name="description" content="Et si on se parlait à travers nos rêves? Les rêves du Pangolin est une invitation à ouvrir un dialogue onirique pour porter d’autres voix face à la pandémie, à se relier en déconfinant nos songes." />
-    <meta name="robots" content="noodp,noydir" />
     <meta property="og:image" content="https://lesrevesdupangolin.com/img/les-reves-du-pangolin-fb.png" />
     <meta name="twitter:title" content="Les rêves du Pangolin">
     <meta name="twitter:description" content="Et si on se parlait à travers nos rêves? Les rêves du Pangolin est une invitation à ouvrir un dialogue onirique pour porter d’autres voix face à la pandémie, à se relier en déconfinant nos songes.">
